@@ -1,0 +1,101 @@
+
+plugins {
+
+        id 'application'
+        id 'java'
+	//id 'eclipse'
+	
+}
+
+repositories {
+	flatDir {
+		dirs 'libs'
+	}
+}
+
+repositories {
+
+    // You can declare any Maven/Ivy/file repository here.
+    mavenCentral()
+}
+
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+   // testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+   // testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+   // testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.1")
+   // testImplementation("org.junit.platform:junit-platform-suite:1.8.1")
+
+
+    implementation fileTree(dir: 'libs', includes: ['*.jar'])
+
+/*
+    implementation 'org.slf4j:slf4j-api:1.7.13'
+    implementation 'org.slf4j:slf4j-jdk14:1.7.13'
+    implementation 'org.slf4j:slf4j-ext:1.7.9'
+
+    implementation 'net.java.dev.jna:jna:5.4.0'
+    implementation 'net.java.dev.jna:jna-platform:5.4.0'
+
+    implementation 'org.xerial:sqlite-jdbc:3.34.0'
+
+    //implementation 'org.apache.groovy:groovy-all:4.0.2'
+    
+    //implementation 'com.google.guava:guava:30.1.1-jre'
+*/
+
+}
+
+File configFile = file('src/main/resources/version.properties');
+InputStream input = new FileInputStream(configFile);  
+Properties prop = new Properties();
+prop.load(input);
+String vers = prop.getProperty("version");
+//println("$buildDir"); 
+
+application {
+    // Define the main class for the application.
+    mainClass = 'kao.Main'
+}
+
+java {
+
+	sourceCompatibility = 11
+	targetCompatibility = 11	
+}
+
+jar {
+
+   manifest {
+    attributes 'Main-Class': 'kao.Main'
+		attributes("baseName": "ClipKA")
+		attributes 'version': vers
+   }
+} 
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+//or tasks.named('test') {
+test {
+
+    systemProperty "file.encoding", "utf-8"
+
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}
+
+
+distributions {
+    main {
+        contents {
+            from 'additional'
+        }
+    }
+}
+
