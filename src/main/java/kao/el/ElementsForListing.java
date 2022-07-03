@@ -59,6 +59,14 @@ public class ElementsForListing<T extends IElement> extends ArrayList<T> impleme
 		this.modified = modified;
 	}
 
+	/**
+	 * Приводит объект obj к коллекции ElementsForListing. Если obj==null, возвращает пустую коллекцию   
+	 * 
+	 * @param <T>
+	 * @param obj
+	 * @param clazz
+	 * @return
+	 */
 	public static <T extends IElement> Collection<T> castCollection(Object obj, Class<T> clazz)
 	{
 		Collection<T> result = new ElementsForListing<T>();
@@ -68,9 +76,8 @@ public class ElementsForListing<T extends IElement> extends ArrayList<T> impleme
 			{
 				result.add(clazz.cast(o));
 			}
-			return result;
 		}
-		return null;
+		return result;
 	}
 
 }

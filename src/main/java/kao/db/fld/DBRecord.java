@@ -172,8 +172,13 @@ public class DBRecord implements IRecord, IElement
 	public <T extends IElement> ElementsForListing<T> getArrayValue(DataFieldNames name, Class<T> clazz)
 	{
 		Object obj = getValue(name);
-		ElementsForListing<T> el2 = (ElementsForListing<T>) ElementsForListing.castCollection(obj, clazz);
-		return el2;
+		if (obj == null)
+		{
+			return new ElementsForListing<T>();
+		} else
+		{
+			return (ElementsForListing<T>) ElementsForListing.castCollection(obj, clazz);
+		}
 	}
 
 	public int getPredefined()
@@ -257,15 +262,15 @@ public class DBRecord implements IRecord, IElement
 	@Override
 	public int getDisabled()
 	{
-		Integer ret = getIntValue(DataFieldNames.DATAFIELD_DISABLED); 
-		return ret==null?0:ret;
+		Integer ret = getIntValue(DataFieldNames.DATAFIELD_DISABLED);
+		return ret == null ? 0 : ret;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		Integer ret = getIdInt(); 
-		return ret==null?0:ret;
+		Integer ret = getIdInt();
+		return ret == null ? 0 : ret;
 	}
 
 	@Override

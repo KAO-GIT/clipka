@@ -154,7 +154,19 @@ public enum TskActionNames
 		{
 			return  TskActionRunCodeGroovy.class;
 		}
-	},;
+	},
+
+	@AnnotationDefValue("Show/hide clips")
+	@AnnotationDefValueRu("Показать/скрыть сохраненный список буфера обмена")
+	TSKTYPE_OPENWND_CLIPLIST(201){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionOpenWndClipList.class;
+		}
+	},
+	
+	;
 
 	/**
 	 * Используется для описания подзадачи  
@@ -237,7 +249,9 @@ public enum TskActionNames
 
 		@AnnotationDefValue("Groovy code. You can use the variable 'result', containing the currently processed string. Returns the last value or value in the variable 'result'")
 		@AnnotationDefValueRu("В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result ")
-		TSKTYPE_RUNCODE_GROOVY,;
+		TSKTYPE_RUNCODE_GROOVY,
+		
+		;
 	}
 	
 	final private int intValue;
