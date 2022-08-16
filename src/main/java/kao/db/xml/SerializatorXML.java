@@ -25,7 +25,7 @@ import kao.db.fld.DataFieldProp;
 
 public class SerializatorXML
 {
-	private final ISerializatorXML source;
+	private final ISerializableObjectXML source;
 //	private final String name;
 //	private final Object value;
 	
@@ -86,13 +86,13 @@ public class SerializatorXML
 	    }
 	} 	
 	
-	public SerializatorXML(ISerializatorXML source)
+	public SerializatorXML(ISerializableObjectXML source)
 	{
 		this.source = source;
 		
 	}
 
-	public ISerializatorXML getSource()
+	public ISerializableObjectXML getSource()
 	{
 		return source;
 	}
@@ -102,7 +102,7 @@ public class SerializatorXML
 		return SerializatorXML.getStringFromDocument(getNode(document),false);
 	}
 	
-	public ISerializatorXML fromXMLString(String s)
+	public ISerializableObjectXML fromXMLString(String s)
 	{
 		return source;
 	}
@@ -114,7 +114,7 @@ public class SerializatorXML
 		return null; 
 	}
 
-	public ISerializatorXML fromNode(Node element)
+	public ISerializableObjectXML fromNode(Node element)
 	{
 //		if() return new SerializatorXML_DataFieldProp(source).getNode(document);  
 //		if(source instanceof DBRecordTasksGroup) return new SerializatorXML_DBRecodTaskGroup(source).getNode(document);  

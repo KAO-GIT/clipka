@@ -13,7 +13,7 @@ import kao.db.fld.DBRecordTasksGroup;
 public class SerializatorXML_DBRecodTaskGroup extends SerializatorXML
 {
 
-	public SerializatorXML_DBRecodTaskGroup(ISerializatorXML source)
+	public SerializatorXML_DBRecodTaskGroup(ISerializableObjectXML source)
 	{
 		super(source);
 	}
@@ -25,7 +25,7 @@ public class SerializatorXML_DBRecodTaskGroup extends SerializatorXML
 	}
 
 	@Override
-	public ISerializatorXML fromXMLString(String s)
+	public ISerializableObjectXML fromXMLString(String s)
 	{
 		return getSource();
 	}
@@ -37,7 +37,7 @@ public class SerializatorXML_DBRecodTaskGroup extends SerializatorXML
 		DBRecordTasksGroup o = (DBRecordTasksGroup)getSource();
     Node v = document.createElement(o.getClass().getSimpleName());
 
-    for (ISerializatorXML df : o.getFields())
+    for (ISerializableObjectXML df : o.getFields())
 		{
     	v.appendChild( new SerializatorXML(df).getNode(document) ); 
 		}

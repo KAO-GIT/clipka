@@ -13,7 +13,7 @@ import kao.db.fld.DataFieldProp;
 public class SerializatorXML_DataFieldProp extends SerializatorXML
 {
 
-	public SerializatorXML_DataFieldProp(ISerializatorXML source)
+	public SerializatorXML_DataFieldProp(ISerializableObjectXML source)
 	{
 		super(source);
 	}
@@ -25,7 +25,7 @@ public class SerializatorXML_DataFieldProp extends SerializatorXML
 	}
 
 	@Override
-	public ISerializatorXML fromXMLString(String s)
+	public ISerializableObjectXML fromXMLString(String s)
 	{
 		return getSource();
 	}
