@@ -1,4 +1,4 @@
-package kao.res;
+package kao.misc;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
+
+import kao.res.*;
 
 public class FillResources_main
 {

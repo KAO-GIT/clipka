@@ -1,10 +1,12 @@
-package kao.res;
+package kao.misc;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+
+import kao.res.ResNames;
 
 public class FillResources
 {
