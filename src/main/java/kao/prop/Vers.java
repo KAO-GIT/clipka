@@ -1,6 +1,6 @@
 package kao.prop;
 
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ public class Vers
 	public static String getVersion()
 	{
 		String ret = "";
-		try (InputStream input = new FileInputStream(Utils.getBasePathForClass(Vers.class) + "version.properties"))
+		try (InputStream input = Vers.class.getResourceAsStream("/version.properties"))
 		{
 
 			Properties prop = new Properties();

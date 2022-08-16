@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 
 import kao.db.cmd.DBCommandNames;
 import kao.db.cmd.ICheck;
+
+import kao.el.ElementForChoice;
+
 import kao.frm.swing.PanelAlertWindowList;
 import kao.frm.swing.PanelFilterForegroundWindowList;
 
@@ -21,7 +24,7 @@ public class WndsVarios
 	synchronized public static kao.frm.swing.Wnd getWndTasksGroup() 
 	{
 		if(wndTasksGroup == null) {
-			wndTasksGroup = new kao.frm.swing.Wnd();
+			wndTasksGroup = new kao.frm.swing.Wnd(null,false,true);
 			kao.frm.swing.PanelTasksGroupsList p = new kao.frm.swing.PanelTasksGroupsList(); 
 			wndTasksGroup.setP( p );
 			kao.frm.swing.Dlg.setDefaultCommand(p, DBCommandNames.DBCOMMAND_EDIT);
@@ -36,23 +39,27 @@ public class WndsVarios
 		wnd.setVisible(true); 
 	}
 	
-	private static kao.frm.swing.Wnd wndTasks;
+	//private static kao.frm.swing.Wnd wndTasks;
 
-	synchronized public static kao.frm.swing.Wnd getWndTasks() 
+	synchronized private static kao.frm.swing.Wnd getWndTasks(Window owner, ElementForChoice group) 
 	{
-		if(wndTasks == null) {
-			wndTasks = new kao.frm.swing.Wnd();
-			kao.frm.swing.PanelTasksList p = new kao.frm.swing.PanelTasksList(); 
-			wndTasks.setP( p );
+		//if(wndTasks == null) {
+		
+		kao.frm.swing.Wnd wndTasks = new kao.frm.swing.Wnd(owner,false, false);
+		kao.frm.swing.PanelTasksList p = new kao.frm.swing.PanelTasksList(group); 
+		wndTasks.setP( p );
+		if(group==null)
 			kao.frm.swing.Dlg.setDefaultCommand(p, DBCommandNames.DBCOMMAND_EDIT);
-		}
+		else
+			kao.frm.swing.Dlg.setDefaultCommand(p, DBCommandNames.DBCOMMAND_RUN);
+		
+		//}
 		return wndTasks;
 	}
 	
-	synchronized public static void showWndTasks()
+	synchronized public static void showWndTasks(Window owner, ElementForChoice group)
 	{
-		kao.frm.swing.Wnd wnd = getWndTasks();
-		//((kao.frm.swing.PanelTasksGroupsList) wnd.getP()).fill();
+		kao.frm.swing.Wnd wnd = getWndTasks(owner, group);
 		wnd.setVisible(true); 
 	}
 
@@ -60,7 +67,7 @@ public class WndsVarios
 
 	synchronized public static kao.frm.swing.Wnd getWndTasksGroupChioce(Window owner, ICheck check, ActionListener actParent) 
 	{
-		kao.frm.swing.Wnd wndTasksGroupChoice = new kao.frm.swing.Wnd(owner,false);
+		kao.frm.swing.Wnd wndTasksGroupChoice = new kao.frm.swing.Wnd(owner,false,true);
 		kao.frm.swing.PanelTasksGroupsChoice p = new kao.frm.swing.PanelTasksGroupsChoice();
 		p.setActParent(actParent);
 		p.setCheck(check);
@@ -69,19 +76,27 @@ public class WndsVarios
 		return wndTasksGroupChoice;
 	}
 
-	synchronized public static kao.frm.swing.Wnd getWndFilterForegroundWindow() 
+	//private static kao.frm.swing.Wnd wndFilterForegroundWindow;
+	
+	synchronized private static kao.frm.swing.Wnd getWndFilterForegroundWindow() 
 	{
-		kao.frm.swing.Wnd wnd = new kao.frm.swing.Wnd(null,false);
+		kao.frm.swing.Wnd wnd = new kao.frm.swing.Wnd(null,false,false);
 		
 		PanelFilterForegroundWindowList f = new PanelFilterForegroundWindowList();
 		wnd.setP(f);
 		kao.frm.swing.Dlg.setDefaultCommand(f, DBCommandNames.DBCOMMAND_EDIT);
 		return wnd;
 	}
-
-	synchronized public static kao.frm.swing.Wnd getWndAlertList() 
+	
+	synchronized public static void showWndFilterForegroundWindow()
 	{
-		kao.frm.swing.Wnd wnd = new kao.frm.swing.Wnd(null,false);
+		getWndFilterForegroundWindow().setVisible(true); 
+	}
+	
+
+	synchronized private static kao.frm.swing.Wnd getWndAlertList() 
+	{
+		kao.frm.swing.Wnd wnd = new kao.frm.swing.Wnd(null,false,false);
 		
 		PanelAlertWindowList f = new PanelAlertWindowList();
 		wnd.setP(f);
@@ -89,5 +104,9 @@ public class WndsVarios
 		return wnd;
 	}
 	
+	synchronized public static void showWndAlertList()
+	{
+		getWndAlertList().setVisible(true); 
+	}
 	
 }

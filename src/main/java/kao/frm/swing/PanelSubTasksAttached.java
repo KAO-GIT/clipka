@@ -102,7 +102,7 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 				case DBCOMMAND_ATTACH:
 					//						getElements().add();
 					fireTableDataChanged();
-					;
+					
 					break;
 				case DBCOMMAND_DELETE:
 					DBRecordSubTask el = getCurrentElement();

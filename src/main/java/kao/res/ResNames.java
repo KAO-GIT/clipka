@@ -46,8 +46,8 @@ public enum ResNames
 	@AnnotationDefValueRu("Отслеживать изменения в буфере обмена")
 	CLIPBOARDMONITOR(),
 
-	@AnnotationDefValue("Open main window")
-	@AnnotationDefValueRu("Открыть основное окно программы")
+	@AnnotationDefValue("Open window with action buttons (along with the system tray)")
+	@AnnotationDefValueRu("Открыть окно с кнопками действий (наряду с системным треем)")
 	MAIN_OPEN_WINDOW(),
 
 	@AnnotationDefValue("Close current window")
@@ -62,6 +62,14 @@ public enum ResNames
 	@AnnotationDefValueRu("Необходимость открытия основного окна программы, определяемая текущими настройками")
 	PARAM_MAIN_OPEN_WINDOW(),
 	
+	@AnnotationDefValue("Current system")
+	@AnnotationDefValueRu("Текущая операционная система")
+	PARAM_CURRENT_SYSTEM(),
+	
+	@AnnotationDefValue("Current system - 64 Bit")
+	@AnnotationDefValueRu("Текущая операционная система - 64 Bit")
+	PARAM_CURRENT_SYSTEM_IS64BIT(),
+	
 	@AnnotationDefValue("Clipboard settings")
 	@AnnotationDefValueRu("Настройки для буфера обмена")
 	SETTINGS_CLP(), // Категории настроек (имя не менять)
@@ -70,10 +78,14 @@ public enum ResNames
 	@AnnotationDefValueRu("Настройки системные")
 	SETTINGS_SYS(),    // Категории настроек (имя не менять)
 	
-	@AnnotationDefValue("Hotkey for clipboiard window")
-	@AnnotationDefValueRu("Hotkey для открытия записей буфера обмена")
-	SETTINGS_CLP_MAINHOTKEY(),
+//	@AnnotationDefValue("Hotkey for clipboiard window")
+//	@AnnotationDefValueRu("Hotkey для открытия записей буфера обмена")
+//	SETTINGS_CLP_MAINHOTKEY(),
 
+	@AnnotationDefValue("Watch the clipboard: primary (mouse selection)")
+	@AnnotationDefValueRu("Отслеживать буфер обмена: выделение")
+	SETTINGS_CLP_WATCH_PRIMARY(),
+	
 	@AnnotationDefValue("Timeout for save position (min)")
 	@AnnotationDefValueRu("Время в минутах, после которого прекращается запоминание позиции в списке клипов")
 	SETTINGS_CLP_TIMEOUTPOSITION(),

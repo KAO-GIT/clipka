@@ -6,7 +6,7 @@ import kao.db.MetaTypes;
 import kao.el.ETitleSource;
 //import kao.frm.swing.FieldDataWithType;
 
-public class DBRecordTasksGroup extends DBRecord implements IHotkey
+public class DBRecordTasksGroup extends DBRecord implements IHotkey,kao.db.xml.ISerializatorXML
 {
 	public DBRecordTasksGroup()
 	{

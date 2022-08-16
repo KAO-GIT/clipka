@@ -4,6 +4,8 @@ import kao.db.*;
 import kao.db.cmd.*;
 import kao.db.fld.DBRecordTask;
 import kao.db.fld.DataFieldNames;
+import kao.el.ElementForChoice;
+
 import kao.kb.KeyUtil;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
@@ -27,9 +29,9 @@ public class PanelTasksList extends PanelTasksNoCommands
 
 	private CurrentCommands cc ; 
 
-	public PanelTasksList()
+	public PanelTasksList(ElementForChoice gefGroup)
 	{
-		super();
+		super(gefGroup);
 
 		addCommands();
 

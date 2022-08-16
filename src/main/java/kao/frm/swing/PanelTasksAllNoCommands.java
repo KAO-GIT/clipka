@@ -25,11 +25,32 @@ public abstract class PanelTasksAllNoCommands extends PanelKA implements ActionL
 	protected KitForListing kit;
 	//protected JTable table;
 	protected PanelTableNoCommands<IElement> panelTable;
+	
+	private final ElementForChoice defGroup; // группа по умолчанию
 
 	public PanelTasksAllNoCommands()
 	{
 		super();
 
+		defGroup=null; 
+		
+		build();
+	}
+
+	public PanelTasksAllNoCommands(ElementForChoice defGroup)
+	{
+		super();
+
+		this.defGroup=defGroup;
+
+		build();
+	}
+	
+	/**
+	 * 
+	 */
+	private void build()
+	{
 		this.kit = new KitForListing();
 		init();
 		fill();
@@ -66,7 +87,6 @@ public abstract class PanelTasksAllNoCommands extends PanelKA implements ActionL
 //		add(new JScrollPane(table));
 
 //		addActions();
-
 	}
 	
 	public JTable getTable()
@@ -231,6 +251,11 @@ public abstract class PanelTasksAllNoCommands extends PanelKA implements ActionL
 	protected boolean getModified()
 	{
 		return (isModified | kit.isModified());
+	}
+
+	public ElementForChoice getDefGroup()
+	{
+		return defGroup;
 	}
 
 

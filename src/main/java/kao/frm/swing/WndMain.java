@@ -123,21 +123,21 @@ public class WndMain extends JFrame
 		AbstractButton mtt = new JButton(b.getString(ResNames.TASKS.name()));
 		mtt.addActionListener(e ->
 		{
-			WndsVarios.showWndTasks();
+			WndsVarios.showWndTasks(null,null);
 		});
 		p.add(mtt);
 		
 		AbstractButton mfw = new JButton(b.getString(ResNames.FORM_FILTER_FOREGROUND_WINDOW.name()));
 		mfw.addActionListener(e ->
 		{
-			WndsVarios.getWndFilterForegroundWindow().setVisible(true);
+			WndsVarios.showWndFilterForegroundWindow();
 		});
 		p.add(mfw);
 		
 		AbstractButton mfa = new JButton(b.getString(ResNames.FORM_ALERTS_LIST.name()));
 		mfa.addActionListener(e ->
 		{
-			WndsVarios.getWndAlertList().setVisible(true);
+			WndsVarios.showWndAlertList();
 		});
 		p.add(mfa);
 		
@@ -252,21 +252,21 @@ public class WndMain extends JFrame
 			MenuItem mtt = new MenuItem(b.getString(ResNames.TASKS.name()));
 			mtt.addActionListener(e ->
 			{
-				WndsVarios.showWndTasks();
+				WndsVarios.showWndTasks(null,null);
 			});
 			popup.add(mtt);
 			
 			MenuItem mfw = new MenuItem(b.getString(ResNames.FORM_FILTER_FOREGROUND_WINDOW.name()));
 			mfw.addActionListener(e ->
 			{
-				WndsVarios.getWndFilterForegroundWindow().setVisible(true);
+				WndsVarios.showWndFilterForegroundWindow();
 			});
 			popup.add(mfw);
 			
 			MenuItem mfa = new MenuItem(b.getString(ResNames.FORM_ALERTS_LIST.name()));
 			mfa.addActionListener(e ->
 			{
-				WndsVarios.getWndAlertList().setVisible(true);
+				WndsVarios.showWndAlertList();
 			});
 			popup.add(mfa);
 
@@ -280,6 +280,9 @@ public class WndMain extends JFrame
 			});
 			popup.add(exitItem);
 
+			// javax.swing.SwingUtilities.invokeLater(() -> createAndShowTray());
+			// EventQueue.invokeLater
+			
 			//		trayIcon.addMouseListener(new MouseAdapter()
 			//		{
 			//

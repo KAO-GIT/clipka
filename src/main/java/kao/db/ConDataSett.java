@@ -37,10 +37,14 @@ public class ConDataSett
 					+ ") WITHOUT ROWID");
 
 			// Filter Table version 1
+			// Фильтры для операционной системы: meth = 1, val - не нужно, system - W - windows, X - X11 
+			// некоторые настройки используются не во всех операционных системах, 
+			// поскольку их немного, для упрощения запросов добавляются условия, исключающие чтение настроек 
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS flt1 (" 
 					+ "  name  TEXT  "
 					+ ", tbl   TEXT            " 
 					+ ", meth  INTEGER         " 
+					+ ", val                   " 
 					+ ", system TEXT           "
 					+ ")  ");
 
@@ -48,6 +52,21 @@ public class ConDataSett
 
 		setDefSett();
 
+	}
+
+	private <T> void setDefFlt(PreparedStatement statement, String currentName, String name, String tbl, int meth, String system, T val)
+			throws SQLException
+	{
+		if (currentName.isEmpty() || currentName.equalsIgnoreCase(name))
+		{
+			statement.setString(1, name.toUpperCase());
+			statement.setString(2, tbl);
+			statement.setInt(3, meth);
+			statement.setString(4, system);
+			if (val instanceof String) statement.setString(5, val.toString());
+			else if (val instanceof Integer) statement.setInt(5, (int) val);
+			statement.executeUpdate();
+		}
 	}
 
 	private <T> void setDefSett(PreparedStatement statement, String currentName, String name, T val, String typ, int pos, String state_type, int state)
@@ -81,18 +100,23 @@ public class ConDataSett
 		{
 			PreparedStatement statement;
 			statement = ConData.getConn().prepareStatement("INSERT OR IGNORE INTO set1 (name,val,typ,pos,state_type,state) VALUES (?,?,?,?,?,?)");
-			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecOnPage", 36, "integer", 10, "", 0);
-			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecCount", 10000, "integer", 20, "disable", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_WATCH_PRIMARY.name(), 0, "checkbox", 10, "", 0);
+			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecOnPage", 36, "integer", 20, "", 0);
+			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecCount", 10000, "integer", 25, "disable", 0);
 			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_SizeTextElem", 512000, "integer", 30, "", 0);
 			//this.<String>setDefSett(statement, currentName, "Settings_Sys_DataPath", "", "path", 40, "", 0);
 			//this.<String>setDefSett(statement, currentName, "Settings_Clp_MainHotkey", "ctrl alt F", "hotkey", 50, "", 0);
 			//this.<String>setDefSett(statement, currentName, "Settings_Clp_TaskEncodeConHotkey", "F9", "hotkey", 60, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), 6776, "integer", 50, "", 0);
-//			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_CumulativeFlag", 0, "integer", 70, "", 0);
-//			this.<String>setDefSett(statement, currentName, "Settings_Clp_CumulativeText", "", "memo", 75, "", 0);
+			//			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_CumulativeFlag", 0, "integer", 70, "", 0);
+			//			this.<String>setDefSett(statement, currentName, "Settings_Clp_CumulativeText", "", "memo", 75, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name(), 0, "checkbox", 80, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_TIMEOUTPOSITION.name(), 5, "integer", 90, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW.name(), 0, "checkbox", 100, "", 0);
+
+			statement = ConData.getConn().prepareStatement("INSERT OR IGNORE INTO flt1 (name,tbl,meth,system,val) VALUES (?,?,?,?,?)");
+			this.<Integer>setDefFlt(statement, currentName, ResNames.SETTINGS_CLP_WATCH_PRIMARY.name(), "set1", 1, "W", 0);
+
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
@@ -147,8 +171,8 @@ public class ConDataSett
 	public static ElementsForChoice getCategories()
 	{
 		var groups = new ElementsForChoice();
-		groups.add(new ElementForChoice(kao.res.ResNames.SETTINGS_CLP.name(), ETitleSource.KEY_RESOURCE_BUNDLE));
 		groups.add(new ElementForChoice(kao.res.ResNames.SETTINGS_SYS.name(), ETitleSource.KEY_RESOURCE_BUNDLE));
+		groups.add(new ElementForChoice(kao.res.ResNames.SETTINGS_CLP.name(), ETitleSource.KEY_RESOURCE_BUNDLE));
 		groups.setCurrentElement(0);
 		// groups.setModified(false);
 		return groups;
@@ -162,13 +186,16 @@ public class ConDataSett
 			elements.clear();
 			try
 			{
+				String currSystem = ConData.getStringProp(ResNames.PARAM_CURRENT_SYSTEM);
 
 				ElementForChoice category = kit.getCategory();
 				String filter = kit.getFilter();
 
 				ResultSet resultSet;
 				resultSet = ConData.getConn().createStatement()
-						.executeQuery("SELECT name, typ, val FROM set1 WHERE NAME NOT IN(SELECT name FROM flt1 WHERE meth=1 AND tbl='s') ORDER BY pos ");
+						.executeQuery(String.format(
+								"SELECT name, typ, val FROM set1 WHERE NAME NOT IN(SELECT name FROM flt1 WHERE meth=1 AND tbl='set1' AND system='%s') ORDER BY pos ",
+								currSystem));
 
 				while (resultSet.next())
 				{

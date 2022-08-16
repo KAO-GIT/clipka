@@ -97,6 +97,7 @@ public class ConData implements AutoCloseable
 			myfile = new java.io.File(ConData.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 			java.io.File dir = myfile.getParentFile(); // strip off .jar file
 			dir = dir.getParentFile();  // еще на уровень веерх
+			System.out.println("ConData.getDefaultPath() "+dir); 
 			return dir.getPath(); 
 		} catch (URISyntaxException e1)
 		{
@@ -205,7 +206,12 @@ public class ConData implements AutoCloseable
 		hashValues.put(ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW, showMainWindow);
 		
 		// Параметры, которых нет в базе данных, но определяемые при работе
-		hashValues.put(ResNames.PARAM_MAIN_OPEN_WINDOW, showMainWindow); // Зависит еще от поддержки tray, будет установлена позднее 
+		hashValues.put(ResNames.PARAM_MAIN_OPEN_WINDOW, showMainWindow); // Зависит еще от поддержки tray, будет установлена позднее
+
+		// Сохраним данные от текущей операционной системе
+		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM_IS64BIT, com.sun.jna.Platform.is64Bit()?1:0);
+		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM, com.sun.jna.Platform.isWindows()?"W":com.sun.jna.Platform.isX11()?"X":"");
+		
 	}
 
 

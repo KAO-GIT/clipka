@@ -138,13 +138,13 @@ public final class ClipboardMonitor implements Closeable, ClipboardOwner, Flavor
 	@Override
 	public void lostOwnership(Clipboard arg0, Transferable arg1)
 	{
-		System.out.println("lostOwnership... ");
+		//System.out.println("lostOwnership... ");
 	}
 
 	@Override
 	public void flavorsChanged(FlavorEvent e)
 	{
-		System.out.println("flavorsChanged... ");
+		//System.out.println("flavorsChanged... ");
 	}
 
 	public static boolean isMonitoringClipboard()
@@ -214,7 +214,7 @@ public final class ClipboardMonitor implements Closeable, ClipboardOwner, Flavor
 
 	private boolean copyRealease(int code)
 	{
-		System.out.println("copyRealease from "+code+": copyCDL:" + (copyCDL != null ? copyCDL.getCount() : "null"));
+		//System.out.println("copyRealease from "+code+": copyCDL:" + (copyCDL != null ? copyCDL.getCount() : "null"));
 		if (copyCDL != null)
 		{
 			copyCDL.countDown();

@@ -146,6 +146,27 @@ public enum TskActionNames
 		}
 	},
 
+	@AnnotationDefValue("Set in clips")
+	@AnnotationDefValueRu("Поместить в список клипов")
+	TSKTYPE_SET_IN_CLIPS(41){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionSetInClips.class;
+		}
+	},
+	
+	@AnnotationDefValue("Read string from clips")
+	@AnnotationDefValueRu("Прочитать строку из списка клипов")
+	TSKTYPE_READ_FROM_CLIPS(0){ // пока не используется
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionReadFromClips.class;
+		}
+	},
+	
+	
 	@AnnotationDefValue("Run Groovy code")
 	@AnnotationDefValueRu("Выполнить код на языке Groovy")
 	TSKTYPE_RUNCODE_GROOVY(101){
@@ -246,6 +267,15 @@ public enum TskActionNames
 		@AnnotationDefValue("Content is not required. The current processed string is used.")
 		@AnnotationDefValueRu("Содержание не требуется. Используется текущая обрабатываемая строка.")
 		TSKTYPE_CHANGE_CASE_TEXT,
+		
+		@AnnotationDefValue("Content is not required")
+		@AnnotationDefValueRu("Содержание не требуется")
+		TSKTYPE_SET_IN_CLIPS,
+		
+		@AnnotationDefValue("Offset from the last clip is printed in the contents. If not specified, the last clip is used.")
+		@AnnotationDefValueRu("В содержание заносится смещение от последнего клипа. Если не указывать - используется последний клип.")
+		TSKTYPE_READ_FROM_CLIPS,
+		
 
 		@AnnotationDefValue("Groovy code. You can use the variable 'result', containing the currently processed string. Returns the last value or value in the variable 'result'")
 		@AnnotationDefValueRu("В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result ")

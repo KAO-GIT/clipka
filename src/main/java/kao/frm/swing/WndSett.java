@@ -29,12 +29,14 @@ public class WndSett extends JDialog
 	private static final long serialVersionUID = 1494017167913424537L;
 
 	private static boolean isOpen = false;
+	private static WndSett wndSett = null;
 
 	public static synchronized void showWndSett()
 	{
 		if (isOpen == false)
 			// java.awt.EventQueue.invokeLater(() -> new WndSett());
-			javax.swing.SwingUtilities.invokeLater(() -> new WndSett());
+			javax.swing.SwingUtilities.invokeLater(() -> {wndSett = new WndSett();});
+		else wndSett.setVisible(true);
 
 		isOpen = true;
 	}
@@ -56,6 +58,7 @@ public class WndSett extends JDialog
 			public void windowClosed(WindowEvent e)
 			{
 				getContentPane().removeAll();
+				wndSett=null; 
 				isOpen = false;
 				// System.gc();
 			}

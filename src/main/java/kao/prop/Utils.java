@@ -289,6 +289,7 @@ public class Utils
 		try
 		{
 			file = new File(classs.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+			LOGGER.info("file {}: ", file);
 
 			if (file.isFile() || file.getPath().endsWith(".jar") || file.getPath().endsWith(".zip"))
 			{

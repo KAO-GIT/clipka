@@ -3,6 +3,8 @@ package kao.frm.swing;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GraphicsDevice;
+
 import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -64,7 +66,13 @@ public class WndHelp extends JDialog
     }
 
     JScrollPane jScrollPane = new JScrollPane(jEditorPane);
-    jScrollPane.setPreferredSize(new Dimension(800,600));      
+    
+    GraphicsDevice gd =this.getGraphicsConfiguration().getDevice();
+    //GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    int width = gd.getDisplayMode().getWidth();
+    int height = gd.getDisplayMode().getHeight();
+    
+    jScrollPane.setPreferredSize(new Dimension(width-20,height-50));      
 
     panel.add(jScrollPane);
 

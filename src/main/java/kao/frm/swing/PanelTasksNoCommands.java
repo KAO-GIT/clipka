@@ -1,7 +1,9 @@
 package kao.frm.swing;
 
 import kao.db.ConDataTask;
+import kao.el.ElementForChoice;
 import kao.el.ElementsForChoice;
+
 import kao.prop.ResKA;
 import kao.res.ResNames;
 
@@ -16,8 +18,9 @@ public abstract class PanelTasksNoCommands extends PanelTasksAllNoCommands
 
 	private static final long serialVersionUID = -8558924213316282101L;
 
-	public PanelTasksNoCommands()
-	{
+	public PanelTasksNoCommands(ElementForChoice defGroup)
+	{	
+		super(defGroup); 
 	}
 
 	@Override
@@ -30,7 +33,8 @@ public abstract class PanelTasksNoCommands extends PanelTasksAllNoCommands
 	public void init()
 	{
 		ElementsForChoice categories = ConDataTask.Tasks.getCategories();
-		categories.setCurrentElement(0);
+		if(getDefGroup()==null) categories.setCurrentElement(0);
+		else categories.setCurrentElement(getDefGroup());
 		kit.setCategory(categories.getCurrentElement().get());
 		super.init(kit.getFilter(), categories , this);
 	}

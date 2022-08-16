@@ -29,18 +29,19 @@ public class Wnd implements AutoCloseable
 		return w;
 	}
 
-	public Wnd()
-	{
-		this(null, true);
-	}
+//	public Wnd()
+//	{
+//		this(null, true);
+//	}
 
-	public Wnd(Window owner, boolean hideOnClose)
+	public Wnd(Window owner, boolean hideOnClose, boolean isModal)
 	{
 
 		w = new JDialog(owner);
 		w.setTitle("ClipKA");
 		w.setDefaultCloseOperation(hideOnClose ? JFrame.HIDE_ON_CLOSE : JFrame.DISPOSE_ON_CLOSE);
-		w.setModal(owner == null ? false : true);
+//		w.setModal(owner == null ? false : true);
+		w.setModal(isModal);
 
 		//		w.setMaximumSize(new Dimension(250, 700));
 		//		w.setMinimumSize(new Dimension(250, 650));

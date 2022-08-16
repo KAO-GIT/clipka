@@ -2,6 +2,7 @@ package kao.prop;
 
 import java.awt.Component;
 import java.io.File;
+import java.net.URI;
 
 import kao.res.IResErrors;
 import kao.res.ResErrors;
@@ -24,53 +25,57 @@ public class HelpKA
 	 * @param clazz
 	 * @return
 	 */
-	public static String getNameOfHelpFile(Class<?> clazz)
+	public static String[] getNameOfHelpFile(Class<?> clazz)
 	{
-		String ret = null;
+		String[] ret = new String[2];
+		if (clazz == kao.frm.swing.FieldKey.class)
+		{	
+			ret[0] = "keyboard.htm";
+			ret[1] = ""; 
+		}	
+		else
+		{	
+			ret[0] = "help.htm";
+		
 		if (clazz == kao.frm.swing.WndSett.class)
 		{
-			ret = "sett.htm";
-		} else if (clazz == kao.frm.swing.FieldKey.class)
-		{
-			ret = "fieldkey.htm";
+			ret[1] = "Sett";
 		} else if (clazz == kao.frm.swing.PanelAlertWindowList.class)
 		{
-			ret = "help.htm";
+			ret[1] = "Aler";
 		} else if (clazz == kao.frm.swing.PanelFilterForegroundWindowList.class)
 		{
-			ret = "help.htm";
+			ret[1] = "Flt";
 		} else if (clazz == kao.frm.swing.PanelSubTasksAttached.class)
 		{
-			ret = "help.htm";
+			ret[1] = "";
 		} else if (clazz == kao.frm.swing.PanelTasksList.class)
 		{
-			ret = "help.htm";
+			ret[1] = "Tsk";
 		} else if (clazz == kao.frm.swing.PanelTasksGroupsList.class)
 		{
-			ret = "help.htm";
+			ret[1] = "Gr";
 		} else
 		{
-			ret = "help.htm";
+			ret[1] = "";
+		}
 		}
 		return ret;
 	}
 
 	public static IResErrors browseHelp(Class<?> clazz)
 	{
-		return browseHelp(HelpKA.getNameOfHelpFile(clazz));
+		String[] ret = HelpKA.getNameOfHelpFile(clazz); 
+		return browseHelp(ret[0],ret[1],null);
 	}
 
 	public static IResErrors browseHelp(Class<?> clazz, Component parent)
 	{
-		return browseHelp(HelpKA.getNameOfHelpFile(clazz), parent);
+		String[] ret = HelpKA.getNameOfHelpFile(clazz); 
+		return browseHelp(ret[0],ret[1], parent);
 	}
 
-	public static IResErrors browseHelp(String filename)
-	{
-		return browseHelp(filename, null);
-	}
-
-	public static IResErrors browseHelp(String filename, Component parent)
+	public static IResErrors browseHelp(String filename, String fragment, Component parent)
 	{
 		try
 		{
@@ -82,8 +87,12 @@ public class HelpKA
 
 				//				java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
 				//				desktop.browse(file.toURI());
-
-				new kao.frm.swing.WndHelp(file.toURI().toURL(), parent); // вместо встроенного браузера открываем свою форму, возможно потом ее не хватит
+				URI u = file.toURI();
+				URI n = new URI(u.getScheme(),
+            u.getSchemeSpecificPart(),
+            fragment);
+				
+				new kao.frm.swing.WndHelp(n.toURL(), parent); // вместо встроенного браузера открываем свою форму, возможно потом ее не хватит
 
 				return ResErrors.NOERRORS;
 			} else return ResErrors.ERR_NOTFOUND;

@@ -4,11 +4,18 @@ import java.sql.SQLException;
 
 import kao.cp.*;
 import kao.db.ConDataTask;
+
+import kao.db.fld.DBRecordTask;
+import kao.db.fld.DBRecordTasksGroup;
 import kao.db.fld.IRecord;
+import kao.el.ElementForChoice;
 import kao.el.ElementSettHotKey;
 import kao.el.IElement;
 import kao.el.KitForListing;
+import kao.frm.WndText;
+import kao.frm.WndsVarios;
 import kao.kb.KeyStruct;
+import kao.res.ResErrors;
 import kao.res.ResNamesWithId;
 
 public class Tsks
@@ -132,7 +139,7 @@ public class Tsks
 			{
 				kao.kb.KbTrackStart.getGeneralTrack().setWorkPaused(true);
 				kao.kb.KbTrackStart.getGeneralTrack().push(new KeyStruct());
-				Tsk.getTsk(source).runTsk();
+				Tsks.getTsk(source).runTsk();
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -163,6 +170,40 @@ public class Tsks
 
 	}
 
+	public static Tsk getTsk(IRecord source)
+	{
+		Tsk ret = null;
+		if(source instanceof DBRecordTask)
+		{
+			DBRecordTask csource =  (DBRecordTask) source; 
+			if(ConDataTask.Tasks.isOpenClips(csource.getIdInt())) 
+			{
+				ret = () ->
+				{
+					WndText.getInstance().updatePrimaryWnd();
+					return ResErrors.NOERRORS;
+				};
+			}
+			else
+			{
+				ret = new TskRegular((DBRecordTask) csource); 
+			}
+		}
+		else if(source instanceof DBRecordTasksGroup)
+		{
+			ret = () ->
+			{
+				DBRecordTasksGroup csource = (DBRecordTasksGroup) source;
+				WndsVarios.showWndTasks(null,new ElementForChoice(csource.getIdInt(), csource.getDescription()));
+				//System.out.println("Tsks getTsk ");
+				return ResErrors.NOERRORS;
+			};
+			
+		}
+
+		return ret;
+	}
+	
 	/**
 	 * Записывает текст в буфер обмена CLIPBOARD
 	 * @param text
@@ -270,5 +311,6 @@ public class Tsks
 	{
 		return ClipboardMonitor.getInstance().getContents();
 	}
+
 
 }
