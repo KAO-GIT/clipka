@@ -33,6 +33,7 @@ public class SerializatorXML_DBRecodTaskGroup extends SerializatorXML
 	@Override
 	public Node getNode(Document document) throws ParserConfigurationException, SAXException, IOException
 	{
+		//*********
 		DBRecordTasksGroup o = (DBRecordTasksGroup)getSource();
     Node v = document.createElement(o.getClass().getSimpleName());
 
