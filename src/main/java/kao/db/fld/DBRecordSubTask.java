@@ -6,7 +6,12 @@ import kao.tsk.act.TskActionNames;
 
 public class DBRecordSubTask extends DBRecord
 {
-	final private IRecord owner;    
+	private IRecord owner;    
+
+	public DBRecordSubTask()
+	{
+		this(0, null); 
+	}
 	
 	public DBRecordSubTask(IRecord owner)
 	{
@@ -63,6 +68,11 @@ public class DBRecordSubTask extends DBRecord
 	{
 		return owner;
 	};
+	
+	public void setOwner(IRecord owner)
+	{
+		this.owner = owner;
+	}
 	
 //	public ElementsForListing<DBRecordSubTask> getArrayValueCur(DataFieldNames name)
 //	{

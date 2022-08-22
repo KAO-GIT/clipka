@@ -118,13 +118,22 @@ public enum ResNames
 	@AnnotationDefValueRu("Порт используется при запуске. Запуск программы второй раз - просто открывает окно или запускает задачу")
 	DESCRIPTION_SETTINGS_SYS_SOCKETPORT(),
 	
-	@AnnotationDefValue("Show main window")
-	@AnnotationDefValueRu("Всегда показывать основное окно программы")
+	@AnnotationDefValue("Show window with action buttons")
+	@AnnotationDefValueRu("Показывать окно с кнопками действий")
 	SETTINGS_SYS_SHOW_MAIN_WINDOW(),
 
-	@AnnotationDefValue("By default, the main window is displayed if the system tray is not available. When the check box is selected, it will always be displayed")
-	@AnnotationDefValueRu("По умолчанию, основное окно показывается, если недоступен системный tray. При установке флажка будет показываться всегда")
+	@AnnotationDefValue("By default, a window with action buttons is displayed if the system tray is not available. When the check box is selected, it will always be displayed")
+	@AnnotationDefValueRu("По умолчанию, окно с кнопками действий показывается, если недоступен системный трей. При установке флажка будет показываться всегда")
 	DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW(),
+	
+	@AnnotationDefValue("Show in system tray")
+	@AnnotationDefValueRu("Показывать иконку в системном трее")
+	SETTINGS_SYS_SHOW_TRAY(),
+	
+	@AnnotationDefValue("If the check box is not selected, a window with action buttons is displayed. To apply this setting, you need to close the program")
+	@AnnotationDefValueRu("Если флажок не установлен, показывается окно с кнопками действий. Для применения настройки небходимо завершить работу программы")
+	DESCRIPTION_SETTINGS_SYS_SHOW_TRAY(),
+	
 
 	@AnnotationDefValue("General settings")
 	@AnnotationDefValueRu("Имя настройки")

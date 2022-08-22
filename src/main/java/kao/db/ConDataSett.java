@@ -113,6 +113,7 @@ public class ConDataSett
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name(), 0, "checkbox", 80, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_TIMEOUTPOSITION.name(), 5, "integer", 90, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW.name(), 0, "checkbox", 100, "", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_TRAY.name(), 1, "checkbox", 110, "", 0);
 
 			statement = ConData.getConn().prepareStatement("INSERT OR IGNORE INTO flt1 (name,tbl,meth,system,val) VALUES (?,?,?,?,?)");
 			this.<Integer>setDefFlt(statement, currentName, ResNames.SETTINGS_CLP_WATCH_PRIMARY.name(), "set1", 1, "W", 0);

@@ -196,7 +196,7 @@ public class WndMain extends JFrame
 	{
 
 		// Check the SystemTray support
-		if (SystemTray.isSupported())
+		if (SystemTray.isSupported() && ConData.getIntProp(ResNames.SETTINGS_SYS_SHOW_TRAY) != 0)
 		{
 
 			final Image i = Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/logo.png"));
