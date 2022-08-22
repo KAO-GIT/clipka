@@ -53,7 +53,8 @@
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">Favorites</entry>
 <entry key="DESCRIPTION_HOTKEYS__ALL__">All hotkeys</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">If you delete duplicates, you may lose information about the time of creation and source of the clips</entry>
-<entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">By default, the main window is displayed if the system tray is not available. When the check box is selected, it will always be displayed</entry>
+<entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">By default, a window with action buttons is displayed if the system tray is not available. When the check box is selected, it will always be displayed</entry>
+<entry key="DESCRIPTION_SETTINGS_SYS_SHOW_TRAY">If the check box is not selected, a window with action buttons is displayed. To apply this setting, you need to close the program</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SOCKETPORT">Port is used at startup. Starting the program for the second time - just opens the window or run task</entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_CASE_TEXT_CONTENT">Content is not required. The current processed string is used.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_ENCODING_TEXT_CONTENT">Content is not required. The current processed string is used.</entry>
@@ -132,7 +133,8 @@
 <entry key="SETTINGS_CLP_TIMEOUTPOSITION">Timeout for save position (min)</entry>
 <entry key="SETTINGS_CLP_WATCH_PRIMARY">Watch the clipboard: primary (mouse selection)</entry>
 <entry key="SETTINGS_SYS">System settings</entry>
-<entry key="SETTINGS_SYS_SHOW_MAIN_WINDOW">Show main window</entry>
+<entry key="SETTINGS_SYS_SHOW_MAIN_WINDOW">Show window with action buttons</entry>
+<entry key="SETTINGS_SYS_SHOW_TRAY">Show in system tray</entry>
 <entry key="SETTINGS_SYS_SOCKETPORT">Socket port</entry>
 <entry key="SOURCECLP_CLIPBOARD">Source: CLIPBOARD</entry>
 <entry key="SOURCECLP_CURRENT">Source: current</entry>
