@@ -24,6 +24,7 @@
 <entry key="DATAFIELD_ID">Идентификатор</entry>
 <entry key="DATAFIELD_NAME">Имя</entry>
 <entry key="DATAFIELD_NAME_PREDEFINED">Имя предопределенного</entry>
+<entry key="DATAFIELD_POSITION">Приоритет</entry>
 <entry key="DATAFIELD_POS_BOTTOM">Позиция окна: низ</entry>
 <entry key="DATAFIELD_POS_LEFT">Позиция окна: лево</entry>
 <entry key="DATAFIELD_POS_RIGHT">Позиция окна: право</entry>
@@ -160,7 +161,7 @@
 <entry key="TSKTYPE_RUNTASK">Запустить задачу</entry>
 <entry key="TSKTYPE_SAVEASCURRENTSTRING">Введенную в содержание строку сохранить как текущую обрабатываемую</entry>
 <entry key="TSKTYPE_SENDKEYS">Посылать символ(ы), имитируя ввод на клавиатуре</entry>
-<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Сохранить указанную строку в буфер обмена</entry>
+<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Сохранить текущую обрабатываемую строку в буфер обмена</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Сохранить текущую обрабатываемую строку в словарь</entry>
 <entry key="TSKTYPE_SET_IN_CLIPS">Поместить в список клипов</entry>
 <entry key="TSKTYPE_SKIP">Пропустить (никаких действий не происходит)</entry>

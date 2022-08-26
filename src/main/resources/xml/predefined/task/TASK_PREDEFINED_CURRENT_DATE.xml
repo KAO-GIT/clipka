@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><task>
+    <fields>
+        <id>1</id>
+        <name/>
+        <description/>
+        <hotkey>{divide}{d}{space}
+{slash}{d}{space}</hotkey>
+        <disabled/>
+        <content/>
+        <groups>
+            <group>100</group>
+        </groups>
+        <subtasks>
+            <subtask>
+            <!-- TSKTYPE_SENDKEYS -->
+                <fields>
+                    <description/>
+                    <content>{backspace}{backspace}{backspace}</content>
+                    <subtasktype>2</subtasktype>
+                </fields>
+            </subtask>
+            <subtask>
+            <!-- TSKTYPE_RUNCODE_GROOVY -->
+                <fields>
+                    <description/>
+                    <content>new Date().format('yyyy-MM-dd HH:mm:ss')</content>
+                    <subtasktype>101</subtasktype>
+                </fields>
+            </subtask>
+            <subtask>
+            <!-- TSKTYPE_SETCLIPBOARDCONTENS -->
+                <fields>
+                    <description/>
+                    <content></content>
+                    <subtasktype>15</subtasktype>
+                </fields>
+            </subtask>
+            <subtask>
+            <!-- TSKTYPE_PASTE -->
+                <fields>
+                    <description/>
+                    <content>{shift insert}</content>
+                    <subtasktype>12</subtasktype>
+                </fields>
+            </subtask>
+        </subtasks>
+        <filter_foreground_window/>
+    </fields>
+</task>
+

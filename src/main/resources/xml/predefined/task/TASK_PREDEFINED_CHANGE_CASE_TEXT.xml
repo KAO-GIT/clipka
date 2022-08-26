@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><task>
+    <fields>
+        <id>1</id>
+        <name/>
+        <description/>
+        <hotkey>{control shift 2}</hotkey>
+        <disabled/>
+        <content/>
+        <groups>
+            <group>100</group>
+        </groups>
+        <subtasks>
+            <subtask>
+            <!-- TSKTYPE_COPY -->
+                <fields>
+                    <description/>
+                    <content>{control insert}</content>
+                    <subtasktype>11</subtasktype>
+                </fields>
+            </subtask>
+            <subtask>
+            <!-- TSKTYPE_GETCLIPBOARDCONTENS -->
+                <fields>
+                    <description/>
+                    <content></content>
+                    <subtasktype>14</subtasktype>
+                </fields>
+            </subtask>
+            <subtask>
+            <!-- TSKTYPE_CHANGE_CASE_TEXT -->
+                <fields>
+                    <description/>
+                    <content></content>
+                    <subtasktype>32</subtasktype>
+                </fields>
+            </subtask>
+            <subtask>
+            <!-- TSKTYPE_SETCLIPBOARDCONTENS -->
+                <fields>
+                    <description/>
+                    <content></content>
+                    <subtasktype>15</subtasktype>
+                </fields>
+            </subtask>
+            <subtask>
+            <!-- TSKTYPE_PASTE -->
+                <fields>
+                    <description/>
+                    <content>{shift insert}</content>
+                    <subtasktype>12</subtasktype>
+                </fields>
+            </subtask>
+        </subtasks>
+        <filter_foreground_window/>
+    </fields>
+</task>
+

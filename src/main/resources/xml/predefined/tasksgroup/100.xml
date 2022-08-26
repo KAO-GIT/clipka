@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><tasksgroup>
+    <fields>
+        <id>100</id>
+        <position>-100</position>
+        <name>GROUPTASK__ALL__</name>
+        <description>DESCRIPTION_GROUPTASK__ALL__</description>
+        <hotkey/>
+    </fields>
+</tasksgroup>

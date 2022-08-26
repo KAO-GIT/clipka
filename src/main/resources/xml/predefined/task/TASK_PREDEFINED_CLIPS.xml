@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><task>
+    <fields>
+        <id>1</id>
+        <name/>
+        <description/>
+        <hotkey>{control multiply}</hotkey>
+        <disabled/>
+        <content/>
+        <groups>
+            <group>100</group>
+        </groups>
+        <subtasks>
+            <subtask>
+                <fields>
+                    <description/>
+                    <content/>
+                    <subtasktype>201</subtasktype>
+                </fields>
+            </subtask>
+        </subtasks>
+        <filter_foreground_window/>
+    </fields>
+</task>
+

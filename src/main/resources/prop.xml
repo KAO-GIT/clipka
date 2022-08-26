@@ -24,6 +24,7 @@
 <entry key="DATAFIELD_ID">Id</entry>
 <entry key="DATAFIELD_NAME">Name</entry>
 <entry key="DATAFIELD_NAME_PREDEFINED">Predefined name</entry>
+<entry key="DATAFIELD_POSITION">Position</entry>
 <entry key="DATAFIELD_POS_BOTTOM">Window bottom position</entry>
 <entry key="DATAFIELD_POS_LEFT">Window left position</entry>
 <entry key="DATAFIELD_POS_RIGHT">Window right position</entry>
@@ -160,7 +161,7 @@
 <entry key="TSKTYPE_RUNTASK">Run task</entry>
 <entry key="TSKTYPE_SAVEASCURRENTSTRING">Save string from content as current string</entry>
 <entry key="TSKTYPE_SENDKEYS">Send keys - simulating keyboard input</entry>
-<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Set string into clipboard</entry>
+<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Set current string into clipboard</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Set current string into map</entry>
 <entry key="TSKTYPE_SET_IN_CLIPS">Set in clips</entry>
 <entry key="TSKTYPE_SKIP">Skip</entry>
