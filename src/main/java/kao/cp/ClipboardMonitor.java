@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 //import java.util.concurrent.ExecutorService;
 //import java.util.concurrent.Executors;
@@ -604,6 +605,8 @@ public final class ClipboardMonitor implements Closeable, ClipboardOwner, Flavor
 	public boolean paste(int[] keys) throws Exception
 	{
 
+		System.out.println("ClipboardMonitor.Paste: "+kao.cp.ClipboardMonitor.getInstance().getContents()+" : "+Arrays.toString(keys));
+
 //		getQueue().execute(() ->
 //		{
 			try
@@ -615,7 +618,7 @@ public final class ClipboardMonitor implements Closeable, ClipboardOwner, Flavor
 			}
 //		});
 
-//				Thread d;
+//				Thread d; 
 //				d = new Thread(() ->
 //				{
 //					try

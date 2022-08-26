@@ -3,6 +3,7 @@ package kao.frm.swing;
 import kao.cp.*;
 import kao.db.*;
 import kao.el.*;
+import kao.prop.Vers;
 //import kao.prop.*;
 import kao.res.ResNames;
 
@@ -24,6 +25,8 @@ import java.util.function.UnaryOperator;
 public class PanelClp extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -6635354204325794436L;
+	
+	private static boolean checkToolTipText = Vers.JavaErrors.checkToolTipText(); 
 
 	private KitForClpListing kit;
 
@@ -658,7 +661,7 @@ public class PanelClp extends JPanel implements ActionListener
 
 					cl.setText(" " + el.toShortString());
 
-					if(index>0) // Error: #19585 IAE: Width and height must be >= 0 (Metal look-and-feel on Linux)
+					if(index>(checkToolTipText?-1:0)) // Error: #19585 IAE: Width and height must be >= 0 (Metal look-and-feel on Linux)
 					{
 						cl.setToolTipText("" + el.toComment());
 						cl.setInheritsPopupMenu(true);

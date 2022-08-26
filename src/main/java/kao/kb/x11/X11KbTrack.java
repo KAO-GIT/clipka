@@ -419,6 +419,12 @@ public class X11KbTrack extends KbTrack
 		}
 	}
 
+	@Override
+	public boolean isModificatorPressed()
+	{
+		return false;
+	}
+	
 	public static class Test
 	{
 		//LockSupport.parkNanos(1_000_000_000); 

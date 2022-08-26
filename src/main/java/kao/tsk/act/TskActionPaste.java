@@ -18,6 +18,7 @@ public class TskActionPaste extends TskActionAbstract
 	@Override
 	public IResErrors runAction() throws Exception
 	{
+
 		String c = getContent();
 		if (c.isBlank())
 		{
@@ -25,7 +26,7 @@ public class TskActionPaste extends TskActionAbstract
 			{ KeyEvent.VK_SHIFT, KeyEvent.VK_INSERT });
 		} else
 		{
-			Tsks.paste(KeyUtil.getKeysForRobot(KeyUtil.getKeyStruct(c)));
+			Tsks.paste(KeyUtil.getKeysForRobot( (KeyUtil.getKeyStructs(c).get(0).get(0)) ));
 		}
 		return ResErrors.NOERRORS;
 	}

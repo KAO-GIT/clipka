@@ -46,6 +46,16 @@ public enum TskActionNames
 		}
 	},
 
+	@AnnotationDefValue("Send keys - using a special key Compose (for Windows - Alt)")
+	@AnnotationDefValueRu("Посылать символ(ы), используя специальную клавишу Compose (для системы Windows - Alt)")
+	TSKTYPE_SENDKEYS_COMPOSE(3){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionSendCompose.class;
+		}
+	},
+	
 	@AnnotationDefValue("Copy selected text into clipboard")
 	@AnnotationDefValueRu("Попытаться скопировать выделенный текст в буфер обмена")
 	TSKTYPE_COPY(11){
@@ -76,8 +86,8 @@ public enum TskActionNames
 		}
 	},
 	
-	@AnnotationDefValue("Set string into clipboard")
-	@AnnotationDefValueRu("Сохранить указанную строку в буфер обмена")
+	@AnnotationDefValue("Set current string into clipboard")
+	@AnnotationDefValueRu("Сохранить текущую обрабатываемую строку в буфер обмена")
 	TSKTYPE_SETCLIPBOARDCONTENS(15){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
@@ -204,6 +214,11 @@ public enum TskActionNames
 		@AnnotationDefValue("Do not transfer hotkey, the operation tries to paste the value from the clipboard")
 		@AnnotationDefValueRu("Не стоит просто передавать горячую клавишу, операция пытается именно вставить значение из буфера обмена")
 		TSKTYPE_PASTE,
+		
+		@AnnotationDefValue("Only for keys that are independent of the keyboard layout. Do not use to transfer text")
+		@AnnotationDefValueRu("Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста ")
+		TSKTYPE_SENDKEYS,
+		
 	}
 
 	/**

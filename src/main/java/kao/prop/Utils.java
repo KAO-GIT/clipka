@@ -1,6 +1,9 @@
 package kao.prop;
 
+import java.awt.AWTException;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -11,7 +14,6 @@ import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class Utils
 {
 
@@ -20,8 +22,19 @@ public class Utils
 	private Utils()
 	{
 	}
-	
 
+	/**
+	 * Ожидает, пока не будут отпущены все клавиши модификаторов
+	 */
+	public static boolean waitEmptyModifiers()
+	{
+		return Utils.repeatUntilSuccess((BooleanSupplierWithException<Exception>) () ->
+		{
+			if(kao.kb.KbTrackStart.getGeneralTrack().isModificatorPressed()) throw new Exception("Modificator pressed");
+			return true; 
+		}, java.util.Map.of("max", 10, "timeout", 100, "message", "Extend time for pressReleaseKeys task for {0} msec"));
+	}
+	
 	/**
 	 * Пытается нажать / отпустить клавиши. Не запускается в отдельном потоке. 
 	 * 
@@ -43,6 +56,8 @@ public class Utils
 	 */
 	public static void pressReleaseKeys(int[] keys, boolean inNewThread) throws Exception
 	{
+		waitEmptyModifiers(); 
+		
 		Runnable r = () ->
 		{
 			try
@@ -74,6 +89,88 @@ public class Utils
 		{
 			r.run();
 		}
+	}
+
+	public static void pressWithComposeKeys(int[] keys, String s)
+	{
+		waitEmptyModifiers();
+		
+		byte[] bytes;
+		try
+		{
+			bytes = s.getBytes("CP866");
+			for (byte b : bytes)
+			{
+				pressWithComposeKeys(keys, b);
+				Thread.sleep(1);
+			}
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void pressWithComposeKeys(int[] keys, byte symbol)
+	{
+		String ascii = Integer.valueOf((int) symbol & 0xff).toString(); // byte -> int
+		Integer[] codes = ascii.chars().mapToObj(i ->
+		{
+			switch (i)
+			{
+			case '0':
+				return KeyEvent.VK_NUMPAD0;
+			case '1':
+				return KeyEvent.VK_NUMPAD1;
+			case '2':
+				return KeyEvent.VK_NUMPAD2;
+			case '3':
+				return KeyEvent.VK_NUMPAD3;
+			case '4':
+				return KeyEvent.VK_NUMPAD4;
+			case '5':
+				return KeyEvent.VK_NUMPAD5;
+			case '6':
+				return KeyEvent.VK_NUMPAD6;
+			case '7':
+				return KeyEvent.VK_NUMPAD7;
+			case '8':
+				return KeyEvent.VK_NUMPAD8;
+			case '9':
+				return KeyEvent.VK_NUMPAD9;
+			default:
+				return KeyEvent.VK_NUMPAD0;
+			}
+		}).toArray(Integer[]::new);
+
+		java.awt.Robot robot;
+		try
+		{
+			robot = new java.awt.Robot();
+			robot.setAutoDelay(1);
+
+			// нажмем compoze клавишу (для Windows Alt)
+			IntStream.range(0, keys.length).forEachOrdered(i -> robot.keyPress(keys[i]));
+
+			IntStream.range(0, codes.length).forEachOrdered(i ->
+			{
+				robot.keyPress(codes[i]);
+				robot.delay(1);
+				robot.keyRelease(codes[i]);
+			});
+
+			// отпустим Compose клавишу (для Windows Alt)
+			IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
+		} catch (AWTException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static boolean startsWithIgnoreCase​(String source, String find)
@@ -346,6 +443,5 @@ public class Utils
 		//return true; 
 		return Arrays.stream(enumClass.getEnumConstants()).anyMatch(e -> e.name().equals(value));
 	}
-
 
 }

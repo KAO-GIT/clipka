@@ -66,6 +66,7 @@ public class WndSett extends JDialog
 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setTitle("ClipKA");
+		this.setIconImage(Dlg.getIconImage());
 		this.setModal(false);
 
 	// пока обойдемся одной панелью		

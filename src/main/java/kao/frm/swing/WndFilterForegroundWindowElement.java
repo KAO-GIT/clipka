@@ -46,6 +46,7 @@ public class WndFilterForegroundWindowElement extends JDialog
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("ClipKA");
+		setIconImage(Dlg.getIconImage());
 		setModal(true);
 
 		JPanel p0 = new JPanel();

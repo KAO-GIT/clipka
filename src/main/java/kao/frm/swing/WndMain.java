@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
-import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import kao.Main;
 import kao.cp.ClipboardMonitor;
 import kao.db.ConData;
 
@@ -41,7 +39,7 @@ public class WndMain extends JFrame
 	public WndMain()
 	{
 		super.setTitle("ClipKA");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(WndMain.class.getResource("/images/logo.png")));
+		setIconImage(Dlg.getIconImage());
 
 		//this.setSize(800, 600);     
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -199,7 +197,7 @@ public class WndMain extends JFrame
 		if (SystemTray.isSupported() && ConData.getIntProp(ResNames.SETTINGS_SYS_SHOW_TRAY) != 0)
 		{
 
-			final Image i = Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/logo.png"));
+			final Image i = Dlg.getIconImage();
 			//final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(16, -1, 4));
 			final TrayIcon trayIcon = new TrayIcon(i);
 
@@ -214,6 +212,14 @@ public class WndMain extends JFrame
 			final PopupMenu popup = new PopupMenu();
 			final ResourceBundle b = ResKA.getDefaultResourceBundle();
 
+			MenuItem aboutItem = new MenuItem(b.getString("About"));
+			aboutItem.addActionListener(e ->
+			{
+				kao.frm.swing.Dlg.About();
+			});
+			popup.add(aboutItem);
+			
+			popup.addSeparator();
 			
 			MenuItem mtc = new MenuItem(b.getString(ResNames.WND_CLIPS.name()));
 			mtc.addActionListener(e ->

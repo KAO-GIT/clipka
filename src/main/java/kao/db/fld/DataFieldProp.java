@@ -6,7 +6,6 @@ import java.util.List;
 import kao.db.*;
 import kao.el.*;
 import kao.prop.ResKA;
-import kao.db.xml.ISerializableObjectXML;
 
 /**
  * Свойства поля базы данных
@@ -14,7 +13,7 @@ import kao.db.xml.ISerializableObjectXML;
  * @author KAO
  *
  */
-public class DataFieldProp implements IDataTypes,ISerializableObjectXML
+public class DataFieldProp implements IDataTypes
 {
 	private DataFieldNames dataFieldName; // описание имени поля как enum  
 	private MetaTypes type; // тип поля 

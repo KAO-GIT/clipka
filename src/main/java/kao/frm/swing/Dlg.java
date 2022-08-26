@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,6 +42,10 @@ public class Dlg
 		}).start();
 	}
 
+	public static java.awt.Image getIconImage()
+	{
+		return Toolkit.getDefaultToolkit().getImage(Dlg.class.getResource("/images/logo.png")); 
+	}
 
 	public static void addEscapeListener(final JDialog dialog, final ActionListener action)
 	{

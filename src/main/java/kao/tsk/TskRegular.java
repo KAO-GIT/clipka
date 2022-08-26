@@ -19,6 +19,7 @@ import kao.tsk.act.TskAction;
  */
 public class TskRegular implements Tsk
 {
+//	private static final Logger LOGGER = LoggerFactory.getLogger(TskRegular.class);
 
 	private ElementsForListing<DBRecordSubTask> subtasks;
 
@@ -40,7 +41,9 @@ public class TskRegular implements Tsk
 				ret = ResErrors.ERR_SUBTASK_EXECUTE;
 				break;
 			}
+//			LOGGER.info("begin {}",dbRecordSubTask.getValue(DataFieldNames.DATAFIELD_SUBTASKTYPE));
 			ret = a.runAction(); 
+//			LOGGER.info("end {}",ret);
 			if (!ret.isSuccess()) break;
 		}
 		return ret;

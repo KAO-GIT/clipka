@@ -29,6 +29,7 @@ public class WndHelp extends JDialog
 
 		//this.setSize(800, 600);
 		this.setModal(true);
+		this.setIconImage(Dlg.getIconImage());
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.getContentPane().add(createPanel(url));
 		this.pack();

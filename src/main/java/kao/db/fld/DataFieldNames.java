@@ -45,6 +45,10 @@ public enum DataFieldNames
 	@AnnotationDefValue("Hotkey")
 	@AnnotationDefValueRu("Hotkey")
 	DATAFIELD_HOTKEY, 
+	
+	@AnnotationDefValue("Position")
+	@AnnotationDefValueRu("Приоритет")
+	DATAFIELD_POSITION, 
 
 	@AnnotationDefValue("Group")
 	@AnnotationDefValueRu("Группа")

@@ -39,6 +39,7 @@ public class Wnd implements AutoCloseable
 
 		w = new JDialog(owner);
 		w.setTitle("ClipKA");
+		w.setIconImage(Dlg.getIconImage());
 		w.setDefaultCloseOperation(hideOnClose ? JFrame.HIDE_ON_CLOSE : JFrame.DISPOSE_ON_CLOSE);
 //		w.setModal(owner == null ? false : true);
 		w.setModal(isModal);

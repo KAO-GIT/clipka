@@ -7,7 +7,6 @@ import java.util.EnumMap;
 import java.util.List;
 
 import kao.db.MetaTypes;
-import kao.db.xml.ISerializableObjectXML;
 import kao.el.ETitleSource;
 import kao.el.ElementsForListing;
 import kao.el.IElement;
@@ -16,7 +15,7 @@ import kao.frm.swing.FieldDataWithType;
 /**
  * @author KAO
  */
-public class DBRecord implements IRecord, IElement, ISerializableObjectXML
+public class DBRecord implements IRecord, IElement
 {
 	int predefined = 0; // Предопределенная запись
 

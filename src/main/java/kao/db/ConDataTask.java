@@ -1,5 +1,6 @@
 package kao.db;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,14 +9,17 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.Optional;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 import kao.db.fld.*;
+import kao.db.xml.SerializatorsXML;
 import kao.el.*;
 import kao.fw.FilterWindows;
 import kao.res.*;
-import kao.tsk.act.TskActionNames;
 import kao.prop.Utils;
 
 /**
@@ -292,11 +296,12 @@ public class ConDataTask
 					id = resultSet.getInt("id");
 				}
 
-				statement = connection.prepareStatement("UPDATE tsk.tsg1 SET name=?,description=?,hotkey=? WHERE id=?");
+				statement = connection.prepareStatement("UPDATE tsk.tsg1 SET name=?,description=?,hotkey=?,position=? WHERE id=?");
 				statement.setString(1, cp.getStringValueForDataBase(DataFieldNames.DATAFIELD_NAME));
 				statement.setString(2, cp.getStringValueForDataBase(DataFieldNames.DATAFIELD_DESCRIPTION));
 				statement.setString(3, cp.getStringValue(DataFieldNames.DATAFIELD_HOTKEY));
-				statement.setInt(4, id);
+				statement.setInt(4, cp.getIntValue(DataFieldNames.DATAFIELD_POSITION));
+				statement.setInt(5, id);
 				statement.executeUpdate();
 
 				return ResErrors.NOERRORS;
@@ -403,137 +408,175 @@ public class ConDataTask
 	{
 
 		/**
+		 * Получает задачу из сериализованного представления 
+		 * 
+		 * @param currentName
+		 * @return
+		 */
+		private static DBRecordTask getSerializedObject(String currentName)
+		{
+			String res = String.format("/xml/predefined/task/%s.xml",currentName);
+			if(res!=null)
+			{
+			try
+			{
+				return (DBRecordTask) SerializatorsXML.fromResource(res); 
+			} catch (ParserConfigurationException | SAXException | IOException e)
+			{
+			}
+			}
+			return null; 
+		}
+		
+		/**
 		 * Заполняет встроенные задачи
 		 * 
 		 */
-		private static void setDefTasks(String currentName, DBRecordTask cp)
+		private static void setDefTasks(int code, ResNames name)
 		{
-			if (currentName.isEmpty() || currentName.equalsIgnoreCase(cp.getStringValue(DataFieldNames.DATAFIELD_NAME)))
+			try
 			{
-				try
+				if (!findRecTask(code)) 
 				{
-					if (!findRecTask(cp.getIdInt())) save(cp);
-				} catch (SQLException e)
-				{
-					e.printStackTrace();
+					DBRecordTask ser = getSerializedObject(name.name()); 
+					if(ser!=null)
+					{
+						DBRecordTask cp = new DBRecordTask(1);  
+						cp.fill(ser);
+						cp.setValue(DataFieldNames.DATAFIELD_ID, code); 
+						cp.setValue(DataFieldNames.DATAFIELD_NAME, name.name());
+						String descr = "DESCRIPTION_"+name.name();
+						if(ResNames.isInEnum(descr))
+						{
+							cp.setValue(DataFieldNames.DATAFIELD_DESCRIPTION, descr);
+						}
+						save(cp);
+					}	
 				}
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
 			}
+			
 		}
-
+		
 		private static void setDefTasks()
 		{
-			String currentName = "";
+			setDefTasks(1, ResNames.TASK_PREDEFINED_CLIPS); 
+			setDefTasks(2, ResNames.TASK_PREDEFINED_CHANGE_ENCODING_TEXT); 
+			setDefTasks(3, ResNames.TASK_PREDEFINED_CHANGE_CASE_TEXT); 
+			setDefTasks(100, ResNames.TASK_PREDEFINED_CURRENT_DATE); 
 
-			{
-				DBRecordTask cp = new DBRecordTask(1);
-				cp.setValue(DataFieldNames.DATAFIELD_ID, 1).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CLIPS.name());
-				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{control multiply}");
-				setDefTasks(currentName, cp);
-			}
-			{
-				DBRecordTask cp = new DBRecordTask(1);
-				cp.setValue(DataFieldNames.DATAFIELD_ID, 2).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CHANGE_ENCODING_TEXT.name());
-				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{control divide}");
-
-				DBRecordSubTask st;
-				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_COPY.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{control insert}");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_GETCLIPBOARDCONTENS.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_CHANGE_ENCODING_TEXT.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
-				subtasks.add(st);
-
-				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
-
-				setDefTasks(currentName, cp);
-			}
-			{
-				DBRecordTask cp = new DBRecordTask(1);
-				cp.setValue(DataFieldNames.DATAFIELD_ID, 3).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CHANGE_CASE_TEXT.name());
-				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{alt divide}"); // {alt pause}
-
-				DBRecordSubTask st;
-				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_COPY.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{control insert}");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_GETCLIPBOARDCONTENS.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_CHANGE_CASE_TEXT.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
-				subtasks.add(st);
-
-				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
-
-				setDefTasks(currentName, cp);
-			}
-
-			{
-				DBRecordTask cp = new DBRecordTask(1);
-				cp.setValue(DataFieldNames.DATAFIELD_ID, 100).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CURRENT_DATE.name());
-				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{divide}{d}{space}\n{slash}{d}{space}");
-
-				DBRecordSubTask st;
-				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SENDKEYS.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{backspace}{backspace}{backspace}");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_RUNCODE_GROOVY.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "new Date().format('yyyy-MM-dd HH:mm:ss')");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-				subtasks.add(st);
-
-				st = new DBRecordSubTask(cp);
-				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
-				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
-				subtasks.add(st);
-
-				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
-
-				setDefTasks(currentName, cp);
-			}
+//			{
+//				DBRecordTask cp = new DBRecordTask(1);
+//				cp.setValue(DataFieldNames.DATAFIELD_ID, 1).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CLIPS.name());
+//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{control multiply}");
+//				setDefTasks(currentName, cp);
+//			}
+//			{
+//				DBRecordTask cp = new DBRecordTask(1);
+//				cp.setValue(DataFieldNames.DATAFIELD_ID, 2).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CHANGE_ENCODING_TEXT.name());
+//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{control divide}");
+//
+//				DBRecordSubTask st;
+//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_COPY.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{control insert}");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_GETCLIPBOARDCONTENS.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_CHANGE_ENCODING_TEXT.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
+//				subtasks.add(st);
+//
+//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
+//
+//				setDefTasks(currentName, cp);
+//			}
+//			{
+//				DBRecordTask cp = new DBRecordTask(1);
+//				cp.setValue(DataFieldNames.DATAFIELD_ID, 3).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CHANGE_CASE_TEXT.name());
+//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{alt divide}"); // {alt pause}
+//
+//				DBRecordSubTask st;
+//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_COPY.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{control insert}");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_GETCLIPBOARDCONTENS.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_CHANGE_CASE_TEXT.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
+//				subtasks.add(st);
+//
+//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
+//
+//				setDefTasks(currentName, cp);
+//			}
+//
+//			{
+//				DBRecordTask cp = new DBRecordTask(1);
+//				cp.setValue(DataFieldNames.DATAFIELD_ID, 100).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CURRENT_DATE.name());
+//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{divide}{d}{space}\n{slash}{d}{space}");
+//
+//				DBRecordSubTask st;
+//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SENDKEYS.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{backspace}{backspace}{backspace}");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_RUNCODE_GROOVY.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "new Date().format('yyyy-MM-dd HH:mm:ss')");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+//				subtasks.add(st);
+//
+//				st = new DBRecordSubTask(cp);
+//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
+//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
+//				subtasks.add(st);
+//
+//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
+//
+//				setDefTasks(currentName, cp);
+//			}
 
 		}
 

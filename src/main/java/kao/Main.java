@@ -268,7 +268,7 @@ public class Main
 		System.out.println("Java Patch Element Version = "+version.patch());
 		System.out.println("Java Update Element Version = "+version.update());
 		System.out.println("Java Version Build = "+version.build().get());
-		System.out.println("Java Pre-Release Info = "+version.pre().orElse("NA"));		
+		System.out.println("Java Pre-Release Info = "+version.pre().orElse("NA"));
 		
 		//Ошибки 11.0.8 / 11.0.9 / 11.0.10 / 15.0.1 / 15.0.2
 		// PanelClp: cl.setToolTipText
@@ -295,16 +295,16 @@ public class Main
 			// если используем JUL - можем получить, но если нет - ошибку не выдаем
 			//System.err.println("Could not setup logger configuration: " + e.toString());
 		}
-
-		try
-		{
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			// UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Arial",
-			// Font.PLAIN, 9));
-			// new Font(Font.MONOSPACED, Font.PLAIN, 12); 
-		} catch (Exception exc)
-		{
-		}
+		
+//		try
+//		{
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			// UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Arial",
+//			// Font.PLAIN, 9));
+//			// new Font(Font.MONOSPACED, Font.PLAIN, 12); 
+//		} catch (Exception exc)
+//		{
+//		}
 
 		ConData.initializeTables();
 		if (port == 0) port = ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT);

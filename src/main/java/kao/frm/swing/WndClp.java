@@ -24,6 +24,7 @@ public class WndClp
 		w = new JDialog();
 		w.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		w.setTitle("ClipKA");
+		w.setIconImage(Dlg.getIconImage());
 		w.setModal(false);
 
 		panelClp = new PanelClp();

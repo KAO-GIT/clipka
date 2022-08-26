@@ -5,15 +5,14 @@ import java.io.IOException;
 
 import kao.db.fld.IRecord;
 
-
 public abstract class KbTrack implements Closeable
 {
-	
-	private volatile boolean workPaused = false; 
-	
+
+	private volatile boolean workPaused = false;
+
 	private volatile KbRingBuffer ringBuffer;
 	private volatile KbRingBufferAnalizer ringBufferAnalizer;
-	
+
 	public KbRingBuffer getRingBuffer()
 	{
 		return ringBuffer;
@@ -46,21 +45,21 @@ public abstract class KbTrack implements Closeable
 
 	public synchronized void setWorkPaused(boolean workPaused)
 	{
-		System.out.println("KbTrack Work KbPaused: "+workPaused);
+		System.out.println("KbTrack Work KbPaused: " + workPaused);
 		this.workPaused = workPaused;
 	}
-	
+
 	/**
 	 * Записывает очередной элемент в буфер нажатых клавиш
 	 * @param item - KeyStruct - нажатые клавиши
 	 */
 	public void push(KeyStruct item)
 	{
-		if(!isWorkPaused())
+		if (!isWorkPaused())
 		{
-			//System.out.printf("KbTrack push: %s %x \n",item,item.getCode());
+			//System.out.printf("KbTrack push: %s %x, no modifiers %b \n",item,item.getCode(), item.getModifiers().isEmpty() );
 			getRingBuffer().push(item);
-		}	
+		}
 	}
 
 	/**
@@ -68,12 +67,12 @@ public abstract class KbTrack implements Closeable
 	 */
 	public void analize()
 	{
-		if(!isWorkPaused())
+		if (!isWorkPaused())
 		{
 			getRingBufferAnalizer().analize();
 		}
 	}
-	
+
 	/**
 	 * Сохраняет горячую клавишу в RingBufferAnalizer keysData
 	 * @param key - последовательность нажатия
@@ -82,7 +81,7 @@ public abstract class KbTrack implements Closeable
 	 */
 	public synchronized IRecord putHotKey(KeyStructs key, IRecord value)
 	{
-		return getRingBufferAnalizer().put(key,value);
+		return getRingBufferAnalizer().put(key, value);
 	}
 
 	/**
@@ -102,7 +101,7 @@ public abstract class KbTrack implements Closeable
 	{
 		getRingBufferAnalizer().clear();
 	}
-	
+
 	/**
 	 * Обновляет горячие клавиши для задачи. Может как удалить текущие ключи, так и заменить на другие
 	 * @param hotkeys - текстовое представление ключей
@@ -113,12 +112,15 @@ public abstract class KbTrack implements Closeable
 		ringBufferAnalizer.updateKeyStructs(hotkeys, r);
 	}
 
-	public abstract void runMonitor(); 
-	
-	public abstract void stop();  
+	public abstract void runMonitor();
 
-	
+	public abstract void stop();
+
+	/**
+	 * Возвращает истина, если нажат один из модификаторов
+	 */
+	public abstract boolean isModificatorPressed();
+
 	//java.util.concurrent.TimeUnit:
-	
 
 }

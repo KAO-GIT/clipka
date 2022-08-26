@@ -48,6 +48,7 @@ public class WndSettElement extends JDialog
 		JDialog w = this;
 		w.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		w.setTitle("ClipKA");
+		w.setIconImage(Dlg.getIconImage());
 		w.setModal(true);
 
 		w.setLayout(new BorderLayout());

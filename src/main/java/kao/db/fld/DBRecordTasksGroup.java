@@ -6,7 +6,7 @@ import kao.db.MetaTypes;
 import kao.el.ETitleSource;
 //import kao.frm.swing.FieldDataWithType;
 
-public class DBRecordTasksGroup extends DBRecord implements IHotkey,kao.db.xml.ISerializableObjectXML
+public class DBRecordTasksGroup extends DBRecord implements IHotkey
 {
 	public DBRecordTasksGroup()
 	{
@@ -20,6 +20,7 @@ public class DBRecordTasksGroup extends DBRecord implements IHotkey,kao.db.xml.I
 		ETitleSource source = ETitleSource.checkPredefined(predefined); // Имя и описание может получаться из ресурсов  
 		
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_ID, MetaTypes.INTEGER, "id")); 
+		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_POSITION, MetaTypes.INTEGER, "position")); 
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_NAME, MetaTypes.STRING, "name",source));
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_DESCRIPTION, MetaTypes.STRING, "description",source));
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_HOTKEY, MetaTypes.HOTKEY, "hotkey")); 
