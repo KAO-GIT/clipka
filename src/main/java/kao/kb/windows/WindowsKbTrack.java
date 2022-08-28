@@ -107,6 +107,9 @@ public class WindowsKbTrack extends KbTrack
 
 	private KeyStruct checkKeys(int vkCodeSource, int flags)
 	{
+
+//Нажатие клавиши shift при включенном numlock, действует как выключение numlock и передает измененные коды клавиш
+		
 //Все цифры на цифровой клавиатуре с выключенным numlock (0-9.) приходят с "extended-key flag" = 0, Enter - 1
 //Соответствующие им клавиши на обычной клавиатуре приходят с "extended-key flag" = 1, Enter - 0 				
 		
@@ -237,7 +240,7 @@ public class WindowsKbTrack extends KbTrack
 					KeyStruct ret = checkKeys(lParam.vkCode,lParam.flags);
 					if (ret != null)
 					{
-						System.out.printf("WibdowsKbTrack push: %s %x, modifiers %b \n",ret,ret.getCode(), isModificatorPressed() );
+						//System.out.printf("WibdowsKbTrack push: %s %x, modifiers %b \n",ret,ret.getCode(), isModificatorPressed() );
 						
 							WindowsKbTrack.this.push(ret);
 							WindowsKbTrack.this.analize();
@@ -304,7 +307,7 @@ public class WindowsKbTrack extends KbTrack
 	@Override
 	public boolean isModificatorPressed()
 	{
-		System.out.println("WindowsKBTrack isModificatorPressed "+checkModificators().getModifiers());
+		//System.out.println("WindowsKBTrack isModificatorPressed "+checkModificators().getModifiers());
 		return !checkModificators().getModifiers().isEmpty(); 
 	}
 

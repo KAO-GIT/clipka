@@ -32,11 +32,8 @@ dependencies {
 
 
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
-    
-		// https://jarcasting.com/artifacts/com.github.taksan/native-tray-adapter/
-		implementation 'com.github.taksan:native-tray-adapter:1.1'    
-		implementation 'com.github.taksan:jni-utils:1.0'		
-		implementation 'commons-lang:commons-lang:20030203.000129'
+
+    //implementation("com.dorkbox:SystemTray:4.2")
 
 /*
     implementation 'org.slf4j:slf4j-api:1.7.13'

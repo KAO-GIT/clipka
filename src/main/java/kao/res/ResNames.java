@@ -65,7 +65,11 @@ public enum ResNames
 	@AnnotationDefValue("Current system")
 	@AnnotationDefValueRu("Текущая операционная система")
 	PARAM_CURRENT_SYSTEM(),
-	
+
+	@AnnotationDefValue("Current system - Windows")
+	@AnnotationDefValueRu("Текущая операционная система - Windows")
+	PARAM_CURRENT_SYSTEM_WINDOWS(),
+
 	@AnnotationDefValue("Current system - 64 Bit")
 	@AnnotationDefValueRu("Текущая операционная система - 64 Bit")
 	PARAM_CURRENT_SYSTEM_IS64BIT(),
@@ -85,6 +89,10 @@ public enum ResNames
 	@AnnotationDefValue("Watch the clipboard: primary (mouse selection)")
 	@AnnotationDefValueRu("Отслеживать буфер обмена: выделение")
 	SETTINGS_CLP_WATCH_PRIMARY(),
+
+	@AnnotationDefValue("If the check box is not selected, exclude primary clipboard (mouse selection). To apply this setting, you need to close the program")
+	@AnnotationDefValueRu("Если флажок не установлен, не используется буфер обмена: выделение. Для применения настройки небходимо завершить работу программы")
+	DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY(),
 	
 	@AnnotationDefValue("Timeout for save position (min)")
 	@AnnotationDefValueRu("Время в минутах, после которого прекращается запоминание позиции в списке клипов")
@@ -133,7 +141,6 @@ public enum ResNames
 	@AnnotationDefValue("If the check box is not selected, a window with action buttons is displayed. To apply this setting, you need to close the program")
 	@AnnotationDefValueRu("Если флажок не установлен, показывается окно с кнопками действий. Для применения настройки небходимо завершить работу программы")
 	DESCRIPTION_SETTINGS_SYS_SHOW_TRAY(),
-	
 
 	@AnnotationDefValue("General settings")
 	@AnnotationDefValueRu("Имя настройки")
@@ -285,7 +292,7 @@ public enum ResNames
 	
 	@AnnotationDefValue("Are you sure?")
 	@AnnotationDefValueRu("Вы уверены?")
-	ALL_MESS_SURE(),   
+	ALL_MESS_SURE(),    
 	
 //	@AnnotationDefValue("")
 //	@AnnotationDefValueRu("")

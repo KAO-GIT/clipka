@@ -1,10 +1,12 @@
 package kao.cp;
 
-//import kao.db.*;
+import kao.db.ConData;
+
 import kao.el.*;
 import kao.prop.*;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
+import kao.res.ResNames;
 
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
@@ -155,7 +157,7 @@ public final class ClipboardMonitor implements Closeable, ClipboardOwner, Flavor
 
 	public static boolean isMonitoringPrimary()
 	{
-		return true;
+		return ConData.getIntProp(ResNames.SETTINGS_CLP_WATCH_PRIMARY)==1;
 	}
 
 	synchronized public EWorkVariants getVariant()

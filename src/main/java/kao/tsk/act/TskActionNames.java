@@ -46,7 +46,7 @@ public enum TskActionNames
 		}
 	},
 
-	@AnnotationDefValue("Send keys - using a special key Compose (for Windows - Alt)")
+	@AnnotationDefValue("Send keys using a special key Compose (for Windows - Alt)")
 	@AnnotationDefValueRu("Посылать символ(ы), используя специальную клавишу Compose (для системы Windows - Alt)")
 	TSKTYPE_SENDKEYS_COMPOSE(3){
 		@Override
@@ -218,6 +218,10 @@ public enum TskActionNames
 		@AnnotationDefValue("Only for keys that are independent of the keyboard layout. Do not use to transfer text")
 		@AnnotationDefValueRu("Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста ")
 		TSKTYPE_SENDKEYS,
+		
+		@AnnotationDefValue("Send keys using a special key Compose (for Windows - Alt)")
+		@AnnotationDefValueRu("Отсылает коды клавиш с помощью специально настроеной клавиши Compose (для системы Windows - Alt). Может являться аналогом вставки из буфера обмена  ")
+		TSKTYPE_SENDKEYS_COMPOSE,
 		
 	}
 

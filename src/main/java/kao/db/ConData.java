@@ -211,6 +211,7 @@ public class ConData implements AutoCloseable
 		// Сохраним данные от текущей операционной системе
 		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM_IS64BIT, com.sun.jna.Platform.is64Bit()?1:0);
 		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM, com.sun.jna.Platform.isWindows()?"W":com.sun.jna.Platform.isX11()?"X":"");
+		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS, com.sun.jna.Platform.isWindows()?1:0);
 		
 	}
 

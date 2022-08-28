@@ -39,7 +39,7 @@ public class ClipboardUpdaterStart
 		
 		if (Platform.isX11())
 		{
-			if(isPrimary) return null;
+			//if(isPrimary) return null;
 			if(isPrimary) updater = new X11ClipboardUpdater.X11Primary(func); 
 			else updater = new X11ClipboardUpdater.X11Clipboard(func);
 		} else if (Platform.isWindows())

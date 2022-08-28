@@ -181,10 +181,11 @@ public class ConDataClp
 					ResultSet resultSet = statement.executeQuery();
 					if (resultSet.next()) // Id найден - попытаемся на него перейти
 					{
+						int rmDupl = ConData.getIntProp(ResNames.SETTINGS_CLP_REMOVEDUPLICATES); // если удаление дублей указано - смещаем по другому   
 						int selectedIdNew = resultSet.getInt("Id"); 
 						statement = null;
 						statement = getStatementWithFilter("SELECT COUNT(*) as pos, (COUNT(*)-1) / %1$d AS page FROM data.tt1 ", " ORDER BY ROWID DESC ", filter,
-								"ROWID>=?", selectedIdNew, recOnPage);
+								rmDupl==0?"ROWID>?":"ROWID>=?", selectedIdNew, recOnPage);
 
 						ResultSet resultSetCount2 = statement.executeQuery();
 						resultSetCount2.next();

@@ -422,7 +422,10 @@ public class X11KbTrack extends KbTrack
 	@Override
 	public boolean isModificatorPressed()
 	{
-		return false;
+		KeyStruct key = new KeyStruct();
+		byte[] keys_return = new byte[32];
+		checkKeys(key, keys_return);
+		return !key.getModifiers().isEmpty();
 	}
 	
 	public static class Test

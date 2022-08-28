@@ -54,6 +54,7 @@
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">Favorites</entry>
 <entry key="DESCRIPTION_HOTKEYS__ALL__">All hotkeys</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">If you delete duplicates, you may lose information about the time of creation and source of the clips</entry>
+<entry key="DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY">If the check box is not selected, exclude primary clipboard (mouse selection). To apply this setting, you need to close the program</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">By default, a window with action buttons is displayed if the system tray is not available. When the check box is selected, it will always be displayed</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_TRAY">If the check box is not selected, a window with action buttons is displayed. To apply this setting, you need to close the program</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SOCKETPORT">Port is used at startup. Starting the program for the second time - just opens the window or run task</entry>
@@ -70,6 +71,8 @@
 <entry key="DESCRIPTION_TSKTYPE_RUNCODE_GROOVY_CONTENT">Groovy code. You can use the variable 'result', containing the currently processed string. Returns the last value or value in the variable 'result'</entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNTASK_CONTENT">Task code</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVEASCURRENTSTRING_CONTENT">Save string from content as current string</entry>
+<entry key="DESCRIPTION_TSKTYPE_SENDKEYS">Only for keys that are independent of the keyboard layout. Do not use to transfer text</entry>
+<entry key="DESCRIPTION_TSKTYPE_SENDKEYS_COMPOSE">Send keys using a special key Compose (for Windows - Alt)</entry>
 <entry key="DESCRIPTION_TSKTYPE_SENDKEYS_CONTENT">Sent characters</entry>
 <entry key="DESCRIPTION_TSKTYPE_SETCLIPBOARDCONTENS_CONTENT">You can specify the map code the associated string will be saved into clipboard. If not specified, the current processed string will be saved.</entry>
 <entry key="DESCRIPTION_TSKTYPE_SETCURRENTSTRINGTOMAP_CONTENT">You can specify the map code, the current processed string will be saved there</entry>
@@ -123,6 +126,7 @@
 <entry key="NOTSUPPORTED">Not supported</entry>
 <entry key="PARAM_CURRENT_SYSTEM">Current system</entry>
 <entry key="PARAM_CURRENT_SYSTEM_IS64BIT">Current system - 64 Bit</entry>
+<entry key="PARAM_CURRENT_SYSTEM_WINDOWS">Current system - Windows</entry>
 <entry key="PARAM_MAIN_OPEN_WINDOW">Current parameters for open main window</entry>
 <entry key="SETTINGS">Settings</entry>
 <entry key="SETTINGS_CLP">Clipboard settings</entry>
@@ -161,6 +165,7 @@
 <entry key="TSKTYPE_RUNTASK">Run task</entry>
 <entry key="TSKTYPE_SAVEASCURRENTSTRING">Save string from content as current string</entry>
 <entry key="TSKTYPE_SENDKEYS">Send keys - simulating keyboard input</entry>
+<entry key="TSKTYPE_SENDKEYS_COMPOSE">Send keys using a special key Compose (for Windows - Alt)</entry>
 <entry key="TSKTYPE_SETCLIPBOARDCONTENS">Set current string into clipboard</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Set current string into map</entry>
 <entry key="TSKTYPE_SET_IN_CLIPS">Set in clips</entry>

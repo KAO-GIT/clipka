@@ -296,16 +296,6 @@ public class Main
 			//System.err.println("Could not setup logger configuration: " + e.toString());
 		}
 		
-//		try
-//		{
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//			// UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Arial",
-//			// Font.PLAIN, 9));
-//			// new Font(Font.MONOSPACED, Font.PLAIN, 12); 
-//		} catch (Exception exc)
-//		{
-//		}
-
 		ConData.initializeTables();
 		if (port == 0) port = ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT);
 
@@ -316,6 +306,19 @@ public class Main
 			return;
 		}
 
+	try
+	{
+		if(ConData.getIntProp(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS)==1)
+		{	// только под Windows
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			// UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Arial",
+			// Font.PLAIN, 9));
+			// new Font(Font.MONOSPACED, Font.PLAIN, 12);
+		}
+	} catch (Exception exc)
+	{
+	}
+		
 		final int finalport = port; //для запуска потока
 		new Thread(() ->
 		{

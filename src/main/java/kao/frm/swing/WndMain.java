@@ -24,6 +24,7 @@ import kao.frm.WndsVarios;
 import kao.prop.ResKA;
 import kao.res.ResNames;
 
+
 public class WndMain extends JFrame
 {
 	private static final long serialVersionUID = 8266071338409855057L;
@@ -198,9 +199,9 @@ public class WndMain extends JFrame
 		{
 
 			final Image i = Dlg.getIconImage();
-			//final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(16, -1, 4));
+			//final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(-1, -1, Image.SCALE_FAST));
 			final TrayIcon trayIcon = new TrayIcon(i);
-
+			
 			trayIcon.setImageAutoSize(true);
 			trayIcon.setToolTip("ClipKA");
 
@@ -307,6 +308,19 @@ public class WndMain extends JFrame
 			//		});
 
 			trayIcon.setPopupMenu(popup);
+			
+//			try
+//			{
+//				SystemTrayAdapter javaTrayAdapter = new SystemTrayProvider().getSystemTray(); 
+//				javaTrayAdapter.createAndAddTrayIcon(
+//						Dlg.getIconResource(),   
+//				    "ClipKA",  
+//				    popup);  
+//			} catch (Exception e1)
+//			{
+//				ConData.updHashProp(ResNames.PARAM_MAIN_OPEN_WINDOW, 1);
+//			}  
+			
 
 			try
 			{

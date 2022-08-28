@@ -54,6 +54,7 @@
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">В группу попадают задачи для регулярного использования</entry>
 <entry key="DESCRIPTION_HOTKEYS__ALL__">Все горячие клавиши</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">При удалении дупликатов можно потерять информацию о времени создания и источнике текста в буфере</entry>
+<entry key="DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY">Если флажок не установлен, не используется буфер обмена: выделение. Для применения настройки небходимо завершить работу программы</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">По умолчанию, окно с кнопками действий показывается, если недоступен системный трей. При установке флажка будет показываться всегда</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_TRAY">Если флажок не установлен, показывается окно с кнопками действий. Для применения настройки небходимо завершить работу программы</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SOCKETPORT">Порт используется при запуске. Запуск программы второй раз - просто открывает окно или запускает задачу</entry>
@@ -70,6 +71,8 @@
 <entry key="DESCRIPTION_TSKTYPE_RUNCODE_GROOVY_CONTENT">В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result </entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNTASK_CONTENT">В содержание заносится код задачи</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVEASCURRENTSTRING_CONTENT">В содержании нужно указать строку, которая будет сохранена как текущая обрабатываемая</entry>
+<entry key="DESCRIPTION_TSKTYPE_SENDKEYS">Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста </entry>
+<entry key="DESCRIPTION_TSKTYPE_SENDKEYS_COMPOSE">Отсылает коды клавиш с помощью специально настроеной клавиши Compose (для системы Windows - Alt). Может являться аналогом вставки из буфера обмена  </entry>
 <entry key="DESCRIPTION_TSKTYPE_SENDKEYS_CONTENT">В содержание заносятся необходимые посылаемые символы</entry>
 <entry key="DESCRIPTION_TSKTYPE_SETCLIPBOARDCONTENS_CONTENT">В содержании можно указать код словаря, строка из которого будет сохранена в буфере обмена. Если не указывать - будет сохранена текущая обрабатываемая строка.</entry>
 <entry key="DESCRIPTION_TSKTYPE_SETCURRENTSTRINGTOMAP_CONTENT">В содержании можно указать код словаря, туда будет сохранена текущая обрабатываемая строка</entry>
@@ -123,6 +126,7 @@
 <entry key="NOTSUPPORTED">Не поддерживается</entry>
 <entry key="PARAM_CURRENT_SYSTEM">Текущая операционная система</entry>
 <entry key="PARAM_CURRENT_SYSTEM_IS64BIT">Текущая операционная система - 64 Bit</entry>
+<entry key="PARAM_CURRENT_SYSTEM_WINDOWS">Текущая операционная система - Windows</entry>
 <entry key="PARAM_MAIN_OPEN_WINDOW">Необходимость открытия основного окна программы, определяемая текущими настройками</entry>
 <entry key="SETTINGS">Настройки</entry>
 <entry key="SETTINGS_CLP">Настройки для буфера обмена</entry>
@@ -161,6 +165,7 @@
 <entry key="TSKTYPE_RUNTASK">Запустить задачу</entry>
 <entry key="TSKTYPE_SAVEASCURRENTSTRING">Введенную в содержание строку сохранить как текущую обрабатываемую</entry>
 <entry key="TSKTYPE_SENDKEYS">Посылать символ(ы), имитируя ввод на клавиатуре</entry>
+<entry key="TSKTYPE_SENDKEYS_COMPOSE">Посылать символ(ы), используя специальную клавишу Compose (для системы Windows - Alt)</entry>
 <entry key="TSKTYPE_SETCLIPBOARDCONTENS">Сохранить текущую обрабатываемую строку в буфер обмена</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Сохранить текущую обрабатываемую строку в словарь</entry>
 <entry key="TSKTYPE_SET_IN_CLIPS">Поместить в список клипов</entry>

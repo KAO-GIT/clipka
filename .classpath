@@ -42,5 +42,7 @@
 	<classpathentry kind="lib" path="libs/groovy-datetime-4.0.2.jar"/>
 	<classpathentry kind="lib" path="libs/groovy-dateutil-4.0.2.jar"/>
 	<classpathentry kind="lib" path="libs/groovy-jsr223-4.0.2.jar"/>
+	<classpathentry kind="lib" path="libs/jni-utils-1.0.jar"/>
+	<classpathentry kind="lib" path="libs/native-tray-adapter-1.1.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
