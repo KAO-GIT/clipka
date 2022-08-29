@@ -44,6 +44,7 @@ import kao.tsk.Tsks;
 public class Main
 {
 
+	//private static final Logger LOGGER = LoggerFactory.getLogger(java.lang.invoke.MethodHandles.lookup().lookupClass());
 	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
 	private static void resetAll()

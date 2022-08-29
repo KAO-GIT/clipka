@@ -8,6 +8,9 @@ package kao.frm.swing;
 import javax.swing.*;
 import javax.swing.text.*;
 
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+
 // import javax.swing.event.DocumentEvent;
 // import javax.swing.event.DocumentListener;
 
@@ -17,6 +20,8 @@ import java.text.ParseException;
 
 public class FieldInt extends FieldKA
 {
+	//private static final Logger LOGGER = LoggerFactory.getLogger(FieldInt.class);
+	
 	private static final long serialVersionUID = -521764816888749572L;
 
 	JFormattedTextField jF;
@@ -133,7 +138,9 @@ public class FieldInt extends FieldKA
 		{
 			//e.printStackTrace();
 		}
-		return ((Long) jF.getValue()).intValue() ;
+		Object ret = jF.getValue(); 
+		if(ret instanceof Long) return Integer.valueOf( ((Long)ret).intValue() );   
+		return (Integer) ret ;
 	}
 	@Override
 	public Component getCurrComponent()

@@ -28,6 +28,7 @@ import java.awt.*;
  */
 public class FieldDataWithType extends FieldKA
 {
+
 	private static final long serialVersionUID = -521764816888749571L;
 	//private final DataFieldProp data;	
 	private FieldKA field;

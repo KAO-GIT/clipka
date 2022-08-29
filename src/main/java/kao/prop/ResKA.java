@@ -70,6 +70,12 @@ public class ResKA
 		}
 
 		LOGGER.info("getFileRealPath path: {}", path);
+
+		path2 = path+"/help/"+Locale.getDefault().getLanguage()+"/"+filename;
+		if( (new File(path2)).exists() ) return path2;
+
+		path2 = path+"/help/"+"en"+"/"+filename;
+		if( (new File(path2)).exists() ) return path2;
 		
 		path2 = path+"/additional/help/"+Locale.getDefault().getLanguage()+"/"+filename;
 		if( (new File(path2)).exists() ) return path2;

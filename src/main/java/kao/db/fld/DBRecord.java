@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import kao.db.MetaTypes;
 import kao.el.ETitleSource;
 import kao.el.ElementsForListing;
@@ -17,6 +20,8 @@ import kao.frm.swing.FieldDataWithType;
  */
 public class DBRecord implements IRecord, IElement
 {
+	private static final Logger LOGGER = LoggerFactory.getLogger(DBRecord.class);
+	
 	int predefined = 0; // Предопределенная запись
 
 	private final List<DataFieldProp> fields = new ArrayList<DataFieldProp>();
@@ -222,6 +227,7 @@ public class DBRecord implements IRecord, IElement
 	{
 		fieldsDataWithType.forEach((k, v) ->
 		{
+			LOGGER.debug("field name {}",k);
 			if (!getDataFieldProp(k).getSource().equals(ETitleSource.KEY_RESOURCE_BUNDLE))
 			{
 				setValue(k, v.getCurrValue());
