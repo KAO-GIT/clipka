@@ -61,11 +61,11 @@
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_CASE_TEXT_CONTENT">Содержание не требуется. Используется текущая обрабатываемая строка.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_ENCODING_TEXT_CONTENT">Содержание не требуется. Используется текущая обрабатываемая строка.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEARSTRINGFROMMAP_CONTENT">В содержании можно указать очищаемый код словаря</entry>
-<entry key="DESCRIPTION_TSKTYPE_COPY">Не стоит просто передавать горячую клавишу, операция пытается именно скопировать значение в буфер обмена</entry>
+<entry key="DESCRIPTION_TSKTYPE_COPY">Несмотря на указание горячей клавиши, это не просто имитация нажатия клавиш. Операция пытается именно скопировать значение в буфер обмена, ожидая ответа.</entry>
 <entry key="DESCRIPTION_TSKTYPE_COPY_CONTENT">В содержание заносится горячая клавиша для копирования: {control insert} или {control c}</entry>
 <entry key="DESCRIPTION_TSKTYPE_GETCLIPBOARDCONTENS_CONTENT">В содержании можно указать код словаря, с ним будет связана строка из буфера обмена. Если не указывать - используется текущая обрабатываемая строка.</entry>
 <entry key="DESCRIPTION_TSKTYPE_GETCURRENTSTRINGFROMMAP_CONTENT">В содержании можно указать код словаря, текущая обрабатываемая строка будет оттуда получена</entry>
-<entry key="DESCRIPTION_TSKTYPE_PASTE">Не стоит просто передавать горячую клавишу, операция пытается именно вставить значение из буфера обмена</entry>
+<entry key="DESCRIPTION_TSKTYPE_PASTE">Несмотря на указание горячей клавиши, это не просто имитация нажатия клавиш. Операция пытается именно вставить значение из буфера обмена</entry>
 <entry key="DESCRIPTION_TSKTYPE_PASTE_CONTENT">В содержание заносится горячая клавиша для вставки текста из буфера: {shift insert} или {control v}</entry>
 <entry key="DESCRIPTION_TSKTYPE_READ_FROM_CLIPS_CONTENT">В содержание заносится смещение от последнего клипа. Если не указывать - используется последний клип.</entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNCODE_GROOVY_CONTENT">В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result </entry>
