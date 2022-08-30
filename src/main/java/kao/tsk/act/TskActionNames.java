@@ -208,11 +208,11 @@ public enum TskActionNames
 	public static enum Descriptions
 	{
 		@AnnotationDefValue("Do not transfer hotkey, the operation tries to copy the value to the clipboard")
-		@AnnotationDefValueRu("Не стоит просто передавать горячую клавишу, операция пытается именно скопировать значение в буфер обмена")
+		@AnnotationDefValueRu("Несмотря на указание горячей клавиши, это не просто имитация нажатия клавиш. Операция пытается именно скопировать значение в буфер обмена, ожидая ответа.")
 		TSKTYPE_COPY,
 
 		@AnnotationDefValue("Do not transfer hotkey, the operation tries to paste the value from the clipboard")
-		@AnnotationDefValueRu("Не стоит просто передавать горячую клавишу, операция пытается именно вставить значение из буфера обмена")
+		@AnnotationDefValueRu("Несмотря на указание горячей клавиши, это не просто имитация нажатия клавиш. Операция пытается именно вставить значение из буфера обмена")
 		TSKTYPE_PASTE,
 		
 		@AnnotationDefValue("Only for keys that are independent of the keyboard layout. Do not use to transfer text")
