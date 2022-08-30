@@ -102,7 +102,7 @@ public class ConDataSett
 			statement = ConData.getConn().prepareStatement("INSERT OR IGNORE INTO set1 (name,val,typ,pos,state_type,state) VALUES (?,?,?,?,?,?)");
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_WATCH_PRIMARY.name(), 0, "checkbox", 10, "", 0);
 			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecOnPage", 36, "integer", 20, "", 0);
-			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecCount", 10000, "integer", 25, "disable", 0);
+//			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecCount", 100000, "integer", 25, "disable", 0);
 			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_SizeTextElem", 512000, "integer", 30, "", 0);
 			//this.<String>setDefSett(statement, currentName, "Settings_Sys_DataPath", "", "path", 40, "", 0);
 			//this.<String>setDefSett(statement, currentName, "Settings_Clp_MainHotkey", "ctrl alt F", "hotkey", 50, "", 0);
