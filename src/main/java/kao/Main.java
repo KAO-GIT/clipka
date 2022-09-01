@@ -38,6 +38,7 @@ import kao.db.*;
 import kao.cp.ClipboardMonitor;
 import kao.frm.WndText;
 import kao.frm.swing.WndMain;
+import kao.prop.ResKA;
 import kao.res.ResNames;
 import kao.tsk.Tsks;
 
@@ -64,7 +65,7 @@ public class Main
 	{
 		if (port == 0) return false;
 
-		System.out.println("Check port: " + port + " command: " + command);
+		//System.out.println("Check port: " + port + " command: " + command);
 
 		String response = runClientSocket(port, command);
 		if (response.isEmpty())
@@ -223,7 +224,7 @@ public class Main
 				{
 					if (args[0].equals("-h"))
 					{
-						System.out.println("ClipKA.");
+						System.out.println(ResKA.getResourceBundleValue(ResNames.ABOUTH));
 						System.exit(0);
 						return;
 					}
@@ -236,45 +237,25 @@ public class Main
 			key = "-c";
 			if (mapArgs.containsKey(key))
 			{
-				сommand = "CLP";
+				сommand = mapArgs.get(key);
 			}
 			key = "-p";
 			if (mapArgs.containsKey(key))
 			{
 				port = Integer.parseInt(mapArgs.get(key));
 			}
-			key = "-d";
-			if (mapArgs.containsKey(key))
-			{
-				String dataFolder = mapArgs.get(key);
-				ConData.INSTANCE.setDataFolder(dataFolder);
-			}
+//			key = "-d";
+//			if (mapArgs.containsKey(key))
+//			{
+//				String dataFolder = mapArgs.get(key);
+//				ConData.INSTANCE.setDataFolder(dataFolder);
+//			}
 		}
 		ConData.initialize();
 		if (port == 0) port = ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT);
 
 		LOGGER.info("Start programm in {}, port {}", System.getProperty("user.dir"), port);
 
-		//  ProfKA.start(profName,"Start program");
-
-		long t1 = System.nanoTime();
-
-		java.time.Duration d = java.time.Duration.ofNanos(System.nanoTime() - t1);
-		System.out.println("Time get port " + d.toMillis() + " msec");
-		
-		Version version = java.lang.Runtime.version();
-		System.out.println("Java Version = "+version);
-		System.out.println("Java Version Feature Element = "+version.feature());
-		System.out.println("Java Version Interim Element = "+version.interim());
-		System.out.println("Java Patch Element Version = "+version.patch());
-		System.out.println("Java Update Element Version = "+version.update());
-		System.out.println("Java Version Build = "+version.build().get());
-		System.out.println("Java Pre-Release Info = "+version.pre().orElse("NA"));
-		
-		//Ошибки 11.0.8 / 11.0.9 / 11.0.10 / 15.0.1 / 15.0.2
-		// PanelClp: cl.setToolTipText
-		// Error: #19585 IAE: Width and height must be >= 0 (Metal look-and-feel on Linux)
-		
 		//		ProfKA.start(profName,"Check port");
 
 		if (port != 0)
@@ -288,6 +269,22 @@ public class Main
 
 		//		ProfKA.print(profName);
 
+		//  ProfKA.start(profName,"Start program");
+
+		//		long t1 = System.nanoTime();
+		//
+		//		java.time.Duration d = java.time.Duration.ofNanos(System.nanoTime() - t1);
+		//		System.out.println("Time get port " + d.toMillis() + " msec");
+
+		Version version = java.lang.Runtime.version();
+		System.out.println("Java Version = " + version);
+		System.out.println("Java Version Feature Element = " + version.feature());
+		System.out.println("Java Version Interim Element = " + version.interim());
+		System.out.println("Java Patch Element Version = " + version.patch());
+		System.out.println("Java Update Element Version = " + version.update());
+		System.out.println("Java Version Build = " + version.build().get());
+		System.out.println("Java Pre-Release Info = " + version.pre().orElse("NA"));
+
 		try
 		{
 			java.util.logging.LogManager.getLogManager().readConfiguration(Main.class.getResourceAsStream("/logging.properties"));
@@ -296,7 +293,7 @@ public class Main
 			// если используем JUL - можем получить, но если нет - ошибку не выдаем
 			//System.err.println("Could not setup logger configuration: " + e.toString());
 		}
-		
+
 		ConData.initializeTables();
 		if (port == 0) port = ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT);
 
@@ -307,19 +304,19 @@ public class Main
 			return;
 		}
 
-	try
-	{
-		if(ConData.getIntProp(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS)==1)
-		{	// только под Windows
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			// UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Arial",
-			// Font.PLAIN, 9));
-			// new Font(Font.MONOSPACED, Font.PLAIN, 12);
+		try
+		{
+			if (ConData.getIntProp(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS) == 1)
+			{ // только под Windows
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				// UIManager.getLookAndFeelDefaults().put("defaultFont", new Font("Arial",
+				// Font.PLAIN, 9));
+				// new Font(Font.MONOSPACED, Font.PLAIN, 12);
+			}
+		} catch (Exception exc)
+		{
 		}
-	} catch (Exception exc)
-	{
-	}
-		
+
 		final int finalport = port; //для запуска потока
 		new Thread(() ->
 		{
@@ -337,15 +334,15 @@ public class Main
 			System.out.println("Shutting down");
 		}));
 
-//		ProvKA.startCurrentProvider();
-//		ProvKA.addGlobalKeys();
-		
-		if(!kao.kb.KbTrackStart.runMonitor())
+		//		ProvKA.startCurrentProvider();
+		//		ProvKA.addGlobalKeys();
+
+		if (!kao.kb.KbTrackStart.runMonitor())
 		{
 			LOGGER.info("keyboard monitor does not work.");
 		} else
 		{
-			Tsks.updateAllGlobalHotKeys(); 
+			Tsks.updateAllGlobalHotKeys();
 		}
 
 	}

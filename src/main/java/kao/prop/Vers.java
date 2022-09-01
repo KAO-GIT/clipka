@@ -58,25 +58,25 @@ public class Vers
 				return true; 
 			}
 		}
+
 		
-		public static boolean checkLookAndFeel()
-		{
-			//Ошибки 11.0.8 / 11.0.9 / 11.0.10 / 15.0.1 / 15.0.2
-			// PanelClp: cl.setToolTipText
-			// Error: #19585 IAE: Width and height must be >= 0 (Metal look-and-feel on Linux)
-			if(com.sun.jna.Platform.isWindows()) return true;  // Для Windiows можно не проверять
-			
-			Version version = java.lang.Runtime.version();
-			if(checkVersion(version,"11.0.8") || checkVersion(version,"11.0.9") || checkVersion(version,"15.0.1") || checkVersion(version,"15.0.2") )
-			{
-				return false; 
-			}	
-			else 
-			{
-				return true; 
-			}
-			
-		}
+//		public static boolean checkLookAndFeel()
+//		{
+//			установка LookAndFeel только под Windows     
+//		
+//			if(com.sun.jna.Platform.isWindows()) return true;  // Для Windiows можно не проверять
+//			
+//			Version version = java.lang.Runtime.version();
+//			if(checkVersion(version,"") )
+//			{
+//				return false; 
+//			}	
+//			else 
+//			{
+//				return true; 
+//			}
+//			
+//		}
 		
 		
 	}
