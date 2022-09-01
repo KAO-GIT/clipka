@@ -29,26 +29,32 @@ public class FillKeyboardTasks
 		ConData.initializeTables();
 		
 		String p = "../../other/xml/some/"; 
-		String n = "tasks_keys_compose"; 
-
-		try (Stream<Path> filePathStream = Files.list(Paths.get(kao.prop.Utils.getBasePathForClass(FillKeyboardTasks.class) + p+n)))
+		String[] n = {"tasks_keys_compose","tasks_phrases"}; 
+		//String[] n = {"tasks_keys","tasks_phrases"};
+		
+		for (int i = 0; i < n.length; i++)
 		{
-			filePathStream.filter(Files::isRegularFile).forEach(f ->
+			
+			try (Stream<Path> filePathStream = Files.list(Paths.get(kao.prop.Utils.getBasePathForClass(FillKeyboardTasks.class) + p+n[i])))
 			{
-				try
+				filePathStream.filter(Files::isRegularFile).forEach(f ->
 				{
-					System.out.println(f.getFileName());
-					Document document2 = SerializatorsXML.getDomDocument(Files.newInputStream(f));
-					Node n2 = document2.getDocumentElement();
-					DBRecordTask t2 = (DBRecordTask) SerializatorsXML.fromNode(n2, null);
-					ConDataTask.Tasks.save(t2);
+					try
+					{
+						System.out.println(f.getFileName());
+						Document document2 = SerializatorsXML.getDomDocument(Files.newInputStream(f));
+						Node n2 = document2.getDocumentElement();
+						DBRecordTask t2 = (DBRecordTask) SerializatorsXML.fromNode(n2, null);
+						ConDataTask.Tasks.save(t2);
 
-				} catch (ParserConfigurationException | SAXException | IOException e)
-				{
-					e.printStackTrace();
-				}
-			});
-		}
+					} catch (ParserConfigurationException | SAXException | IOException e)
+					{
+						e.printStackTrace();
+					}
+				});
+			}
+			
+		} 
 
 		System.out.println("end");
 	}
