@@ -3,6 +3,11 @@
 <properties>
 <entry key="ABOUT">About</entry>
 <entry key="ABOUTF">ClipKA - clipboard+...</entry>
+<entry key="ABOUTH">This program is a multiple clipboard and hotkey manager. 
+Replacing incorrect encoding, replacing incorrectly typed text case, tasks in Groovy script language. 
+keys: 
+-p [Port] - change socket port 
+</entry>
 <entry key="ALL_MESS_DISABLED">Attention. This is a disabled object.</entry>
 <entry key="ALL_MESS_PREDEFINED">Attention. This is a predefined object.</entry>
 <entry key="ALL_MESS_SURE">Are you sure?</entry>
