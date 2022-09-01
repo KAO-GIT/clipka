@@ -62,6 +62,7 @@ String vers = prop.getProperty("version");
 application {
     // Define the main class for the application.
     mainClass = 'kao.Main'
+		applicationDefaultJvmArgs = ['-Xmn16m -Xmx96m']    
 }
 
 java {

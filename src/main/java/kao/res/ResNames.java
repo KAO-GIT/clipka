@@ -262,6 +262,22 @@ public enum ResNames
 	@AnnotationDefValueRu("В группу попадают задачи для регулярного использования")
 	DESCRIPTION_GROUPTASK__FAVORITES__(),
 
+	@AnnotationDefValue("Keyboard keys")
+	@AnnotationDefValueRu("Клавиши клавиатуры")
+	GROUPTASK__KEYBOARDKEYS__(),
+
+	@AnnotationDefValue("Keyboard keys")
+	@AnnotationDefValueRu("В группу попадают задачи для ввода специальных символов")
+	DESCRIPTION_GROUPTASK__KEYBOARDKEYS__(),
+	
+	@AnnotationDefValue("Auto replace")
+	@AnnotationDefValueRu("Строки автозамены")
+	GROUPTASK__HOTSTRINGS__(),
+
+	@AnnotationDefValue("Auto replace")
+	@AnnotationDefValueRu("В группу попадают задачи для строк автозамены")
+	DESCRIPTION_GROUPTASK__HOTSTRINGS__(),
+	
 	@AnnotationDefValue("All hotkeys")
 	@AnnotationDefValueRu("Все горячие клавиши")
 	HOTKEYS__ALL__(),

@@ -181,7 +181,9 @@ public class ConDataTask
 				// первые 100 записей выделим под предопределенные
 				setDefGroups(statement, currentName, ConDataTask.GROUPTASK__ALL__, ResNames.GROUPTASK__ALL__.name(),
 						ResNames.DESCRIPTION_GROUPTASK__ALL__.name(), -100);
-				setDefGroups(statement, currentName, 99, ResNames.GROUPTASK__FAVORITES__.name(), ResNames.DESCRIPTION_GROUPTASK__FAVORITES__.name(), -90);
+				setDefGroups(statement, currentName, 99, ResNames.GROUPTASK__FAVORITES__.name(), ResNames.DESCRIPTION_GROUPTASK__FAVORITES__.name(), -99);
+				setDefGroups(statement, currentName, 98, ResNames.GROUPTASK__HOTSTRINGS__.name(), ResNames.DESCRIPTION_GROUPTASK__HOTSTRINGS__.name(), -98);
+				setDefGroups(statement, currentName, 97, ResNames.GROUPTASK__KEYBOARDKEYS__.name(), ResNames.DESCRIPTION_GROUPTASK__KEYBOARDKEYS__.name(), -97);
 			} catch (SQLException e)
 			{
 				e.printStackTrace();
