@@ -52,6 +52,8 @@
 <entry key="DESCRIPTION_FILTER_FOREGROUND_WINDOW_DEFAULT">Фильтр по умолчанию, если не заполнять реквизиты - горячие клавиши будут работать во всех окнах</entry>
 <entry key="DESCRIPTION_GROUPTASK__ALL__">В группу попадают все задачи</entry>
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">В группу попадают задачи для регулярного использования</entry>
+<entry key="DESCRIPTION_GROUPTASK__HOTSTRINGS__">В группу попадают задачи для строк автозамены</entry>
+<entry key="DESCRIPTION_GROUPTASK__KEYBOARDKEYS__">В группу попадают задачи для ввода специальных символов</entry>
 <entry key="DESCRIPTION_HOTKEYS__ALL__">Все горячие клавиши</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">При удалении дупликатов можно потерять информацию о времени создания и источнике текста в буфере</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY">Если флажок не установлен, не используется буфер обмена: выделение. Для применения настройки небходимо завершить работу программы</entry>
@@ -118,6 +120,8 @@
 <entry key="GROUPTASK_MESS_DUPLICATENAME">имя группы задач должно быть уникальным</entry>
 <entry key="GROUPTASK__ALL__">Все задачи</entry>
 <entry key="GROUPTASK__FAVORITES__">Избранные задачи</entry>
+<entry key="GROUPTASK__HOTSTRINGS__">Строки автозамены</entry>
+<entry key="GROUPTASK__KEYBOARDKEYS__">Клавиши клавиатуры</entry>
 <entry key="HOTKEYS__ALL__">Все горячие клавиши</entry>
 <entry key="MAIN_CLOSE_WINDOW">Закрыть текущее окно (программа продолжит работать)</entry>
 <entry key="MAIN_OPEN_CLIPS">Открыть окно записей из буфера обмена</entry>

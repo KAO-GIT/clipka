@@ -52,6 +52,8 @@
 <entry key="DESCRIPTION_FILTER_FOREGROUND_WINDOW_DEFAULT">Default filter - any windows if you do not fill fields</entry>
 <entry key="DESCRIPTION_GROUPTASK__ALL__">All tasks</entry>
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">Favorites</entry>
+<entry key="DESCRIPTION_GROUPTASK__HOTSTRINGS__">Auto replace</entry>
+<entry key="DESCRIPTION_GROUPTASK__KEYBOARDKEYS__">Keyboard keys</entry>
 <entry key="DESCRIPTION_HOTKEYS__ALL__">All hotkeys</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">If you delete duplicates, you may lose information about the time of creation and source of the clips</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY">If the check box is not selected, exclude primary clipboard (mouse selection). To apply this setting, you need to close the program</entry>
@@ -118,6 +120,8 @@
 <entry key="GROUPTASK_MESS_DUPLICATENAME">tasks group name must be unique</entry>
 <entry key="GROUPTASK__ALL__">All tasks</entry>
 <entry key="GROUPTASK__FAVORITES__">Favorites</entry>
+<entry key="GROUPTASK__HOTSTRINGS__">Auto replace</entry>
+<entry key="GROUPTASK__KEYBOARDKEYS__">Keyboard keys</entry>
 <entry key="HOTKEYS__ALL__">All hotkeys</entry>
 <entry key="MAIN_CLOSE_WINDOW">Close current window</entry>
 <entry key="MAIN_OPEN_CLIPS">Open clips window</entry>
