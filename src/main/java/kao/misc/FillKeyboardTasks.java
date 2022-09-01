@@ -28,6 +28,8 @@ public class FillKeyboardTasks
 		ConData.initialize();
 		ConData.initializeTables();
 		
+		////
+		
 		String p = "../../other/xml/some/"; 
 		String[] n = {"tasks_keys_compose","tasks_phrases"}; 
 		//String[] n = {"tasks_keys","tasks_phrases"};
