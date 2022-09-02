@@ -46,15 +46,26 @@ public enum TskActionNames
 		}
 	},
 
-	@AnnotationDefValue("Send keys using a special key Compose (for Windows - Alt)")
-	@AnnotationDefValueRu("Посылать символ(ы), используя специальную клавишу Compose (для системы Windows - Alt)")
-	TSKTYPE_SENDKEYS_COMPOSE(3){
+	@AnnotationDefValue("Send keys - simulating keyboard input")
+	@AnnotationDefValueRu("Посылать символ(ы), имитируя ввод на клавиатуре")
+	TSKTYPE_PRESSKEYS(3){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
-			return  TskActionSendCompose.class;
+			return  TskActionSend.class;
 		}
 	},
+
+	@AnnotationDefValue("Send keys - simulating keyboard input")
+	@AnnotationDefValueRu("Посылать символ(ы), имитируя ввод на клавиатуре")
+	TSKTYPE_RELEASEKEYS(4){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionSend.class;
+		}
+	},
+	
 	
 	@AnnotationDefValue("Copy selected text into clipboard")
 	@AnnotationDefValueRu("Попытаться скопировать выделенный текст в буфер обмена")
@@ -176,7 +187,17 @@ public enum TskActionNames
 		}
 	},
 	
-	
+
+	@AnnotationDefValue("Send keys using a special key Compose (for Windows - Alt)")
+	@AnnotationDefValueRu("Посылать символ(ы), используя специальную клавишу Compose (для системы Windows - Alt)")
+	TSKTYPE_SENDKEYS_COMPOSE(51){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionSendCompose.class;
+		}
+	},
+
 	@AnnotationDefValue("Run Groovy code")
 	@AnnotationDefValueRu("Выполнить код на языке Groovy")
 	TSKTYPE_RUNCODE_GROOVY(101){
