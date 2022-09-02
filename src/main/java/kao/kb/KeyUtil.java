@@ -220,15 +220,29 @@ public class KeyUtil
 	 */
 	public static void sendKeys(String hotkeys) throws Exception
 	{
+		sendKeys(hotkeys,0); 
+	}
+	
+	/**
+	 * 
+	 * Имитирует нажатия клавиш, описанных в параметре hotkeys   
+	 * 
+	 * @param hotkeys - описания клавиш
+	 * @param variant - вид нажатий: 0 - нажатие и отпускание, 1 - нажатие, -1 - отпускание
+	 * @throws Exception
+	 */
+	public static void sendKeys(String hotkeys,int variant) throws Exception
+	{
 		if (!hotkeys.isBlank())
 		{
 			ArrayList<KeyStructs> keys = KeyUtil.getKeyStructs(hotkeys); 
 			for (KeyStruct k : keys.get(0))
 			{
-				Utils.pressReleaseKeys(KeyUtil.getKeysForRobot(k));
+				Utils.pressReleaseKeys(KeyUtil.getKeysForRobot(k),variant);
 			}
 		}
 	}
+	
 	
 	/**
 	 * Разбирает строковое представление клавиш в объект с данными (набор клавиш)
@@ -294,6 +308,7 @@ public class KeyUtil
 				}
 			}
 		}
+		if(keyStructsSimilar.isEmpty()) keyStructsSimilar.add(keyStruct);
 		return keyStructsSimilar;
 	}
 

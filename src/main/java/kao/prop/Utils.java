@@ -39,12 +39,27 @@ public class Utils
 	 * Пытается нажать / отпустить клавиши. Не запускается в отдельном потоке. 
 	 * 
 	 * @param keys - массив кодов KeyEvent
+	 * @param variant - вид нажатий: 0 - нажатие и отпускание, 1 - нажатие, -1 - отпускание
 	 *
 	 * @throws Exception
 	 */
-	public static void pressReleaseKeys(int[] keys) throws Exception
+	public static void pressReleaseKeys(int[] keys, int variant) throws Exception
 	{
-		pressReleaseKeys(keys, false);
+		pressReleaseKeys(keys, variant, false);
+	}
+	
+	/**
+	 * Пытается нажать / отпустить клавиши 
+	 * 
+	 * @param keys - массив кодов KeyEvent
+	 * @param inNewThread - Истина - запускается в отдельном потоке
+	 * @param variant - вид нажатий: 0 - нажатие и отпускание, 1 - нажатие, -1 - отпускание
+	 * @throws Exception
+	 */
+	public static void pressReleaseKeys(int[] keys, int variant, boolean inNewThread) throws Exception
+	{
+		java.awt.Robot robot = new java.awt.Robot();
+		pressReleaseKeys(keys, inNewThread, variant, robot); 
 	}
 
 	/**
@@ -52,9 +67,11 @@ public class Utils
 	 * 
 	 * @param keys - массив кодов KeyEvent
 	 * @param inNewThread - Истина - запускается в отдельном потоке
+	 * @param variant - вид нажатий: 0 - нажатие и отпускание, 1 - нажатие, -1 - отпускание
+	 * @param robot - объект для имитации нажатия клавиш 
 	 * @throws Exception
 	 */
-	public static void pressReleaseKeys(int[] keys, boolean inNewThread) throws Exception
+	public static void pressReleaseKeys(int[] keys, boolean inNewThread, int variant, java.awt.Robot robot) throws Exception
 	{
 		waitEmptyModifiers(); 
 		
@@ -63,13 +80,22 @@ public class Utils
 			try
 			{
 
-				java.awt.Robot robot = new java.awt.Robot();
+				//java.awt.Robot robot = new java.awt.Robot();
 				robot.setAutoDelay(1);
 				// robot.setAutoWaitForIdle(true);
-
-				IntStream.range(0, keys.length).forEachOrdered(i -> robot.keyPress(keys[i]));
-				robot.delay(1);
-				IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
+					
+				if(variant>=0)
+				{
+					pressKeys(keys, robot);
+				}
+				if(variant==0)
+				{
+					robot.delay(1);
+				}
+				if(variant<=0)
+				{
+					releaseKeys(keys, robot);
+				}
 
 				//robot.waitForIdle(); 
 
@@ -89,6 +115,16 @@ public class Utils
 		{
 			r.run();
 		}
+	}
+
+	private static void pressKeys(int[] keys, java.awt.Robot robot)
+	{
+		IntStream.range(0, keys.length).forEachOrdered(i -> robot.keyPress(keys[i]));
+	}
+	
+	private static void releaseKeys(int[] keys, java.awt.Robot robot)
+	{
+		IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
 	}
 
 	public static void pressWithComposeKeys(int[] keys, String s)
@@ -153,8 +189,7 @@ public class Utils
 			robot = new java.awt.Robot();
 			robot.setAutoDelay(1);
 
-			// нажмем compoze клавишу (для Windows Alt)
-			IntStream.range(0, keys.length).forEachOrdered(i -> robot.keyPress(keys[i]));
+			pressKeys(keys, robot);
 
 			IntStream.range(0, codes.length).forEachOrdered(i ->
 			{
@@ -163,8 +198,7 @@ public class Utils
 				robot.keyRelease(codes[i]);
 			});
 
-			// отпустим Compose клавишу (для Windows Alt)
-			IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
+			releaseKeys(keys, robot);
 		} catch (AWTException e)
 		{
 			// TODO Auto-generated catch block

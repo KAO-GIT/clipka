@@ -74,7 +74,11 @@ keys:
 <entry key="DESCRIPTION_TSKTYPE_GETCURRENTSTRINGFROMMAP_CONTENT">You can specify the map code, the current processed string will be received from there</entry>
 <entry key="DESCRIPTION_TSKTYPE_PASTE">Do not transfer hotkey, the operation tries to paste the value from the clipboard</entry>
 <entry key="DESCRIPTION_TSKTYPE_PASTE_CONTENT">Hot key for insertion: {shift insert} or {control v}</entry>
+<entry key="DESCRIPTION_TSKTYPE_PRESSKEYS">Only for keys that are independent of the keyboard layout. Do not use to transfer text</entry>
+<entry key="DESCRIPTION_TSKTYPE_PRESSKEYS_CONTENT">Sent characters</entry>
 <entry key="DESCRIPTION_TSKTYPE_READ_FROM_CLIPS_CONTENT">Offset from the last clip is printed in the contents. If not specified, the last clip is used.</entry>
+<entry key="DESCRIPTION_TSKTYPE_RELEASEKEYS">Only for keys that are independent of the keyboard layout. Do not use to transfer text</entry>
+<entry key="DESCRIPTION_TSKTYPE_RELEASEKEYS_CONTENT">Sent characters</entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNCODE_GROOVY_CONTENT">Groovy code. You can use the variable 'result', containing the currently processed string. Returns the last value or value in the variable 'result'</entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNTASK_CONTENT">Task code</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVEASCURRENTSTRING_CONTENT">Save string from content as current string</entry>
@@ -169,11 +173,13 @@ keys:
 <entry key="TSKTYPE_GETCURRENTSTRINGFROMMAP">Get current string from map</entry>
 <entry key="TSKTYPE_OPENWND_CLIPLIST">Show/hide clips</entry>
 <entry key="TSKTYPE_PASTE">Paste text</entry>
+<entry key="TSKTYPE_PRESSKEYS">Send pressing the symbol - simulating keyboard input</entry>
 <entry key="TSKTYPE_READ_FROM_CLIPS">Read string from clips</entry>
+<entry key="TSKTYPE_RELEASEKEYS">Send releasing the symbol - simulating keyboard input</entry>
 <entry key="TSKTYPE_RUNCODE_GROOVY">Run Groovy code</entry>
 <entry key="TSKTYPE_RUNTASK">Run task</entry>
 <entry key="TSKTYPE_SAVEASCURRENTSTRING">Save string from content as current string</entry>
-<entry key="TSKTYPE_SENDKEYS">Send keys - simulating keyboard input</entry>
+<entry key="TSKTYPE_SENDKEYS">Send pressing and releasing keys - simulating keyboard input</entry>
 <entry key="TSKTYPE_SENDKEYS_COMPOSE">Send keys using a special key Compose (for Windows - Alt)</entry>
 <entry key="TSKTYPE_SETCLIPBOARDCONTENS">Set current string into clipboard</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Set current string into map</entry>

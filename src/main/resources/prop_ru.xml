@@ -74,7 +74,11 @@
 <entry key="DESCRIPTION_TSKTYPE_GETCURRENTSTRINGFROMMAP_CONTENT">В содержании можно указать код словаря, текущая обрабатываемая строка будет оттуда получена</entry>
 <entry key="DESCRIPTION_TSKTYPE_PASTE">Несмотря на указание горячей клавиши, это не просто имитация нажатия клавиш. Операция пытается именно вставить значение из буфера обмена</entry>
 <entry key="DESCRIPTION_TSKTYPE_PASTE_CONTENT">В содержание заносится горячая клавиша для вставки текста из буфера: {shift insert} или {control v}</entry>
+<entry key="DESCRIPTION_TSKTYPE_PRESSKEYS">Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста </entry>
+<entry key="DESCRIPTION_TSKTYPE_PRESSKEYS_CONTENT">В содержание заносятся необходимые посылаемые символы</entry>
 <entry key="DESCRIPTION_TSKTYPE_READ_FROM_CLIPS_CONTENT">В содержание заносится смещение от последнего клипа. Если не указывать - используется последний клип.</entry>
+<entry key="DESCRIPTION_TSKTYPE_RELEASEKEYS">Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста </entry>
+<entry key="DESCRIPTION_TSKTYPE_RELEASEKEYS_CONTENT">В содержание заносятся необходимые посылаемые символы</entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNCODE_GROOVY_CONTENT">В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result </entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNTASK_CONTENT">В содержание заносится код задачи</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVEASCURRENTSTRING_CONTENT">В содержании нужно указать строку, которая будет сохранена как текущая обрабатываемая</entry>
@@ -169,11 +173,13 @@
 <entry key="TSKTYPE_GETCURRENTSTRINGFROMMAP">Получить текущую обрабатываемую строку из словаря</entry>
 <entry key="TSKTYPE_OPENWND_CLIPLIST">Показать/скрыть сохраненный список буфера обмена</entry>
 <entry key="TSKTYPE_PASTE">Попытаться вставить текст из буфера обмена в текущую позицию курсора</entry>
+<entry key="TSKTYPE_PRESSKEYS">Посылать нажатие символа, имитируя ввод на клавиатуре</entry>
 <entry key="TSKTYPE_READ_FROM_CLIPS">Прочитать строку из списка клипов</entry>
+<entry key="TSKTYPE_RELEASEKEYS">Посылать отпускание символа, имитируя ввод на клавиатуре</entry>
 <entry key="TSKTYPE_RUNCODE_GROOVY">Выполнить код на языке Groovy</entry>
 <entry key="TSKTYPE_RUNTASK">Запустить задачу</entry>
 <entry key="TSKTYPE_SAVEASCURRENTSTRING">Введенную в содержание строку сохранить как текущую обрабатываемую</entry>
-<entry key="TSKTYPE_SENDKEYS">Посылать символ(ы), имитируя ввод на клавиатуре</entry>
+<entry key="TSKTYPE_SENDKEYS">Посылать нажатие и отпускание символов, имитируя ввод на клавиатуре</entry>
 <entry key="TSKTYPE_SENDKEYS_COMPOSE">Посылать символ(ы), используя специальную клавишу Compose (для системы Windows - Alt)</entry>
 <entry key="TSKTYPE_SETCLIPBOARDCONTENS">Сохранить текущую обрабатываемую строку в буфер обмена</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Сохранить текущую обрабатываемую строку в словарь</entry>

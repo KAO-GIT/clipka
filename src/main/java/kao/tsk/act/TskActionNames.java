@@ -36,8 +36,8 @@ public enum TskActionNames
 		}
 	},
 
-	@AnnotationDefValue("Send keys - simulating keyboard input")
-	@AnnotationDefValueRu("Посылать символ(ы), имитируя ввод на клавиатуре")
+	@AnnotationDefValue("Send pressing and releasing keys - simulating keyboard input")
+	@AnnotationDefValueRu("Посылать нажатие и отпускание символов, имитируя ввод на клавиатуре")
 	TSKTYPE_SENDKEYS(2){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
@@ -46,23 +46,23 @@ public enum TskActionNames
 		}
 	},
 
-	@AnnotationDefValue("Send keys - simulating keyboard input")
-	@AnnotationDefValueRu("Посылать символ(ы), имитируя ввод на клавиатуре")
+	@AnnotationDefValue("Send pressing the symbol - simulating keyboard input")
+	@AnnotationDefValueRu("Посылать нажатие символа, имитируя ввод на клавиатуре")
 	TSKTYPE_PRESSKEYS(3){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
-			return  TskActionSend.class;
+			return  TskActionPressKeys.class;
 		}
 	},
 
-	@AnnotationDefValue("Send keys - simulating keyboard input")
-	@AnnotationDefValueRu("Посылать символ(ы), имитируя ввод на клавиатуре")
+	@AnnotationDefValue("Send releasing the symbol - simulating keyboard input")
+	@AnnotationDefValueRu("Посылать отпускание символа, имитируя ввод на клавиатуре")
 	TSKTYPE_RELEASEKEYS(4){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
-			return  TskActionSend.class;
+			return  TskActionReleaseKeys.class;
 		}
 	},
 	
@@ -240,6 +240,15 @@ public enum TskActionNames
 		@AnnotationDefValueRu("Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста ")
 		TSKTYPE_SENDKEYS,
 		
+		@AnnotationDefValue("Only for keys that are independent of the keyboard layout. Do not use to transfer text")
+		@AnnotationDefValueRu("Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста ")
+		TSKTYPE_PRESSKEYS,
+		
+		@AnnotationDefValue("Only for keys that are independent of the keyboard layout. Do not use to transfer text")
+		@AnnotationDefValueRu("Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста ")
+		TSKTYPE_RELEASEKEYS,
+
+		
 		@AnnotationDefValue("Send keys using a special key Compose (for Windows - Alt)")
 		@AnnotationDefValueRu("Отсылает коды клавиш с помощью специально настроеной клавиши Compose (для системы Windows - Alt). Может являться аналогом вставки из буфера обмена  ")
 		TSKTYPE_SENDKEYS_COMPOSE,
@@ -266,6 +275,14 @@ public enum TskActionNames
 		@AnnotationDefValue("Sent characters")
 		@AnnotationDefValueRu("В содержание заносятся необходимые посылаемые символы")
 		TSKTYPE_SENDKEYS,
+
+		@AnnotationDefValue("Sent characters")
+		@AnnotationDefValueRu("В содержание заносятся необходимые посылаемые символы")
+		TSKTYPE_PRESSKEYS,
+		
+		@AnnotationDefValue("Sent characters")
+		@AnnotationDefValueRu("В содержание заносятся необходимые посылаемые символы")
+		TSKTYPE_RELEASEKEYS,
 
 		@AnnotationDefValue("Hotkey is entered: {control insert} or {control c}")
 		@AnnotationDefValueRu("В содержание заносится горячая клавиша для копирования: {control insert} или {control c}")

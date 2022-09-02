@@ -533,7 +533,7 @@ public final class ClipboardMonitor implements Closeable, ClipboardOwner, Flavor
 //				{
 					try
 					{
-						Utils.pressReleaseKeys(keys, false); //!!!!!
+						Utils.pressReleaseKeys(keys, 0, false); //!!!!!
 					} catch (Exception e)
 					{
 						//	e.printStackTrace();
@@ -613,7 +613,7 @@ public final class ClipboardMonitor implements Closeable, ClipboardOwner, Flavor
 //		{
 			try
 			{
-				Utils.pressReleaseKeys(keys, false);
+				Utils.pressReleaseKeys(keys, 0, false);
 			} catch (Exception e)
 			{
 				//				e.printStackTrace();
