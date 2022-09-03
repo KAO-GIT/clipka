@@ -75,7 +75,7 @@ PSLinuxOs XFCE -- система на домашнем компьютере, н�
 
 Настройки
 
-![](media/image1.png)
+![](https://gitflic.ru/project/kao-git/clipka/blob?file=media%2Fimage1.png)
 
 Системные настройки
 
