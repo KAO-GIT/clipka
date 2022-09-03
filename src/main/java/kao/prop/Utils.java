@@ -30,11 +30,11 @@ public class Utils
 	{
 		return Utils.repeatUntilSuccess((BooleanSupplierWithException<Exception>) () ->
 		{
-			if(kao.kb.KbTrackStart.getGeneralTrack().isModificatorPressed()) throw new Exception("Modificator pressed");
-			return true; 
+			if (kao.kb.KbTrackStart.getGeneralTrack().isModificatorPressed()) throw new Exception("Modificator pressed");
+			return true;
 		}, java.util.Map.of("max", 10, "timeout", 100, "message", "Extend time for pressReleaseKeys task for {0} msec"));
 	}
-	
+
 	/**
 	 * Пытается нажать / отпустить клавиши. Не запускается в отдельном потоке. 
 	 * 
@@ -47,7 +47,7 @@ public class Utils
 	{
 		pressReleaseKeys(keys, variant, false);
 	}
-	
+
 	/**
 	 * Пытается нажать / отпустить клавиши 
 	 * 
@@ -59,7 +59,7 @@ public class Utils
 	public static void pressReleaseKeys(int[] keys, int variant, boolean inNewThread) throws Exception
 	{
 		java.awt.Robot robot = new java.awt.Robot();
-		pressReleaseKeys(keys, inNewThread, variant, robot); 
+		pressReleaseKeys(keys, inNewThread, variant, robot);
 	}
 
 	/**
@@ -73,8 +73,8 @@ public class Utils
 	 */
 	public static void pressReleaseKeys(int[] keys, boolean inNewThread, int variant, java.awt.Robot robot) throws Exception
 	{
-		waitEmptyModifiers(); 
-		
+		waitEmptyModifiers();
+
 		Runnable r = () ->
 		{
 			try
@@ -83,16 +83,16 @@ public class Utils
 				//java.awt.Robot robot = new java.awt.Robot();
 				robot.setAutoDelay(1);
 				// robot.setAutoWaitForIdle(true);
-					
-				if(variant>=0)
+
+				if (variant >= 0)
 				{
 					pressKeys(keys, robot);
 				}
-				if(variant==0)
+				if (variant == 0)
 				{
 					robot.delay(1);
 				}
-				if(variant<=0)
+				if (variant <= 0)
 				{
 					releaseKeys(keys, robot);
 				}
@@ -121,7 +121,7 @@ public class Utils
 	{
 		IntStream.range(0, keys.length).forEachOrdered(i -> robot.keyPress(keys[i]));
 	}
-	
+
 	private static void releaseKeys(int[] keys, java.awt.Robot robot)
 	{
 		IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
@@ -130,7 +130,7 @@ public class Utils
 	public static void pressWithComposeKeys(int[] keys, String s)
 	{
 		waitEmptyModifiers();
-		
+
 		byte[] bytes;
 		try
 		{
