@@ -641,10 +641,11 @@ public class ConDataTask
 				// получим подзадачи, привязанные к задачам
 				//@formatter:off 
 				statement3 = connection.prepareStatement(
-						  "SELECT S.position,T.id*100+S.position id,S.description,S.content,S.type,T.predefined FROM tsk.tsts1 S INNER JOIN tsk.tsh1 T ON S.owner=T.id WHERE S.owner=? "
+						  "SELECT S.position,1+S.position id,S.description,S.content,S.type,T.predefined FROM tsk.tsts1 S INNER JOIN tsk.tsh1 T ON S.owner=T.id WHERE S.owner=? "
 						+ "ORDER BY S.position "
 					);
 				//@formatter:on
+				//T.id*10000+
 				statement3.setInt(1, id);
 
 				ResultSet resultSet3 = statement3.executeQuery();

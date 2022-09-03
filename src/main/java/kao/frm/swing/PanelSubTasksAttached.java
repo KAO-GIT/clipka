@@ -25,15 +25,18 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 
 	private CurrentCommands cc;
 	private DBRecordTask owner;
+	private int newSubTaskId; 
+	
 
 	public PanelSubTasksAttached(ElementsForListing<DBRecordSubTask> elements, DBRecordTask owner, ActionListener act)
 	{
 		super(elements, act);
+
+		this.owner = owner;
 		
-		this.owner = owner ; 
+		newSubTaskId = 1+getElements().size(); 
 
 		getTable().setModel(new CurrentTableModel());
-		
 
 		addCommands();
 
@@ -42,7 +45,6 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 	private class CurrentCommands
 	{
 		private List<DBCommand> lc;
-		
 
 		public IResErrors execute_default()
 		{
@@ -82,16 +84,16 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 
 		ActionListener actSubTasks = new ActionListener()
 		{
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				DBRecordSubTask el = (DBRecordSubTask)e.getSource(); 
-				if(!getElements().contains(el)) getElements().add(el);   
+				DBRecordSubTask el = (DBRecordSubTask) e.getSource();
+				if (!getElements().contains(el)) getElements().add(el);
 				fireTableDataChanged();
 			}
 		};
-		
+
 		private IResErrors executeSel(IDBCommand db)
 		{
 
@@ -102,7 +104,7 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 				case DBCOMMAND_ATTACH:
 					//						getElements().add();
 					fireTableDataChanged();
-					
+
 					break;
 				case DBCOMMAND_DELETE:
 					DBRecordSubTask el = getCurrentElement();
@@ -168,7 +170,7 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 
 					var v = getCurrentElement();
 					return openWnd(v);
-					
+
 				}
 			}, new DBCommandNew()
 			{
@@ -181,6 +183,7 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 					if (!r.isSuccess()) return r;
 
 					var v = new DBRecordSubTask(owner);
+					v.setValue(DataFieldNames.DATAFIELD_ID, ++newSubTaskId);
 					return openWnd(v);
 				}
 			}, new DBCommandCopy()
@@ -199,7 +202,8 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 					if (!r.isSuccess()) return r;
 
 					var v = getCurrentElement().copy();
-					return openWnd((DBRecordSubTask)v);
+					v.setValue(DataFieldNames.DATAFIELD_ID, ++newSubTaskId);
+					return openWnd((DBRecordSubTask) v);
 				}
 			}, new DBCommandDelete()
 			{
@@ -313,7 +317,7 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 		@Override
 		public int getRowCount()
 		{
-			return getElements()==null?0:getElements().size();
+			return getElements() == null ? 0 : getElements().size();
 		}
 
 		// Количество столбцов
