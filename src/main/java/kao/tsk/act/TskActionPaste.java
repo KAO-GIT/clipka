@@ -30,4 +30,11 @@ public class TskActionPaste extends TskActionAbstract
 		}
 		return ResErrors.NOERRORS;
 	}
+	
+	@Override
+	public boolean workWithClipboard()
+	{
+		return true;
+	}
+	
 }

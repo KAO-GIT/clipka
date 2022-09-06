@@ -19,5 +19,11 @@ public class TskActionSend extends TskActionAbstract
 		KeyUtil.sendKeys(getContent());	
 		return ResErrors.NOERRORS;
 	}
+	
+	@Override
+	public boolean workWithClipboard()
+	{
+		return true;
+	}
 
 }

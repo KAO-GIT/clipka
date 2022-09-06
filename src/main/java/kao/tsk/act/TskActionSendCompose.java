@@ -23,5 +23,11 @@ public class TskActionSendCompose extends TskActionAbstract
 		Utils.pressWithComposeKeys(keys, Tsks.getRep());
 		return ResErrors.NOERRORS;
 	}
+	
+	@Override
+	public boolean workWithClipboard()
+	{
+		return true;
+	}
 
 }

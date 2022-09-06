@@ -3,10 +3,12 @@ package kao.tsk;
 import java.sql.SQLException;
 
 import kao.cp.*;
-import kao.db.ConDataTask;
+import kao.res.*;
 
+import kao.db.ConDataTask;
 import kao.db.fld.DBRecordTask;
 import kao.db.fld.DBRecordTasksGroup;
+import kao.db.fld.DataFieldNames;
 import kao.db.fld.IRecord;
 import kao.el.ElementForChoice;
 import kao.el.ElementSettHotKey;
@@ -15,8 +17,8 @@ import kao.el.KitForListing;
 import kao.frm.WndText;
 import kao.frm.WndsVarios;
 import kao.kb.KeyStruct;
-import kao.res.ResErrors;
-import kao.res.ResNamesWithId;
+import kao.prop.Utils;
+
 
 public class Tsks
 {
@@ -135,11 +137,25 @@ public class Tsks
 		Thread d;
 		d = new Thread(() ->
 		{
+			Tsk tsk = Tsks.getTsk(source);
+			if(tsk instanceof IClipboardBlock) 
+			{
+				if(!Utils.waitEmptyModifiers())
+				{
+					ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), "Timeout"); 
+					return;
+				}	
+			}
 			try
 			{
 				kao.kb.KbTrackStart.getGeneralTrack().setWorkPaused(true);
 				kao.kb.KbTrackStart.getGeneralTrack().push(new KeyStruct());
-				Tsks.getTsk(source).runTsk();
+				IResErrors res = tsk.runTsk();
+				if(!res.isSuccess())
+				{
+					ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), res.toString()); 
+				}
+				
 			} catch (Exception e)
 			{
 				e.printStackTrace();

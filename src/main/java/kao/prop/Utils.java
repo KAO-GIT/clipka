@@ -28,6 +28,9 @@ public class Utils
 	 */
 	public static boolean waitEmptyModifiers()
 	{
+		// уже идет обработка задач - ожидать сброса модификаторов не нужно 
+		if(kao.kb.KbTrackStart.getGeneralTrack().isWorkPaused()) return true;
+		
 		return Utils.repeatUntilSuccess((BooleanSupplierWithException<Exception>) () ->
 		{
 			if (kao.kb.KbTrackStart.getGeneralTrack().isModificatorPressed()) throw new Exception("Modificator pressed");
@@ -73,7 +76,7 @@ public class Utils
 	 */
 	public static void pressReleaseKeys(int[] keys, boolean inNewThread, int variant, java.awt.Robot robot) throws Exception
 	{
-		waitEmptyModifiers();
+		//waitEmptyModifiers();
 
 		Runnable r = () ->
 		{
@@ -129,7 +132,7 @@ public class Utils
 
 	public static void pressWithComposeKeys(int[] keys, String s)
 	{
-		waitEmptyModifiers();
+		//waitEmptyModifiers();
 
 		byte[] bytes;
 		try

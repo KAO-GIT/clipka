@@ -17,7 +17,7 @@ import kao.tsk.act.TskAction;
  * @author kao
  *
  */
-public class TskRegular implements Tsk
+public class TskRegular implements Tsk,IClipboardBlock
 {
 //	private static final Logger LOGGER = LoggerFactory.getLogger(TskRegular.class);
 
@@ -33,9 +33,9 @@ public class TskRegular implements Tsk
 	public IResErrors runTsk() throws Exception
 	{
 		IResErrors ret = ResErrors.NOERRORS;
-		for (DBRecordSubTask dbRecordSubTask : subtasks)
+		for (DBRecordSubTask subtask : subtasks)
 		{
-			TskAction a = TskAction.getAction(dbRecordSubTask);
+			TskAction a = TskAction.getAction(subtask);
 			if (a == null)
 			{
 				ret = ResErrors.ERR_SUBTASK_EXECUTE;
@@ -47,6 +47,23 @@ public class TskRegular implements Tsk
 			if (!ret.isSuccess()) break;
 		}
 		return ret;
+	}
+
+	@Override
+	public boolean workWithClipboard()
+	{
+		boolean ret = false; 
+		for (DBRecordSubTask subtask : subtasks)
+		{
+			if(subtask instanceof IClipboardBlock) 
+			{	
+				if( ((IClipboardBlock)subtask).workWithClipboard() ) {
+					ret = true;  
+					break; 
+				}
+			}
+		}
+		return ret; 
 	}
 
 }

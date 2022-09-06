@@ -1353,7 +1353,7 @@ public class ConDataTask
 				statement.setString(1, cp.getStringValue(DataFieldNames.DATAFIELD_NAME));
 				statement.setString(2, cp.getStringValue(DataFieldNames.DATAFIELD_DESCRIPTION));
 				statement.setString(3, cp.getStringValue(DataFieldNames.DATAFIELD_TITLE));
-				statement.setString(4, cp.getStringValue(DataFieldNames.DATAFIELD_VARIANT));
+				statement.setInt(4, cp.getIntValue(DataFieldNames.DATAFIELD_VARIANT));
 				statement.setInt(5, id);
 				statement.executeUpdate();
 				return ResErrors.NOERRORS;

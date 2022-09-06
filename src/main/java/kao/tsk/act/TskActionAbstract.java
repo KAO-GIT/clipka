@@ -2,6 +2,7 @@ package kao.tsk.act;
 
 import kao.db.fld.*;
 import kao.res.*;
+import kao.tsk.IClipboardBlock;
 
 
 /**
@@ -10,10 +11,12 @@ import kao.res.*;
  * @author kao
  *
  */
-public abstract class TskActionAbstract implements TskAction
+public abstract class TskActionAbstract implements TskAction, IClipboardBlock
 {
 	
-	final TskActionNames type ;  
+	final TskActionNames type ;
+	
+
 	final String content;
 	
 	public TskActionAbstract(IRecord source)
@@ -36,5 +39,10 @@ public abstract class TskActionAbstract implements TskAction
 		return content.trim();
 	}
 
+	@Override
+	public boolean workWithClipboard()
+	{
+		return false;
+	}
 	
 }

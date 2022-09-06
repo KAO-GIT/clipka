@@ -32,4 +32,10 @@ public class TskActionCopy extends TskActionAbstract
 		return ResErrors.NOERRORS;
 	}
 
+	@Override
+	public boolean workWithClipboard()
+	{
+		return true;
+	}
+
 }
