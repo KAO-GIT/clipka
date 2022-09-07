@@ -1,5 +1,8 @@
 package kao.prop;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.event.KeyEvent;
 
 //import javax.swing.JOptionPane;
@@ -16,8 +19,10 @@ class UtilsTest
 //	
 		//final String s = "{[Привет!]}";
 		final String s = "&";
-		int keys[] = new int[]{KeyEvent.VK_ALT}; 
-		Utils.pressWithComposeKeys(keys, s);
+		int keys[] = new int[]{KeyEvent.VK_ALT};
+		assertTrue(s=="&");
+		assertArrayEquals(keys, keys);
+//		Utils.pressWithComposeKeys(keys, s);
 
 //		Runnable r = () ->  
 //		{
