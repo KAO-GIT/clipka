@@ -184,6 +184,7 @@ public class ConDataTask
 				setDefGroups(statement, currentName, 99, ResNames.GROUPTASK__FAVORITES__.name(), ResNames.DESCRIPTION_GROUPTASK__FAVORITES__.name(), -99);
 				setDefGroups(statement, currentName, 98, ResNames.GROUPTASK__HOTSTRINGS__.name(), ResNames.DESCRIPTION_GROUPTASK__HOTSTRINGS__.name(), -98);
 				setDefGroups(statement, currentName, 97, ResNames.GROUPTASK__KEYBOARDKEYS__.name(), ResNames.DESCRIPTION_GROUPTASK__KEYBOARDKEYS__.name(), -97);
+				setDefGroups(statement, currentName, 96, ResNames.GROUPTASK__CLIPS__.name(), ResNames.DESCRIPTION_GROUPTASK__CLIPS__.name(), -96);
 			} catch (SQLException e)
 			{
 				e.printStackTrace();

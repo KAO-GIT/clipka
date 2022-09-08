@@ -164,9 +164,9 @@ public enum ResNames
 	@AnnotationDefValueRu("Значение")
 	FORM_SETTINGS_HEADERVALUE(),
 	
-	@AnnotationDefValue("Hotkey for encode")
-	@AnnotationDefValueRu("Hotkey для замены раскладки")
-	SETTINGS_CLP_TASKENCODECONHOTKEY(),
+//	@AnnotationDefValue("Hotkey for encode")
+//	@AnnotationDefValueRu("Hotkey для замены раскладки")
+//	SETTINGS_CLP_TASKENCODECONHOTKEY(),
 
 	@AnnotationDefValue("Tasks group name")
 	@AnnotationDefValueRu("Имя группы задач")
@@ -291,6 +291,14 @@ public enum ResNames
 	@AnnotationDefValue("Auto replace")
 	@AnnotationDefValueRu("В группу попадают задачи для строк автозамены")
 	DESCRIPTION_GROUPTASK__HOTSTRINGS__(),
+
+	@AnnotationDefValue("Tasks in the clips list")
+	@AnnotationDefValueRu("В группу попадают задачи, показываемые в списке клипов")
+	GROUPTASK__CLIPS__(),
+
+	@AnnotationDefValue("Auto replace")
+	@AnnotationDefValueRu("В группу попадают задачи для строк автозамены")
+	DESCRIPTION_GROUPTASK__CLIPS__(),
 	
 	@AnnotationDefValue("All hotkeys")
 	@AnnotationDefValueRu("Все горячие клавиши")
