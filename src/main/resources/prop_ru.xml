@@ -54,8 +54,10 @@
 <entry key="DBCOMMAND_RUN">Выполнить задачу</entry>
 <entry key="DBCOMMAND_SAVE">Сохранить</entry>
 <entry key="DBCOMMAND_UP">Переместить вверх</entry>
+<entry key="DBCOMMAND_VIEW">Просмотр</entry>
 <entry key="DESCRIPTION_FILTER_FOREGROUND_WINDOW_DEFAULT">Фильтр по умолчанию, если не заполнять реквизиты - горячие клавиши будут работать во всех окнах</entry>
 <entry key="DESCRIPTION_GROUPTASK__ALL__">В группу попадают все задачи</entry>
+<entry key="DESCRIPTION_GROUPTASK__CLIPS__">В группу попадают задачи для строк автозамены</entry>
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">В группу попадают задачи для регулярного использования</entry>
 <entry key="DESCRIPTION_GROUPTASK__HOTSTRINGS__">В группу попадают задачи для строк автозамены</entry>
 <entry key="DESCRIPTION_GROUPTASK__KEYBOARDKEYS__">В группу попадают задачи для ввода специальных символов</entry>
@@ -65,6 +67,8 @@
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">По умолчанию, окно с кнопками действий показывается, если недоступен системный трей. При установке флажка будет показываться всегда</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_TRAY">Если флажок не установлен, показывается окно с кнопками действий. Для применения настройки небходимо завершить работу программы</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SOCKETPORT">Порт используется при запуске. Запуск программы второй раз - просто открывает окно или запускает задачу</entry>
+<entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_ALERTS">Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне &lt;&lt;Оповещения и ошибки&gt;&gt; </entry>
+<entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_ERRORS">Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне &lt;&lt;Оповещения и ошибки&gt;&gt; </entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_CASE_TEXT_CONTENT">Содержание не требуется. Используется текущая обрабатываемая строка.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_ENCODING_TEXT_CONTENT">Содержание не требуется. Используется текущая обрабатываемая строка.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEARSTRINGFROMMAP_CONTENT">В содержании можно указать очищаемый код словаря</entry>
@@ -128,6 +132,7 @@
 <entry key="FORM_TASK_HEADERNAME">Имя задачи</entry>
 <entry key="GROUPTASK_MESS_DUPLICATENAME">имя группы задач должно быть уникальным</entry>
 <entry key="GROUPTASK__ALL__">Все задачи</entry>
+<entry key="GROUPTASK__CLIPS__">В группу попадают задачи, показываемые в списке клипов</entry>
 <entry key="GROUPTASK__FAVORITES__">Избранные задачи</entry>
 <entry key="GROUPTASK__HOTSTRINGS__">Строки автозамены</entry>
 <entry key="GROUPTASK__KEYBOARDKEYS__">Клавиши клавиатуры</entry>
@@ -147,13 +152,14 @@
 <entry key="SETTINGS_CLP_RECONPAGE">Количество записей на странице</entry>
 <entry key="SETTINGS_CLP_REMOVEDUPLICATES">Удалить дубликаты текстов в буфере</entry>
 <entry key="SETTINGS_CLP_SIZETEXTELEM">Максимальный размер текста</entry>
-<entry key="SETTINGS_CLP_TASKENCODECONHOTKEY">Hotkey для замены раскладки</entry>
 <entry key="SETTINGS_CLP_TIMEOUTPOSITION">Время в минутах, после которого прекращается запоминание позиции в списке клипов</entry>
 <entry key="SETTINGS_CLP_WATCH_PRIMARY">Отслеживать буфер обмена: выделение</entry>
 <entry key="SETTINGS_SYS">Настройки системные</entry>
 <entry key="SETTINGS_SYS_SHOW_MAIN_WINDOW">Показывать окно с кнопками действий</entry>
 <entry key="SETTINGS_SYS_SHOW_TRAY">Показывать иконку в системном трее</entry>
 <entry key="SETTINGS_SYS_SOCKETPORT">Socket port</entry>
+<entry key="SETTINGS_SYS_TIMEOUT_ALERTS">Время в секундах для всплывающего окна с оповещением </entry>
+<entry key="SETTINGS_SYS_TIMEOUT_ERRORS">Время в секундах для всплывающего окна уведомления об ошибке </entry>
 <entry key="SOURCECLP_CLIPBOARD">Источник: буфер обмена</entry>
 <entry key="SOURCECLP_CURRENT">Источник: текущая программа</entry>
 <entry key="SOURCECLP_PRIMARY">Источник: выделение</entry>

@@ -54,8 +54,10 @@ keys:
 <entry key="DBCOMMAND_RUN">Run task</entry>
 <entry key="DBCOMMAND_SAVE">Save</entry>
 <entry key="DBCOMMAND_UP">Up</entry>
+<entry key="DBCOMMAND_VIEW">View</entry>
 <entry key="DESCRIPTION_FILTER_FOREGROUND_WINDOW_DEFAULT">Default filter - any windows if you do not fill fields</entry>
 <entry key="DESCRIPTION_GROUPTASK__ALL__">All tasks</entry>
+<entry key="DESCRIPTION_GROUPTASK__CLIPS__">Auto replace</entry>
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">Favorites</entry>
 <entry key="DESCRIPTION_GROUPTASK__HOTSTRINGS__">Auto replace</entry>
 <entry key="DESCRIPTION_GROUPTASK__KEYBOARDKEYS__">Keyboard keys</entry>
@@ -65,6 +67,8 @@ keys:
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">By default, a window with action buttons is displayed if the system tray is not available. When the check box is selected, it will always be displayed</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_TRAY">If the check box is not selected, a window with action buttons is displayed. To apply this setting, you need to close the program</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SOCKETPORT">Port is used at startup. Starting the program for the second time - just opens the window or run task</entry>
+<entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_ALERTS">If the value is not set, windows with notifications is not displayed. However, you can view the records in the &lt;&lt;Alerts and Errors&gt;&gt;</entry>
+<entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_ERRORS">If the value is not set, windows with notifications is not displayed. However, you can view the records in the &lt;&lt;Alerts and Errors&gt;&gt;</entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_CASE_TEXT_CONTENT">Content is not required. The current processed string is used.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_ENCODING_TEXT_CONTENT">Content is not required. The current processed string is used.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEARSTRINGFROMMAP_CONTENT">You can specify the map code, it will be cleaned</entry>
@@ -109,7 +113,7 @@ keys:
 <entry key="EXIT">Exit</entry>
 <entry key="EXITF">Absolute exit</entry>
 <entry key="FILTER_FOREGROUND_WINDOW_DEFAULT">Default filter (any windows)</entry>
-<entry key="FORM_ALERTS_LIST">Alerts and errors</entry>
+<entry key="FORM_ALERTS_LIST">Alerts and Errors</entry>
 <entry key="FORM_ALL_HEADER_HOTKEYS">Hotkeys</entry>
 <entry key="FORM_ALL_HEADER_NAME">Name</entry>
 <entry key="FORM_ALL_HEADER_TITLE">Title</entry>
@@ -128,6 +132,7 @@ keys:
 <entry key="FORM_TASK_HEADERNAME">Task name</entry>
 <entry key="GROUPTASK_MESS_DUPLICATENAME">tasks group name must be unique</entry>
 <entry key="GROUPTASK__ALL__">All tasks</entry>
+<entry key="GROUPTASK__CLIPS__">Tasks in the clips list</entry>
 <entry key="GROUPTASK__FAVORITES__">Favorites</entry>
 <entry key="GROUPTASK__HOTSTRINGS__">Auto replace</entry>
 <entry key="GROUPTASK__KEYBOARDKEYS__">Keyboard keys</entry>
@@ -147,13 +152,14 @@ keys:
 <entry key="SETTINGS_CLP_RECONPAGE">Number of items on page</entry>
 <entry key="SETTINGS_CLP_REMOVEDUPLICATES">Remove duplicates items</entry>
 <entry key="SETTINGS_CLP_SIZETEXTELEM">Maximum text size</entry>
-<entry key="SETTINGS_CLP_TASKENCODECONHOTKEY">Hotkey for encode</entry>
 <entry key="SETTINGS_CLP_TIMEOUTPOSITION">Timeout for save position (min)</entry>
 <entry key="SETTINGS_CLP_WATCH_PRIMARY">Watch the clipboard: primary (mouse selection)</entry>
 <entry key="SETTINGS_SYS">System settings</entry>
 <entry key="SETTINGS_SYS_SHOW_MAIN_WINDOW">Show window with action buttons</entry>
 <entry key="SETTINGS_SYS_SHOW_TRAY">Show in system tray</entry>
 <entry key="SETTINGS_SYS_SOCKETPORT">Socket port</entry>
+<entry key="SETTINGS_SYS_TIMEOUT_ALERTS">Timeout for notification of alerts (sec) </entry>
+<entry key="SETTINGS_SYS_TIMEOUT_ERRORS">Timeout for notification of errors (sec) </entry>
 <entry key="SOURCECLP_CLIPBOARD">Source: CLIPBOARD</entry>
 <entry key="SOURCECLP_CURRENT">Source: current</entry>
 <entry key="SOURCECLP_PRIMARY">Source: PRIMARY</entry>
