@@ -45,162 +45,65 @@
     </head>
     <body class="vscode-body vscode-light">
         <h1 id="clipka">ClipKA</h1>
-<p>Эта программа -- множественный буфер обмена и менеджер горячих клавиш.
-Замена неправильной кодировки, замена неправильно набранного регистра
-текста, задачи на скриптовом языке Groovy.</p>
-<p>Добрый день.</p>
-<p>За последние годы я несколько раз пытался перейти на домашнем компьютере
-на Linux. Несмотря на то, что компьютер домашний, хотелось бы на нём
-иметь возможность работать, а также подключаться к Windows серверам по
-rdp.</p>
-<p>И каждый раз мне не хватало нескольких программ, которые накопились за
-годы работы в Windows.</p>
-<p>Основная проблема - удобный множественный буфер обмена. В Linux жить без
-подобной программы плохо, хотя бы потому, что при копировании данных в
-буфер и закрытии окна программы -- данные не сохраняются. Но, кроме
-того, я привык видеть, какое приложение сделало запись в буфер обмена, и
-в какое время. В этом случае можно использовать программу как простой
-таймер для учета времени. Если данные копировались в буфер
-последовательно несколько раз -- должна быть возможность их удобно
-получить. Все найденные программы под Linux меня никак не устраивали.</p>
-<p>Также, хотелось быстро исправлять текст, введенный в ошибочной раскладке
-или неверном (верхнем/нижнем) регистре. Кроме того, у меня на autohotkey
-были написаны задачи, облегчающие работу. Ну, например, вставка
-комментария с текущей датой в любом месте. На первый взгляд, в Linux с
-этим все хорошо. Есть и compose key, и много скриптов на bash. Однако
-едва я попробовал запустить их в сессии rdp, как выяснилось, что со всем
-этим хозяйством есть огромные проблемы. Поэтому необходима программа,
-которая будет проверять нажатия клавиш и привязывать к ним выполнение
-некоторых задач.</p>
-<p>И если уж писать программу, хотелось бы, чтобы она работала как под
-Windows, так и под Linux.</p>
-<p>Данные хранятся в файлах sqlite, расположены в папке dat. Файлы можно
-удалить, при запуске будут проинициализированы заново.</p>
-<p>Пока это глубокая альфа, особенно в визуальной части, но программа
-работает. Основные задачи по использованию буфера обмена я использую
-несколько месяцев, и операционную систему Windows дома уже давненько не
-запускал.</p>
-<p>PS.    Java я конечно не изучил, но переписать все уже хочется.</p>
-<p>Тестирование</p>
-<p>Windows 7, Windows 10.</p>
-<p>PSLinuxOs XFCE -- система на домашнем компьютере, на котором идет
-основная проверка.</p>
-<p>Ограничения:</p>
-<p>Версия Java 11</p>
-<p>Пока не работает на 32 разрядном Linux.</p>
-<p>Некрасиво отображается системный трей в окружении Cinnamon. Причем эти
-проблемы даже у тестовой программы java. Вместо трея лучше запускать
-обычное окно с кнопками действий.</p>
-<p>Могут быть проблемы с дисплейным сервером Wayland. Функции для
-отслеживания нажатий клавиш используют X11.</p>
-<p>Минимальная версия Windows для работы программы: Windows Vista</p>
-<p>Для проверки запуска приложения и запуска задач с помощью командной
-строки открывается порт на компьютере. Для запуска нескольких приложений
-нужно использовать разные порты.</p>
-<p>Нет защиты базы с записями буфера обмена. Можно ограничить запись в
-базу, фильтруя заголовки/классы окон.</p>
+<p>This program is a multiple clipboard and hotkey manager. Replacing incorrect encoding, replacing incorrectly typed text case, tasks in Groovy script language.</p>
+<p>The data is stored in sqlite files, located in the dat folder. Files can be deleted, will be reinitialized at startup.</p>
+<p>Limitations:</p>
+<p>Version Java: 11</p>
+<p>Minimum version of Windows: Windows Vista</p>
+<p>To check the launch of the application, the port on the computer opens. To run multiple applications, you need to use different ports.</p>
+<p>Database with clipboard entries is not protected. You can restrict the record to the database by filtering window headers/classes.</p>
 <p><a name=Sett></a></p>
-<h2 id="настройки">Настройки</h2>
+<h2 id="settings">Settings</h2>
 <p><img src="md_media/image1.png" alt=""></p>
-<p>Системные настройки</p>
-<p>Socket port. При первом запуске программа резервирует указанный порт.
-При повторном запуске порт проверяется и не дает запустить вторую копию
-программы. Еще одно использование -- запуск задачи из командной строки.</p>
-<p>Показывать окно с кнопками действий. У программы имеется обычное окно с
-кнопками основных действий. Возможна ситуация, когда системный tray
-недоступен. Тогда должно показываться данное окно (это действие по
-умолчанию). При установке флажка окно будет показываться всегда.</p>
-<p>Показывать иконку в системном трее. Если флажок не установлен,
-показывается окно с кнопками действий.</p>
-<p>Время в секундах для всплывающего окна с оповещением - если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне &quot;Оповещения и ошибки&quot;</p>
-<p>Время в секундах для всплывающего окна уведомления об ошибке - если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне &quot;Оповещения и ошибки&quot;</p>
-<p>Настройки для буфера обмена</p>
-<p>Количество записей на странице. При открытии списка клипов буфера обмена
-на экране показывается указанное количество клипов.</p>
-<p>Максимальный размер текста.    Ограничение размера текста при
-копировании в буфер.</p>
-<p>Удалить дубликаты текстов в буфере. При вставке клипа проверяются клипы
-с таким же содержимым. Чтобы не набирать дубликаты в писке клипов -- их
-можно удалять. Следует иметь в виду, что при удалении дубликатов можно
-потерять информацию о времени создания и источнике текста в буфере.</p>
-<p>Время в минутах, после которого прекращается запоминание позиции в
-списке клипов. Для удобного выбора нескольких идущих последовательно
-клипов, при открытии списка сохраняется предыдущая позиция. После
-указанного времени -- список клипов открывается, начиная с самых
-последних.</p>
-<p>Отслеживать буфер обмена: выделение -- настройка видна только в Linux.
-По умолчанию выделение не отслеживается.</p>
+<p>System settings</p>
+<p>&quot;Socket port&quot;. At the first start, the program reserves the specified port.When you restart, the port is checked and prevents the second copy of the program from running. Another use is to run the task from the command line.</p>
+<p>&quot;Show window with action buttons&quot; - The program has a regular window with buttons of main actions. When the check box is selected, the window will be displayed.</p>
+<p>&quot;Show in system tray&quot;. If the check box is not selected, a window with action buttons is displayed.</p>
+<p>&quot;Timeout for notification of alerts (sec)&quot; - If the value is not set, windows with notifications is not displayed. However, you can view the records in the &quot;Alerts and Errors&quot;</p>
+<p>&quot;Timeout for notification of errors (sec)&quot;  - If the value is not set, windows with notifications is not displayed. However, you can view the records in the &quot;Alerts and Errors&quot;</p>
+<p>Clipboard settings</p>
+<p>&quot;Number of items on page&quot;.</p>
+<p>&quot;Maximum text size&quot;</p>
+<p>&quot;Remove duplicates items&quot;. If you delete duplicates, you may lose information about the time of creation and source of the clips.</p>
+<p>&quot;Timeout for save position (min)&quot;.  To easily select several consecutive clips, the previous position is saved when the list is opened. Later
+specified time - the list of clips opens, starting with the most recent.</p>
+<p>&quot;Watch the clipboard: primary (mouse selection)&quot;.  Only Linux.</p>
 <p><a name=Clp></a></p>
-<h2 id="окно-сохраненных-текстовых-клипов-буфера-обмена">Окно сохраненных текстовых клипов буфера обмена.</h2>
+<h2 id="clips-list">Clips list</h2>
 <p><img src="md_media/image2.png" alt=""></p>
-<p>Показывается список клипов с указанием времени копирования, заголовка и
-класса окна владельца. Для системы Linux дополнительно показывается
-буфер обмена: обычный или выделение. При выборе клипа запоминается
-текущая позиция. При повторном открытии списка курсор устанавливается на
-предыдущий клип. Позиция курсора сбрасывается после истечения времени,
-указанного в настройках.</p>
+<p>A list of clips showing the copy time, title, and class of the owner window is displayed. For Linux system additionally shown
+clipboard: normal or selection. When you select a clip, the current position is stored. When you reopen the list, the cursor is placed on the previous clip. The cursor position is reset after the time has elapsed, specified in the settings.</p>
 <p><a name=Gr></a></p>
-<h2 id="группы-задач">Группы задач</h2>
+<h2 id="tasks-groups">Tasks groups</h2>
 <p><img src="md_media/image3.png" alt=""></p>
-<p>Задачи можно сгруппировать. При открытии группы задач, можно
-посмотреть/запустить задачи только из указанной группы. У группы можно
-указать горячие клавиши. При вводе этих клавиш открывается список задач
-с отбором по выбранной группе.</p>
+<p>Tasks can be grouped together. When you open a task group, you can view/run tasks only from the specified group. You can specify hotkeys for a group. When you enter these keys, a list of tasks opens with selection for the selected group.</p>
 <p><a name=Tsk></a></p>
-<h2 id="задачи">Задачи</h2>
+<h2 id="tasks">Tasks</h2>
 <p><img src="md_media/image4.png" alt=""></p>
-<p>Можно выполнять действия над строками, полученными из буфера обмена или
-выделенными в текстовом редакторе.    Каждая задача состоит из списка
-подзадач, выполняемых последовательно.</p>
-<p>Обмен данными между подзадачами ведется с помощью специального
-хранилища- словаря, куда можно поместить текстовое содержимое, указав
-любой код, а также получить обратно. Если код словаря пустой -- работаем
-с текущей обрабатываемой строкой.</p>
-<p>Необходимо принять во внимание, что есть две специальные подзадачи:
-копирование в буфер обмена и вставка из буфера. Несмотря на указание
-сочетаний клавиш, эти подзадачи особые. В некоторых случаях (например,
-при работе с сервером RDP) обновление буфера обмена может занимать
-длительное время и нельзя использовать просто имитацию нажатия клавиш.
-Необходимо дождаться реального обновления буфера.</p>
-<p>Существующие подзадачи:</p>
-<p>&quot;Посылать символ(ы), имитируя ввод на клавиатуре&quot; - Можно безопасно
-использовать только для клавиш, которые не зависят от раскладки
-клавиатуры. Не стоит использовать для передачи текста.<br>
-&quot;Попытаться скопировать выделенный текст в буфер обмена&quot; - Несмотря
-на указание горячей клавиши, это не просто имитация нажатия клавиш.
-Операция пытается именно скопировать значение в буфер обмена, ожидая
-ответа.<br>
-&quot;Попытаться вставить текст из буфера обмена в текущую позицию курсора&quot; - Несмотря на указание горячей клавиши, это не просто имитация нажатия клавиш. Операция пытается именно вставить значение из буфера обмена<br>
-&quot;Посылать символ(ы), используя специальную клавишу Compose (для системы
-Windows - Alt)&quot; - Отсылает коды клавиш с помощью специально настроеной
-клавиши Compose (для системы Windows - Alt). Может являться аналогом
-вставки из буфера обмена<br>
-&quot;Получить строку из буфера обмена и поместить в словарь&quot;<br>
-&quot;Сохранить указанную строку в буфер обмена&quot;<br>
-&quot;Введенную в содержание строку сохранить как текущую обрабатываемую&quot;<br>
-&quot;Сохранить текущую обрабатываемую строку в словарь&quot;<br>
-&quot;Получить текущую обрабатываемую строку из словаря&quot;<br>
-&quot;Удалить строку из словаря (если больше не нужна)&quot;<br>
-&quot;Изменить кодировку текста&quot;<br>
-&quot;Изменить регистр текста&quot;<br>
-&quot;Поместить в список клипов&quot;<br>
-&quot;Выполнить код на языке Groovy&quot; - В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result<br>
-&quot;Показать/скрыть сохраненный список буфера обмена&quot;</p>
+<p>You can perform actions on rows retrieved from the clipboard or
+selected in a text editor. Each task consists of a list
+subtasks executed sequentially.</p>
+<p>Data exchange between subtasks is carried out using a special
+a dictionary repository where you can place text content by specifying
+any code and also get back. If the dictionary code is empty -- we are working
+with the current row being processed.</p>
+<p>It should be taken into account that there are two special subtasks:
+copy to the clipboard and paste from the clipboard. Despite the indication
+keyboard shortcuts, these subtasks are special. In some cases (e.g.
+when working with an RDP server) updating the clipboard may take
+for a long time and you cannot use just simulating keystrokes.
+You must wait for the actual buffer update.</p>
 <p><a name=Flt></a></p>
-<h2 id="фильтры-окон">Фильтры окон</h2>
+<h2 id="filter-for-foreground-window">Filter for foreground window</h2>
 <p><img src="md_media/image5.png" alt=""></p>
 <p><img src="md_media/image6.png" alt=""></p>
-<p>Задача может выполняться только в указанном окне или позиции экрана.
-Можно указать в формате регулярных выражений разрешенную или запрещенную
-комбинацию символов    в заголовке или классе окна. Можно, например,
-использовать фильтр, чтобы не копировать в список клипов сохраненные
-пароли.</p>
+<p>The task can only be performed in the specified window or screen item.
+You can specify in regular expression format a allowed or denied character combination in a window header or class. You can, for example, use a filter to avoid copying saved clips to the list passwords.</p>
 <p><a name=Aler></a></p>
-<h2 id="оповещения-и-ошибки">Оповещения и ошибки</h2>
+<h2 id="alerts-and-errors">Alerts and errors</h2>
 <p><img src="md_media/image7.png" alt=""></p>
-<p>Это отдельная таблица, в которую автоматически попадают ошибки при
-выполнении задач. Кроме того вы можете сами записывать туда текст, чтобы
-потом анализировать.</p>
+<p>This is a separate table that automatically gets errors when performing tasks. In addition, you can write text there yourself so that
+then analyze.</p>
 
         
         
