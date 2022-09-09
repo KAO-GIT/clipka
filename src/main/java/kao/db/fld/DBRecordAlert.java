@@ -21,6 +21,7 @@ public class DBRecordAlert extends DBRecord
 		
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_ID, MetaTypes.INTEGER, "id")); 
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_NAME, MetaTypes.STRING, "name",source)); 
+		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_TITLE, MetaTypes.STRING, "title",source)); 
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_DESCRIPTION, MetaTypes.STRING, "description",source)); 
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_VARIANT, MetaTypes.INTEGER, "variant")); 
 	}

@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
 import kao.db.fld.*;
 import kao.db.xml.SerializatorsXML;
 import kao.el.*;
+import kao.frm.swing.nt.NotiKA;
 import kao.fw.FilterWindows;
 import kao.res.*;
 import kao.prop.Utils;
@@ -127,6 +128,7 @@ public class ConDataTask
 		// Alerts and errors table - version 1
 		statement.executeUpdate("CREATE TABLE IF NOT EXISTS tsk.aler1 (" 
 				+ " id         INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " 
+				+ " dt         TEXT NULL,"
 				+ " predefined INTEGER NOT NULL DEFAULT 0," 
 				+ " owner      INTEGER NOT NULL DEFAULT 0, "
 				+ " ownertype  INTEGER NOT NULL DEFAULT 0, "
@@ -183,7 +185,8 @@ public class ConDataTask
 						ResNames.DESCRIPTION_GROUPTASK__ALL__.name(), -100);
 				setDefGroups(statement, currentName, 99, ResNames.GROUPTASK__FAVORITES__.name(), ResNames.DESCRIPTION_GROUPTASK__FAVORITES__.name(), -99);
 				setDefGroups(statement, currentName, 98, ResNames.GROUPTASK__HOTSTRINGS__.name(), ResNames.DESCRIPTION_GROUPTASK__HOTSTRINGS__.name(), -98);
-				setDefGroups(statement, currentName, 97, ResNames.GROUPTASK__KEYBOARDKEYS__.name(), ResNames.DESCRIPTION_GROUPTASK__KEYBOARDKEYS__.name(), -97);
+				setDefGroups(statement, currentName, 97, ResNames.GROUPTASK__KEYBOARDKEYS__.name(), ResNames.DESCRIPTION_GROUPTASK__KEYBOARDKEYS__.name(),
+						-97);
 				setDefGroups(statement, currentName, 96, ResNames.GROUPTASK__CLIPS__.name(), ResNames.DESCRIPTION_GROUPTASK__CLIPS__.name(), -96);
 			} catch (SQLException e)
 			{
@@ -418,19 +421,19 @@ public class ConDataTask
 		 */
 		private static DBRecordTask getSerializedObject(String currentName)
 		{
-			String res = String.format("/xml/predefined/task/%s.xml",currentName);
-			if(res!=null)
+			String res = String.format("/xml/predefined/task/%s.xml", currentName);
+			if (res != null)
 			{
-			try
-			{
-				return (DBRecordTask) SerializatorsXML.fromResource(res); 
-			} catch (ParserConfigurationException | SAXException | IOException e)
-			{
+				try
+				{
+					return (DBRecordTask) SerializatorsXML.fromResource(res);
+				} catch (ParserConfigurationException | SAXException | IOException e)
+				{
+				}
 			}
-			}
-			return null; 
+			return null;
 		}
-		
+
 		/**
 		 * Заполняет встроенные задачи
 		 * 
@@ -439,147 +442,147 @@ public class ConDataTask
 		{
 			try
 			{
-				if (!findRecTask(code)) 
+				if (!findRecTask(code))
 				{
-					DBRecordTask ser = getSerializedObject(name.name()); 
-					if(ser!=null)
+					DBRecordTask ser = getSerializedObject(name.name());
+					if (ser != null)
 					{
-						DBRecordTask cp = new DBRecordTask(1);  
+						DBRecordTask cp = new DBRecordTask(1);
 						cp.fill(ser);
-						cp.setValue(DataFieldNames.DATAFIELD_ID, code); 
+						cp.setValue(DataFieldNames.DATAFIELD_ID, code);
 						cp.setValue(DataFieldNames.DATAFIELD_NAME, name.name());
-						String descr = "DESCRIPTION_"+name.name();
-						if(ResNames.isInEnum(descr))
+						String descr = "DESCRIPTION_" + name.name();
+						if (ResNames.isInEnum(descr))
 						{
 							cp.setValue(DataFieldNames.DATAFIELD_DESCRIPTION, descr);
 						}
 						save(cp);
-					}	
+					}
 				}
 			} catch (SQLException e)
 			{
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 		private static void setDefTasks()
 		{
-			setDefTasks(1, ResNames.TASK_PREDEFINED_CLIPS); 
-			setDefTasks(2, ResNames.TASK_PREDEFINED_CHANGE_ENCODING_TEXT); 
-			setDefTasks(3, ResNames.TASK_PREDEFINED_CHANGE_CASE_TEXT); 
-			setDefTasks(100, ResNames.TASK_PREDEFINED_CURRENT_DATE); 
+			setDefTasks(1, ResNames.TASK_PREDEFINED_CLIPS);
+			setDefTasks(2, ResNames.TASK_PREDEFINED_CHANGE_ENCODING_TEXT);
+			setDefTasks(3, ResNames.TASK_PREDEFINED_CHANGE_CASE_TEXT);
+			setDefTasks(100, ResNames.TASK_PREDEFINED_CURRENT_DATE);
 
-//			{
-//				DBRecordTask cp = new DBRecordTask(1);
-//				cp.setValue(DataFieldNames.DATAFIELD_ID, 1).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CLIPS.name());
-//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{control multiply}");
-//				setDefTasks(currentName, cp);
-//			}
-//			{
-//				DBRecordTask cp = new DBRecordTask(1);
-//				cp.setValue(DataFieldNames.DATAFIELD_ID, 2).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CHANGE_ENCODING_TEXT.name());
-//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{control divide}");
-//
-//				DBRecordSubTask st;
-//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_COPY.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{control insert}");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_GETCLIPBOARDCONTENS.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_CHANGE_ENCODING_TEXT.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
-//				subtasks.add(st);
-//
-//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
-//
-//				setDefTasks(currentName, cp);
-//			}
-//			{
-//				DBRecordTask cp = new DBRecordTask(1);
-//				cp.setValue(DataFieldNames.DATAFIELD_ID, 3).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CHANGE_CASE_TEXT.name());
-//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{alt divide}"); // {alt pause}
-//
-//				DBRecordSubTask st;
-//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_COPY.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{control insert}");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_GETCLIPBOARDCONTENS.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_CHANGE_CASE_TEXT.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
-//				subtasks.add(st);
-//
-//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
-//
-//				setDefTasks(currentName, cp);
-//			}
-//
-//			{
-//				DBRecordTask cp = new DBRecordTask(1);
-//				cp.setValue(DataFieldNames.DATAFIELD_ID, 100).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CURRENT_DATE.name());
-//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{divide}{d}{space}\n{slash}{d}{space}");
-//
-//				DBRecordSubTask st;
-//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SENDKEYS.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{backspace}{backspace}{backspace}");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_RUNCODE_GROOVY.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "new Date().format('yyyy-MM-dd HH:mm:ss')");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
-//				subtasks.add(st);
-//
-//				st = new DBRecordSubTask(cp);
-//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
-//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
-//				subtasks.add(st);
-//
-//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
-//
-//				setDefTasks(currentName, cp);
-//			}
+			//			{
+			//				DBRecordTask cp = new DBRecordTask(1);
+			//				cp.setValue(DataFieldNames.DATAFIELD_ID, 1).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CLIPS.name());
+			//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{control multiply}");
+			//				setDefTasks(currentName, cp);
+			//			}
+			//			{
+			//				DBRecordTask cp = new DBRecordTask(1);
+			//				cp.setValue(DataFieldNames.DATAFIELD_ID, 2).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CHANGE_ENCODING_TEXT.name());
+			//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{control divide}");
+			//
+			//				DBRecordSubTask st;
+			//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_COPY.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{control insert}");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_GETCLIPBOARDCONTENS.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_CHANGE_ENCODING_TEXT.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
+			//				subtasks.add(st);
+			//
+			//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
+			//
+			//				setDefTasks(currentName, cp);
+			//			}
+			//			{
+			//				DBRecordTask cp = new DBRecordTask(1);
+			//				cp.setValue(DataFieldNames.DATAFIELD_ID, 3).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CHANGE_CASE_TEXT.name());
+			//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{alt divide}"); // {alt pause}
+			//
+			//				DBRecordSubTask st;
+			//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_COPY.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{control insert}");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_GETCLIPBOARDCONTENS.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_CHANGE_CASE_TEXT.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
+			//				subtasks.add(st);
+			//
+			//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
+			//
+			//				setDefTasks(currentName, cp);
+			//			}
+			//
+			//			{
+			//				DBRecordTask cp = new DBRecordTask(1);
+			//				cp.setValue(DataFieldNames.DATAFIELD_ID, 100).setValue(DataFieldNames.DATAFIELD_NAME, ResNames.TASK_PREDEFINED_CURRENT_DATE.name());
+			//				cp.setValue(DataFieldNames.DATAFIELD_HOTKEY, "{divide}{d}{space}\n{slash}{d}{space}");
+			//
+			//				DBRecordSubTask st;
+			//				ElementsForListing<DBRecordSubTask> subtasks = new ElementsForListing<>();
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SENDKEYS.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{backspace}{backspace}{backspace}");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_RUNCODE_GROOVY.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "new Date().format('yyyy-MM-dd HH:mm:ss')");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_SETCLIPBOARDCONTENS.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "");
+			//				subtasks.add(st);
+			//
+			//				st = new DBRecordSubTask(cp);
+			//				st.setValue(DataFieldNames.DATAFIELD_SUBTASKTYPE, TskActionNames.TSKTYPE_PASTE.getIntValue());
+			//				st.setValue(DataFieldNames.DATAFIELD_CONTENT, "{shift insert}");
+			//				subtasks.add(st);
+			//
+			//				cp.setValue(DataFieldNames.DATAFIELD_SUBTASKS, subtasks);
+			//
+			//				setDefTasks(currentName, cp);
+			//			}
 
 		}
 
@@ -656,7 +659,7 @@ public class ConDataTask
 					//int predefined = resultSet2.getInt("predefined");
 					//ETitleSource source = ETitleSource.checkPredefined(predefined);
 
-					DBRecordSubTask st = new DBRecordSubTask(0,r); // всегда можем редактировать
+					DBRecordSubTask st = new DBRecordSubTask(0, r); // всегда можем редактировать
 					st.setValue("id", resultSet3).setValue("content", resultSet3).setValue("type", resultSet3).setValue("description", resultSet3);
 
 					subtasks.add(st);
@@ -1298,6 +1301,16 @@ public class ConDataTask
 	{
 		private static final Logger LOGGER = LoggerFactory.getLogger(ConDataTask.AlertWindow.class);
 
+		public static boolean isErrorMessage(int variant)
+		{
+			return ResNamesWithId.getFromIntValue(variant) == ResNamesWithId.VALUE_ERROR;
+		}
+
+		public static boolean isErrorMessage(kao.res.ResNamesWithId variant)
+		{
+			return variant == ResNamesWithId.VALUE_ERROR;
+		}
+
 		public static IResErrors save_check(IElement el)
 		{
 
@@ -1315,21 +1328,26 @@ public class ConDataTask
 		public static IResErrors save(kao.res.ResNamesWithId variant, String name, String title)
 		{
 			DBRecordAlert cp = new DBRecordAlert();
-			
+
 			// in description and title one value
 			cp.setValue(DataFieldNames.DATAFIELD_VARIANT, variant.getIntValue()).setValue(DataFieldNames.DATAFIELD_NAME, name)
 					.setValue(DataFieldNames.DATAFIELD_TITLE, title).setValue(DataFieldNames.DATAFIELD_DESCRIPTION, title);
 			IResErrors ret = save(cp);
-			if(!ret.isSuccess())
+			if (!ret.isSuccess())
 			{
 				LOGGER.info("Error: not save {}: {}, {}", variant, name, title);
 			}
-			
-			return ret ; 
+
+			return ret;
 		}
 
 		public static IResErrors save(DBRecordAlert cp)
 		{
+			{
+				int variant = cp.getIntValue(DataFieldNames.DATAFIELD_VARIANT);
+				NotiKA.showNotification(cp.getStringValue(DataFieldNames.DATAFIELD_TITLE), ResNamesWithId.getFromIntValue(variant));
+			}
+
 			try
 			{
 				Connection connection = ConData.getConn();
@@ -1350,7 +1368,8 @@ public class ConDataTask
 					id = resultSet.getInt("id");
 				}
 
-				statement = connection.prepareStatement("UPDATE tsk.aler1 SET name=?,description=?,title=?,variant=? WHERE id=?");
+				statement = connection
+						.prepareStatement("UPDATE tsk.aler1 SET name=?,description=?,title=?,variant=?,dt=datetime('now','localtime') WHERE id=?");
 				statement.setString(1, cp.getStringValue(DataFieldNames.DATAFIELD_NAME));
 				statement.setString(2, cp.getStringValue(DataFieldNames.DATAFIELD_DESCRIPTION));
 				statement.setString(3, cp.getStringValue(DataFieldNames.DATAFIELD_TITLE));
@@ -1386,7 +1405,7 @@ public class ConDataTask
 				return new ResErrorsWithAdditionalData(ResErrors.ERR_DBERROR, e.getLocalizedMessage());
 			}
 		}
-		
+
 		public static IResErrors deleteAll()
 		{
 			try
@@ -1403,7 +1422,6 @@ public class ConDataTask
 				return new ResErrorsWithAdditionalData(ResErrors.ERR_DBERROR, e.getLocalizedMessage());
 			}
 		}
-		
 
 		public static ElementsForChoice getCategories()
 		{

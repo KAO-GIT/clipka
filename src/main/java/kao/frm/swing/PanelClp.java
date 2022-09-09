@@ -157,7 +157,6 @@ public class PanelClp extends JPanel implements ActionListener
 		//			jFilter.getDocument().remove(0, jFilter.getDocument().getLength());
 		//		} catch (BadLocationException e)
 		//		{
-		//			// TODO Auto-generated catch block
 		//			e.printStackTrace();
 		//		} 
 	}

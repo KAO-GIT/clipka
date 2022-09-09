@@ -55,13 +55,18 @@ public class TskRegular implements Tsk,IClipboardBlock
 		boolean ret = false; 
 		for (DBRecordSubTask subtask : subtasks)
 		{
-			if(subtask instanceof IClipboardBlock) 
-			{	
-				if( ((IClipboardBlock)subtask).workWithClipboard() ) {
-					ret = true;  
-					break; 
+			TskAction a = TskAction.getAction(subtask);
+			if (a != null)
+			{
+				if(a instanceof IClipboardBlock) 
+				{	
+					if( ((IClipboardBlock)a).workWithClipboard() ) {
+						ret = true;  
+						break; 
+					}
 				}
 			}
+			
 		}
 		return ret; 
 	}

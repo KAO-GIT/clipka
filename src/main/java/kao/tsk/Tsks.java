@@ -19,7 +19,6 @@ import kao.frm.WndsVarios;
 import kao.kb.KeyStruct;
 import kao.prop.Utils;
 
-
 public class Tsks
 {
 	private final static RepKA repository;
@@ -80,14 +79,14 @@ public class Tsks
 				}
 				final String hotkeys = ((ElementSettHotKey) el).getHotkey();
 				kao.kb.KbTrackStart.getGeneralTrack().updateGlobalHotKeys(hotkeys, r);
-//				ArrayList<KeyStructs> keysAll = KeyUtil.getKeyStructs(hotkeys);
-//				for (KeyStructs keys : keysAll)
-//				{
-//					if (!keys.isEmpty())
-//					{
-//						kao.kb.KbTrackStart.getGeneralTrack().putHotKey(keys, r);
-//					}
-//				}
+				//				ArrayList<KeyStructs> keysAll = KeyUtil.getKeyStructs(hotkeys);
+				//				for (KeyStructs keys : keysAll)
+				//				{
+				//					if (!keys.isEmpty())
+				//					{
+				//						kao.kb.KbTrackStart.getGeneralTrack().putHotKey(keys, r);
+				//					}
+				//				}
 			} catch (SQLException e)
 			{
 				e.printStackTrace();
@@ -138,24 +137,29 @@ public class Tsks
 		d = new Thread(() ->
 		{
 			Tsk tsk = Tsks.getTsk(source);
-			if(tsk instanceof IClipboardBlock) 
+			if (tsk instanceof IClipboardBlock)
 			{
-				if(!Utils.waitEmptyModifiers())
+				boolean workWithClipboard = ((IClipboardBlock) tsk).workWithClipboard();
+				//System.out.println("prepareAndRunTask, workWithClipboard: "+workWithClipboard); 
+				if (workWithClipboard)
 				{
-					ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), "Timeout"); 
-					return;
-				}	
+					if (!Utils.waitEmptyModifiers())
+					{
+						ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), "Timeout");
+						return;
+					}
+				}
 			}
 			try
 			{
 				kao.kb.KbTrackStart.getGeneralTrack().setWorkPaused(true);
 				kao.kb.KbTrackStart.getGeneralTrack().push(new KeyStruct());
 				IResErrors res = tsk.runTsk();
-				if(!res.isSuccess())
+				if (!res.isSuccess())
 				{
-					ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), res.toString()); 
+					ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), res.toString());
 				}
-				
+
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -189,37 +193,35 @@ public class Tsks
 	public static Tsk getTsk(IRecord source)
 	{
 		Tsk ret = null;
-		if(source instanceof DBRecordTask)
+		if (source instanceof DBRecordTask)
 		{
-			DBRecordTask csource =  (DBRecordTask) source; 
-			if(ConDataTask.Tasks.isOpenClips(csource.getIdInt())) 
+			DBRecordTask csource = (DBRecordTask) source;
+			if (ConDataTask.Tasks.isOpenClips(csource.getIdInt()))
 			{
 				ret = () ->
 				{
 					WndText.getInstance().updatePrimaryWnd();
 					return ResErrors.NOERRORS;
 				};
-			}
-			else
+			} else
 			{
-				ret = new TskRegular((DBRecordTask) csource); 
+				ret = new TskRegular((DBRecordTask) csource);
 			}
-		}
-		else if(source instanceof DBRecordTasksGroup)
+		} else if (source instanceof DBRecordTasksGroup)
 		{
 			ret = () ->
 			{
 				DBRecordTasksGroup csource = (DBRecordTasksGroup) source;
-				WndsVarios.showWndTasks(null,new ElementForChoice(csource.getIdInt(), csource.getDescription()));
+				WndsVarios.showWndTasks(null, new ElementForChoice(csource.getIdInt(), csource.getDescription()));
 				//System.out.println("Tsks getTsk ");
 				return ResErrors.NOERRORS;
 			};
-			
+
 		}
 
 		return ret;
 	}
-	
+
 	/**
 	 * Записывает текст в буфер обмена CLIPBOARD
 	 * @param text
@@ -294,29 +296,29 @@ public class Tsks
 		return ClipboardMonitor.getInstance().copy(keys);
 	}
 
-//	public static String copy() throws Exception
-//	{
-//		return ClipboardMonitor.getInstance().copy(new int[]
-//		{ KeyEvent.VK_CONTROL, KeyEvent.VK_INSERT });
-//		//return ClipboardMonitor.getInstance().copy(new int[]{KeyEvent.VK_CONTROL,KeyEvent.VK_C});
-//	}
+	//	public static String copy() throws Exception
+	//	{
+	//		return ClipboardMonitor.getInstance().copy(new int[]
+	//		{ KeyEvent.VK_CONTROL, KeyEvent.VK_INSERT });
+	//		//return ClipboardMonitor.getInstance().copy(new int[]{KeyEvent.VK_CONTROL,KeyEvent.VK_C});
+	//	}
 
-//public static String copy() throws Exception
-//{
-//	return ClipboardMonitor.getInstance().copy(new int[]
-//	{ KeyEvent.VK_CONTROL, KeyEvent.VK_INSERT });
-//	//return ClipboardMonitor.getInstance().copy(new int[]{KeyEvent.VK_CONTROL,KeyEvent.VK_C});
-//}
+	//public static String copy() throws Exception
+	//{
+	//	return ClipboardMonitor.getInstance().copy(new int[]
+	//	{ KeyEvent.VK_CONTROL, KeyEvent.VK_INSERT });
+	//	//return ClipboardMonitor.getInstance().copy(new int[]{KeyEvent.VK_CONTROL,KeyEvent.VK_C});
+	//}
 	public static void paste(int[] keys) throws Exception
 	{
 		ClipboardMonitor.getInstance().paste(keys);
 	}
 
-//	public static void paste() throws Exception
-//	{
-//		ClipboardMonitor.getInstance().paste(new int[]
-//		{ KeyEvent.VK_SHIFT, KeyEvent.VK_INSERT });
-//	}
+	//	public static void paste() throws Exception
+	//	{
+	//		ClipboardMonitor.getInstance().paste(new int[]
+	//		{ KeyEvent.VK_SHIFT, KeyEvent.VK_INSERT });
+	//	}
 
 	/**
 	 * Получает значение из буфера обмена CLIPBOARD
@@ -327,6 +329,5 @@ public class Tsks
 	{
 		return ClipboardMonitor.getInstance().getContents();
 	}
-
 
 }

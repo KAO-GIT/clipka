@@ -43,6 +43,10 @@ public enum DBCommandNames
 	@AnnotationDefValue("Edit")
 	@AnnotationDefValueRu("Изменить")
 	DBCOMMAND_EDIT(),
+	
+	@AnnotationDefValue("View")
+	@AnnotationDefValueRu("Просмотр")
+	DBCOMMAND_VIEW(),
 
 	@AnnotationDefValue("Clear all")
 	@AnnotationDefValueRu("Очистить все записи")

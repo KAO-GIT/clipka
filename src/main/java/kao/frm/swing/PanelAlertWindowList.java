@@ -6,6 +6,7 @@ import kao.db.fld.DBRecordAlert;
 import kao.db.fld.DataFieldNames;
 
 import kao.prop.ResKA;
+import kao.prop.Utils;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
 import kao.res.ResNames;
@@ -27,14 +28,14 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 {
 	private static final long serialVersionUID = -6745467911126794436L;
 
-	private CurrentCommands cc ; 
+	private CurrentCommands cc;
 
 	public PanelAlertWindowList()
 	{
 		super();
 
 		getTable().setModel(new CurrentTableModel());
-		
+
 		addCommands();
 
 	}
@@ -47,10 +48,23 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 		{
 			return lc.get(0).execute();
 		}
-		
-		private Integer getCurrentId()
+
+		private int getSelectedRow()
 		{
 			int row = getTable().getSelectedRow();
+			return row;
+		}
+
+		private DBRecordAlert getCurrentElement()
+		{
+			int row = getSelectedRow();
+			if (row == -1) return null;
+			return (DBRecordAlert) kit.getElements().get(row);
+		}
+
+		private Integer getCurrentId()
+		{
+			int row = getSelectedRow();
 			if (row == -1) return null;
 			Integer id = kit.getElements().get(row).getIdInt();
 			return id;
@@ -61,73 +75,89 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 			Integer id = getCurrentId();
 			if (id == null) return ResErrors.ERR_NOTSELECTED;
 
-//			try
-//			{
-				switch (db.getCommandName())
-				{
-				case DBCOMMAND_DELETE:
-					return ConDataTask.AlertWindow.delete(id);
-				default:
-					break;
-				}
-//			} catch (NumberFormatException | SQLException e)
-//			{
-//				return ResErrors.ERR_DBERROR;
-//			}
+			//			try
+			//			{
+			switch (db.getCommandName())
+			{
+			case DBCOMMAND_VIEW:
+				DBRecordAlert el = getCurrentElement();
+				JOptionPane.showMessageDialog(PanelAlertWindowList.this, "<html>" + Utils.toHtml(el.getTitle()) + "</html>",
+						el.getStringValue(DataFieldNames.DATAFIELD_NAME),
+						ConDataTask.AlertWindow.isErrorMessage(el.getIntValue(DataFieldNames.DATAFIELD_VARIANT)) ? JOptionPane.ERROR_MESSAGE
+								: JOptionPane.INFORMATION_MESSAGE);
+
+			case DBCOMMAND_DELETE:
+				return ConDataTask.AlertWindow.delete(id);
+			default:
+				break;
+			}
+			//			} catch (NumberFormatException | SQLException e)
+			//			{
+			//				return ResErrors.ERR_DBERROR;
+			//			}
 			return ResErrors.NOERRORS;
 		}
 
 		public CurrentCommands()
 		{
-			lc = List.of(new DBCommandDelete()
+			lc = List.of(new DBCommandView()
+			{
+
+				@Override
+				public IResErrors execute()
+				{
+					IResErrors r;
+					r = check();
+					if (!r.isSuccess()) return r;
+					r = executeSel(this);
+					if (!r.isSuccess()) return r;
+					return ResErrors.NOERRORS;
+				}
+			}, new DBCommandDelete()
 			{
 
 				@Override
 				public IResErrors check()
 				{
-					Integer id = getCurrentId(); 
+					Integer id = getCurrentId();
 					if (id == null) return ResErrors.ERR_NOTSELECTED;
-					
+
 					return ConDataTask.AlertWindow.delete_check(id);
 				}
 
 				@Override
 				public IResErrors execute()
 				{
-					IResErrors r ; 
+					IResErrors r;
 					r = check();
 					if (!r.isSuccess()) return r;
-					
-					int result = JOptionPane.showConfirmDialog(
-							SwingUtilities.getWindowAncestor(PanelAlertWindowList.this), 
-              ResKA.getResourceBundleValue(ResNames.ALL_MESS_SURE), //Вы уверены?
-              "Clipka",
-              JOptionPane.OK_CANCEL_OPTION);
+
+					int result = JOptionPane.showConfirmDialog(SwingUtilities.getWindowAncestor(PanelAlertWindowList.this),
+							ResKA.getResourceBundleValue(ResNames.ALL_MESS_SURE), //Вы уверены?
+							"Clipka", JOptionPane.OK_CANCEL_OPTION);
 					if (result != JOptionPane.OK_OPTION)
 					{
 						return ResErrors.NOERRORS;
 					}
-					
+
 					r = executeSel(this);
 					if (!r.isSuccess()) return r;
 					PanelAlertWindowList.this.actionPerformed(new ActionEvent(this, 0, "UPDATE"));
 					return r;
 				}
-			},new DBCommandClearAll()
+			}, new DBCommandClearAll()
 			{
 
 				@Override
 				public IResErrors execute()
 				{
-					IResErrors r ; 
+					IResErrors r;
 					r = check();
 					if (!r.isSuccess()) return r;
-					
-					int result = JOptionPane.showConfirmDialog(
-							SwingUtilities.getWindowAncestor(PanelAlertWindowList.this), 
-              ResKA.getResourceBundleValue(ResNames.ALL_MESS_SURE), //Вы уверены?
-              "Clipka",
-              JOptionPane.OK_CANCEL_OPTION);
+
+					int result = JOptionPane.showConfirmDialog(SwingUtilities.getWindowAncestor(PanelAlertWindowList.this),
+							ResKA.getResourceBundleValue(ResNames.ALL_MESS_SURE), //Вы уверены?
+							"Clipka", JOptionPane.OK_CANCEL_OPTION);
 					if (result != JOptionPane.OK_OPTION)
 					{
 						return ResErrors.NOERRORS;
@@ -138,9 +168,9 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 					PanelAlertWindowList.this.actionPerformed(new ActionEvent(this, 0, "UPDATE"));
 					return r;
 				}
-			},  new DBCommandHelp()
+			}, new DBCommandHelp()
 			{
-				
+
 				@Override
 				public IResErrors execute()
 				{
@@ -152,11 +182,10 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 				public IResErrors execute()
 				{
 					Dlg.closeWindow(PanelAlertWindowList.this);
-          
+
 					return ResErrors.NOERRORS;
 				}
-			}
-			);
+			});
 
 			add((new PanelCommands(lc)), BorderLayout.EAST);
 		}
@@ -179,7 +208,7 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 	{
 		ConDataTask.AlertWindow.fill(kit);
 	}
-	
+
 	@Override
 	public void init()
 	{
@@ -201,7 +230,7 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 		return null;
 	}
 
-	// заменим на модель с двумя столбцами
+	// заменим на свою модель 
 	private class CurrentTableModel extends AbstractTableModel
 	{
 		private static final long serialVersionUID = 1L;
@@ -218,7 +247,7 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 		@Override
 		public int getRowCount()
 		{
-			return kit.getElements()==null?0:kit.getElements().size();
+			return kit.getElements() == null ? 0 : kit.getElements().size();
 		}
 
 		// Количество столбцов

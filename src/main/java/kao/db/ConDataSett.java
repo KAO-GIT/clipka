@@ -110,11 +110,14 @@ public class ConDataSett
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), 6776, "integer", 50, "", 0);
 			//			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_CumulativeFlag", 0, "integer", 70, "", 0);
 			//			this.<String>setDefSett(statement, currentName, "Settings_Clp_CumulativeText", "", "memo", 75, "", 0);
-			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name(), 0, "checkbox", 80, "", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name(), 1, "checkbox", 80, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_TIMEOUTPOSITION.name(), 5, "integer", 90, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW.name(), 0, "checkbox", 100, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_TRAY.name(), 1, "checkbox", 110, "", 0);
 
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_TIMEOUT_ALERTS.name(), 5, "integer", 120, "", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_TIMEOUT_ERRORS.name(), 5, "integer", 130, "", 0);
+			
 			statement = ConData.getConn().prepareStatement("INSERT OR IGNORE INTO flt1 (name,tbl,meth,system,val) VALUES (?,?,?,?,?)");
 			this.<Integer>setDefFlt(statement, currentName, ResNames.SETTINGS_CLP_WATCH_PRIMARY.name(), "set1", 1, "W", 0);
 

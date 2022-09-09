@@ -155,7 +155,23 @@ public enum ResNames
 	@AnnotationDefValue("If the check box is not selected, a window with action buttons is displayed. To apply this setting, you need to close the program")
 	@AnnotationDefValueRu("Если флажок не установлен, показывается окно с кнопками действий. Для применения настройки небходимо завершить работу программы")
 	DESCRIPTION_SETTINGS_SYS_SHOW_TRAY(),
+	
+	@AnnotationDefValue("Timeout for notification of errors (sec) ")
+	@AnnotationDefValueRu("Время в секундах для всплывающего окна уведомления об ошибке ")
+	SETTINGS_SYS_TIMEOUT_ERRORS(),
 
+	@AnnotationDefValue("If the value is not set, windows with notifications is not displayed. However, you can view the records in the <<Alerts and Errors>>")
+	@AnnotationDefValueRu("Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне <<Оповещения и ошибки>> ")
+	DESCRIPTION_SETTINGS_SYS_TIMEOUT_ERRORS(),
+
+	@AnnotationDefValue("Timeout for notification of alerts (sec) ")
+	@AnnotationDefValueRu("Время в секундах для всплывающего окна с оповещением ")
+	SETTINGS_SYS_TIMEOUT_ALERTS(),
+
+	@AnnotationDefValue("If the value is not set, windows with notifications is not displayed. However, you can view the records in the <<Alerts and Errors>>")
+	@AnnotationDefValueRu("Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне <<Оповещения и ошибки>> ")
+	DESCRIPTION_SETTINGS_SYS_TIMEOUT_ALERTS(),
+	
 	@AnnotationDefValue("General settings")
 	@AnnotationDefValueRu("Имя настройки")
 	FORM_SETTINGS_HEADERNAME(),
@@ -192,7 +208,7 @@ public enum ResNames
 	@AnnotationDefValueRu("Фильтры окон")
 	FORM_FILTER_FOREGROUND_WINDOW,
 	
-	@AnnotationDefValue("Alerts and errors")
+	@AnnotationDefValue("Alerts and Errors")
 	@AnnotationDefValueRu("Оповещения и ошибки")
 	FORM_ALERTS_LIST,
 	
