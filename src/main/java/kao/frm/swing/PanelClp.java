@@ -3,6 +3,7 @@ package kao.frm.swing;
 import kao.cp.*;
 import kao.db.*;
 import kao.el.*;
+import kao.prop.ResKA;
 import kao.prop.Vers;
 //import kao.prop.*;
 import kao.res.ResNames;
@@ -12,6 +13,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.text.Document;
 
 import java.awt.*;
@@ -25,8 +28,8 @@ import java.util.function.UnaryOperator;
 public class PanelClp extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -6635354204325794436L;
-	
-	private static boolean checkToolTipText = Vers.JavaErrors.checkToolTipText(); 
+
+	private static boolean checkToolTipText = Vers.JavaErrors.checkToolTipText();
 
 	private KitForClpListing kit;
 
@@ -35,7 +38,7 @@ public class PanelClp extends JPanel implements ActionListener
 	private JButton jClearFilter;
 	private JComboBox<Integer> jCurrPage;
 	private JLabel jLabelPages;
-	private JPopupMenu jP;
+	private JPopupMenu jP = new JPopupMenu();
 	private final DocumentListener sdl;
 
 	//private Popup popup;
@@ -102,7 +105,7 @@ public class PanelClp extends JPanel implements ActionListener
 		jModelPages = new DefaultComboBoxModel<Integer>();
 		// updateModelPages();
 		jCurrPage = new JComboBox<Integer>(jModelPages);
-		jCurrPage.setPrototypeDisplayValue(999);
+		jCurrPage.setPrototypeDisplayValue(9999);
 		//jCurrPage.setFocusable(false);
 
 		panelt.add(jCurrPage);
@@ -289,15 +292,13 @@ public class PanelClp extends JPanel implements ActionListener
 						ActionEvent event = new ActionEvent(jFilter, ActionEvent.ACTION_PERFORMED, "");
 						action.actionPerformed(event);
 					}
-				} else if (e.getModifiersEx()==0 && ( (e.getKeyCode()>=KeyEvent.VK_A && e.getKeyCode()<=KeyEvent.VK_Z) || (e.getKeyCode()>=KeyEvent.VK_0 && e.getKeyCode()<=KeyEvent.VK_9) ) )
+				} else if (e.getModifiersEx() == 0 && ((e.getKeyCode() >= KeyEvent.VK_A && e.getKeyCode() <= KeyEvent.VK_Z)
+						|| (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9)))
 				{
 					//System.out.println("///"); 
 					jFilter.requestFocusInWindow();
-					jFilter.dispatchEvent(new KeyEvent(jFilter,
-							KeyEvent.KEY_TYPED, System.currentTimeMillis(),
-			        0,
-			        KeyEvent.VK_UNDEFINED,e.getKeyChar()));					
-					e.consume(); 
+					jFilter.dispatchEvent(new KeyEvent(jFilter, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, e.getKeyChar()));
+					e.consume();
 				}
 			}
 		});
@@ -488,45 +489,102 @@ public class PanelClp extends JPanel implements ActionListener
 			// }
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("MENU " + e.getActionCommand());
-				if (e.getActionCommand() == "Edit")
+				//System.out.println("MENU " + e.getActionCommand());
+				if (e.getActionCommand() == "__Help__")
 				{
+					kao.prop.HelpKA.browseHelp(PanelClp.class);
 					// popupShow((ClipboardElement)jList.getSelectedValue().get());
+				} else if(e.getActionCommand().startsWith("TASK_"))
+				{
+					//String id = e.getActionCommand().replace("TASK_", "");
 				}
 			}
 		}
 		;
-		jP = new JPopupMenu();
-		JMenuItem it;
-		String namecom;
-		Action mAaction = new MAction();
+		//jP = new JPopupMenu();
+		//		jP = new JPopupMenu() {
+		//			private static final long serialVersionUID = 1L;
+		//
+		//			@Override
+		//	    public void show(Component invoker, int x, int y) {
+		//	        int row = jList.locationToIndex(new Point(x, y));
+		//	        System.out.println("row = "+row); 
+		////	        if (row != -1) {
+		////	            jList.setSelectedIndex(row);
+		////	        }
+		//	        super.show(invoker, x, y);
+		//	    }
+		//		};
 
-//		namecom = "Edit";
-//		it = new JMenuItem();
-//		it.setAction(mAaction);
-//		it.setActionCommand(namecom);
-//		it.setIcon(null);
-//		it.setText(namecom);
-//		it.setHorizontalAlignment(SwingConstants.LEFT);
-//		jP.add(it);
-//
-//		namecom = "Delete";
-//		it = new JMenuItem();
-//		it.setAction(mAaction);
-//		it.setActionCommand(namecom);
-//		it.setIcon(null);
-//		it.setText(namecom);
-//		it.setHorizontalAlignment(SwingConstants.LEFT);
-//		jP.add(it);
+		jP.addPopupMenuListener(new PopupMenuListener()
+		{
 
-		namecom = "Help";
-		it = new JMenuItem();
-		it.setAction(mAaction);
-		it.setActionCommand(namecom);
-		it.setIcon(null);
-		it.setText(namecom);
-		it.setHorizontalAlignment(SwingConstants.LEFT);
-		jP.add(it);
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e)
+			{
+				JMenuItem it;
+				String namecom;
+				Action mAaction = new MAction();
+
+				jP.removeAll();
+
+				namecom = "__Help__";
+				it = new JMenuItem();
+				it.setAction(mAaction);
+				it.setActionCommand(namecom);
+				it.setIcon(null);
+				it.setText(ResKA.getResourceBundleValue(kao.db.cmd.DBCommandNames.DBCOMMAND_HELP.name()));
+				it.setHorizontalAlignment(SwingConstants.LEFT);
+				jP.add(it);
+
+				jP.addSeparator();
+
+				KitForListing kit = ConDataTask.Tasks.fillClips();
+				for (var el : kit.getElements())
+				{
+					jP.add(new JMenuItem()
+					{
+						private static final long serialVersionUID = 1L;
+						{
+							setAction(mAaction);
+							setActionCommand("TASK_"+el.getId());
+							setText(el.getTitle());
+							setHorizontalAlignment(SwingConstants.LEFT);
+						}
+					});
+				}
+				
+			}
+
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e)
+			{
+			}
+
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e)
+			{
+			}
+		});
+
+
+		//		namecom = "Edit";
+		//		it = new JMenuItem();
+		//		it.setAction(mAaction);
+		//		it.setActionCommand(namecom);
+		//		it.setIcon(null);
+		//		it.setText(namecom);
+		//		it.setHorizontalAlignment(SwingConstants.LEFT);
+		//		jP.add(it);
+		//
+		//		namecom = "Delete";
+		//		it = new JMenuItem();
+		//		it.setAction(mAaction);
+		//		it.setActionCommand(namecom);
+		//		it.setIcon(null);
+		//		it.setText(namecom);
+		//		it.setHorizontalAlignment(SwingConstants.LEFT);
+		//		jP.add(it);
 
 	}
 
@@ -556,9 +614,9 @@ public class PanelClp extends JPanel implements ActionListener
 				//				if(prevInd<0) prevInd=0;
 				//				kit.setSelectedId(jList.getModel().getElementAt(prevInd).get().getIdInt()); // Укажем на предыдущий элемент
 				kit.setSelectedId(cp.getIdInt()); // указываем на текущий элемент, после записи его может уже не быть - найдем предыдущий запросом при очередном заполнении
-				
+
 				kit.setFilter(""); // при выборе всегда сбрасываем фильтр
-				
+
 				ConDataClp.setCurrentAsLastTime();
 
 				// System.out.println(e.getActionCommand()+": "+jList.getSelectedValue());
@@ -660,7 +718,7 @@ public class PanelClp extends JPanel implements ActionListener
 
 					cl.setText(" " + el.toShortString());
 
-					if(index>(checkToolTipText?-1:0)) // Error: #19585 IAE: Width and height must be >= 0 (Metal look-and-feel on Linux)
+					if (index > (checkToolTipText ? -1 : 0)) // Error: #19585 IAE: Width and height must be >= 0 (Metal look-and-feel on Linux)
 					{
 						cl.setToolTipText("" + el.toComment());
 						cl.setInheritsPopupMenu(true);

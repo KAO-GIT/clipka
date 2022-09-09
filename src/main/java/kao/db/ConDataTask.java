@@ -33,7 +33,11 @@ public class ConDataTask
 {
 
 	private static final int GROUPTASK__ALL__ = 100;
+	
+	public static final int GROUPTASK__CLIP__ = 90;
+	
 	private static final int TASK_PREDEFINED_CLIPS__ = 1;
+	
 	public static final int FILTER_FOREGROUND_WINDOW_DEFAULT = 1;
 
 	void initializeTablesTask(Statement statement) throws SQLException
@@ -187,7 +191,7 @@ public class ConDataTask
 				setDefGroups(statement, currentName, 98, ResNames.GROUPTASK__HOTSTRINGS__.name(), ResNames.DESCRIPTION_GROUPTASK__HOTSTRINGS__.name(), -98);
 				setDefGroups(statement, currentName, 97, ResNames.GROUPTASK__KEYBOARDKEYS__.name(), ResNames.DESCRIPTION_GROUPTASK__KEYBOARDKEYS__.name(),
 						-97);
-				setDefGroups(statement, currentName, 96, ResNames.GROUPTASK__CLIPS__.name(), ResNames.DESCRIPTION_GROUPTASK__CLIPS__.name(), -96);
+				setDefGroups(statement, currentName, ConDataTask.GROUPTASK__CLIP__, ResNames.GROUPTASK__CLIPS__.name(), ResNames.DESCRIPTION_GROUPTASK__CLIPS__.name(), -ConDataTask.GROUPTASK__CLIP__ );
 			} catch (SQLException e)
 			{
 				e.printStackTrace();
@@ -993,6 +997,15 @@ public class ConDataTask
 			return kit;
 		}
 
+		public static KitForListing fillClips() 
+		{
+			KitForListing kit = new KitForListing();
+
+			ETitleSource source = ETitleSource.KEY_RESOURCE_BUNDLE;
+			ElementForChoice group = new ElementForChoice(ConDataTask.GROUPTASK__CLIP__, "", source);
+			kit.setCategory(group);
+			return ConDataTask.Tasks.fill(kit);
+		}
 	}
 
 	public static class TasksHotKeys
