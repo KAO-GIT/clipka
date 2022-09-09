@@ -125,11 +125,11 @@ public class WindowsClipboardUpdater extends ClipboardUpdater
 			switch (uMsg)
 			{
 			case WinUser.WM_CREATE:
-				System.out.println("WM_CREATE");
+				//System.out.println("WindowsClipboardUpdater WM_CREATE");
 				return new LRESULT(0);
 
 			case WinUser.WM_DESTROY:
-				System.out.println("WM_DESTROY");
+				//System.out.println("WindowsClipboardUpdater WM_DESTROY");
 				User32.INSTANCE.PostQuitMessage(0);
 				return new LRESULT(0);
 
