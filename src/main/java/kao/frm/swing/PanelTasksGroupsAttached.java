@@ -130,10 +130,10 @@ public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
 				@Override
 				public IResErrors check()
 				{
-					IElement el = getCurrentElement();
-					if (el == null) return ResErrors.ERR_NOTSELECTED;
-					if (el.getPredefined() == 1)
-						return new ResErrorsWithAdditionalData(ResErrors.ERR_PREDEFINED, ResNames.ALL_MESS_PREDEFINED.name(), ETitleSource.KEY_RESOURCE_BUNDLE);
+//					IElement el = getCurrentElement();
+//					if (el == null) return ResErrors.ERR_NOTSELECTED;
+//					if (el.getPredefined() == 1)
+//						return new ResErrorsWithAdditionalData(ResErrors.ERR_PREDEFINED, ResNames.ALL_MESS_PREDEFINED.name(), ETitleSource.KEY_RESOURCE_BUNDLE);
 					return ResErrors.NOERRORS;
 				}
 
