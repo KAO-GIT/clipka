@@ -21,14 +21,14 @@ public enum ResNames
 	@AnnotationDefValue("This program is a multiple clipboard and hotkey manager. \n"
 			+ "Replacing incorrect encoding, replacing incorrectly typed text case, tasks in Groovy script language. \n"
 			+ "keys: \n"
-			+ "-p [Port] - change socket port \n"
-			//+ "-c [Number] - run task with id = Number \n"
+			+ "-p [Port], --port [Port] - change socket port \n"
+			//+ "-t [Number] - run task with id = Number \n"
 			)
 	@AnnotationDefValueRu("Эта программа - множественный буфер обмена и менеджер горячих клавиш. \n"
 			+ "Замена неправильной кодировки, замена неправильно набранного регистра текста, задачи на скриптовом языке Groovy. \n"
 			+ "Ключи: \n"
-			+ "-p [Порт] - изменить порт, на котором работает программа \n"
-			//+ "-c [Номер] - номер команды, которую надо сразу запустить \n"
+			+ "-p [Порт], --port [Port] - изменить порт, на котором работает программа \n"
+			//+ "-t [Номер] - номер команды, которую надо сразу запустить \n"
 			)
 	ABOUTH(),
 	
