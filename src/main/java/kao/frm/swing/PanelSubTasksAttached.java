@@ -162,6 +162,13 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 			{
 
 				@Override
+				public IResErrors check()
+				{
+					if(getCurrentElement()==null) return ResErrors.ERR_NOTSELECTED;
+					return ResErrors.NOERRORS;
+				}
+				
+				@Override
 				public IResErrors execute()
 				{
 					IResErrors r;
@@ -175,6 +182,7 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 			}, new DBCommandNew()
 			{
 
+				
 				@Override
 				public IResErrors execute()
 				{
@@ -191,6 +199,7 @@ public class PanelSubTasksAttached extends PanelTableNoCommands<DBRecordSubTask>
 				@Override
 				public IResErrors check()
 				{
+					if(getCurrentElement()==null) return ResErrors.ERR_NOTSELECTED;
 					return ResErrors.NOERRORS;
 				}
 
