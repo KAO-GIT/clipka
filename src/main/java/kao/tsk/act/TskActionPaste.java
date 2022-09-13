@@ -26,7 +26,7 @@ public class TskActionPaste extends TskActionAbstract
 			{ KeyEvent.VK_SHIFT, KeyEvent.VK_INSERT });
 		} else
 		{
-			Tsks.paste(KeyUtil.getKeysForRobot( (KeyUtil.getKeyStructs(c).get(0).get(0)) ));
+			Tsks.paste(KeyUtil.getKeysForRobot( (KeyUtil.getKeyStruct(c)) ));
 		}
 		return ResErrors.NOERRORS;
 	}

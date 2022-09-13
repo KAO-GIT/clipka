@@ -27,6 +27,7 @@ import kao.el.ElementsForListing;
 import kao.el.IElement;
 import kao.res.*;
 import kao.prop.ResKA;
+import kao.prop.Utils;
 
 /**
  * Открывает для редактирования элемент настроек
@@ -79,7 +80,7 @@ public class WndTaskElement extends JDialog
 		}
 
 		p0.add(p1);
-
+		
 		data = el.getDataFieldProp(DataFieldNames.DATAFIELD_NAME);
 		field = new FieldDataWithType(data);
 		if (el.getPredefined() != 0) ((javax.swing.text.JTextComponent) field.getCurrComponent()).setEditable(false);
@@ -117,6 +118,14 @@ public class WndTaskElement extends JDialog
 		fieldsDataWithType.put(data.getDataFieldName(), field);
 
 		//p0.add(p1);
+		
+		if(el.getIdInt()!=0) // если не новая запись
+		{
+			FieldString cmd = new FieldString(ResKA.getResourceBundleValue(ResNames.PARAM_COMMAND_PROMPT), Utils.getCommandPromptParameters(el));
+			cmd.setEditable(false);
+			p0.add(cmd);
+		}
+		
 
 		JPanel ph = new JPanel(new BorderLayout());
 

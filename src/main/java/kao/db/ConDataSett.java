@@ -107,7 +107,7 @@ public class ConDataSett
 			//this.<String>setDefSett(statement, currentName, "Settings_Sys_DataPath", "", "path", 40, "", 0);
 			//this.<String>setDefSett(statement, currentName, "Settings_Clp_MainHotkey", "ctrl alt F", "hotkey", 50, "", 0);
 			//this.<String>setDefSett(statement, currentName, "Settings_Clp_TaskEncodeConHotkey", "F9", "hotkey", 60, "", 0);
-			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), 6776, "integer", 50, "", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), ConData.PORT, "integer", 50, "", 0);
 			//			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_CumulativeFlag", 0, "integer", 70, "", 0);
 			//			this.<String>setDefSett(statement, currentName, "Settings_Clp_CumulativeText", "", "memo", 75, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name(), 1, "checkbox", 80, "", 0);
@@ -148,22 +148,20 @@ public class ConDataSett
 		Connection connection = ConData.getConn();
 
 		PreparedStatement statement;
-		// statement = connection.prepareStatement("INSERT OR UPDATE INTO set1
-		// (name,val,typ) VALUES (?,?,?)");
-		statement = connection.prepareStatement("UPDATE set1 SET typ=?,val=? WHERE name=?");
-
-		// insert into set1 (name,val) values (?,?) on conflict (name) do update set val
-		// = ?;
-		statement.setString(3, cp.getName());
+		//statement = connection.prepareStatement("UPDATE set1 SET val=?,typ=? WHERE name=?");
+		statement = connection.prepareStatement("UPDATE set1 SET val=? WHERE name=?");
 
 		Object val = cp.getVal();
 		if (isInteger(cp.getTyp()))
 		{
-			if (val instanceof Integer) statement.setInt(2, (Integer) val);
-			else statement.setInt(2, Integer.parseInt(val.toString()));
-		} else statement.setString(2, val.toString());
+			if (val instanceof Integer) statement.setInt(1, (Integer) val);
+			else statement.setInt(1, Integer.parseInt(val.toString()));
+		} else statement.setString(1, val.toString());
 
-		statement.setString(1, cp.getTyp());
+//		statement.setString(2, cp.getTyp());
+		
+		statement.setString(2, cp.getName());
+		
 		statement.executeUpdate();
 
 		if (ResNames.isInEnum(cp.getName()))

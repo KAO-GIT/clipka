@@ -35,6 +35,7 @@ public class ConDataTask
 	private static final int GROUPTASK__ALL__ = 100;
 	
 	public static final int GROUPTASK__CLIP__ = 90;
+	public static final int GROUPTASK__ADMINISTRATIVE__ = 80;
 	
 	private static final int TASK_PREDEFINED_CLIPS__ = 1;
 	
@@ -189,9 +190,9 @@ public class ConDataTask
 						ResNames.DESCRIPTION_GROUPTASK__ALL__.name(), -100);
 				setDefGroups(statement, currentName, 99, ResNames.GROUPTASK__FAVORITES__.name(), ResNames.DESCRIPTION_GROUPTASK__FAVORITES__.name(), -99);
 				setDefGroups(statement, currentName, 98, ResNames.GROUPTASK__HOTSTRINGS__.name(), ResNames.DESCRIPTION_GROUPTASK__HOTSTRINGS__.name(), -98);
-				setDefGroups(statement, currentName, 97, ResNames.GROUPTASK__KEYBOARDKEYS__.name(), ResNames.DESCRIPTION_GROUPTASK__KEYBOARDKEYS__.name(),
-						-97);
+				setDefGroups(statement, currentName, 97, ResNames.GROUPTASK__KEYBOARDKEYS__.name(), ResNames.DESCRIPTION_GROUPTASK__KEYBOARDKEYS__.name(),-97);
 				setDefGroups(statement, currentName, ConDataTask.GROUPTASK__CLIP__, ResNames.GROUPTASK__CLIPS__.name(), ResNames.DESCRIPTION_GROUPTASK__CLIPS__.name(), -ConDataTask.GROUPTASK__CLIP__ );
+				setDefGroups(statement, currentName, ConDataTask.GROUPTASK__ADMINISTRATIVE__, ResNames.GROUPTASK__ADMINISTRATIVE__.name(), ResNames.DESCRIPTION_GROUPTASK__ADMINISTRATIVE__.name(), -ConDataTask.GROUPTASK__ADMINISTRATIVE__);
 			} catch (SQLException e)
 			{
 				e.printStackTrace();

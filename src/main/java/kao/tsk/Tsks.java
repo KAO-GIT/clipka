@@ -131,6 +131,33 @@ public class Tsks
 
 	}
 
+	public static void analyzeCommand(String command)
+	{
+		try
+		{
+			IRecord r = null;
+			int num = Integer.parseInt(command.substring(1));
+			switch (command.substring(0, 1))
+			{
+			case "g":
+				r = ConDataTask.TasksGroups.load(num).get();
+				break;
+			case "t":
+				r = ConDataTask.Tasks.load(num).get();
+				break;
+			default:
+				break;
+			}
+			if(r!=null)
+			{
+				prepareAndRunTask(r); 
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	public static void prepareAndRunTask(final IRecord source)
 	{
 		Thread d;

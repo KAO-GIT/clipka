@@ -20,6 +20,8 @@ import java.sql.PreparedStatement;
 public class ConData implements AutoCloseable
 {
 	public static final ConData INSTANCE = new ConData();
+	
+	public static final int PORT = 6776; 
 
 	private String dataFolder;
 
@@ -70,7 +72,7 @@ public class ConData implements AutoCloseable
 			if(rp.isEmpty())
 			{
 				rp = getDefaultPath()+"/dat";
-				dataFolder =rp;  
+				setDataFolder(rp); 
 			}
 			
 			System.out.println("dataFolder = " + rp);
@@ -197,7 +199,9 @@ public class ConData implements AutoCloseable
 	{
 		// что не войти в рекурсию - здесь нужно получать по имени getIntProp(String)
 		//hashValues = new EnumMap<ResNames, Object>(kao.res.ResNames.class);
-		hashValues.put(ResNames.SETTINGS_CLP_SIZETEXTELEM, getIntProp(ResNames.SETTINGS_CLP_SIZETEXTELEM.name())); 
+		hashValues.put(ResNames.SETTINGS_SYS_SOCKETPORT, getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT.name())); 
+		
+		hashValues.put(ResNames.SETTINGS_CLP_SIZETEXTELEM, getIntProp(ResNames.SETTINGS_CLP_SIZETEXTELEM.name()));
 		hashValues.put(ResNames.SETTINGS_CLP_RECONPAGE, getIntProp(ResNames.SETTINGS_CLP_RECONPAGE.name())); 
 		hashValues.put(ResNames.SETTINGS_CLP_REMOVEDUPLICATES, getIntProp(ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name())); 
 		hashValues.put(ResNames.SETTINGS_CLP_TIMEOUTPOSITION, getIntProp(ResNames.SETTINGS_CLP_TIMEOUTPOSITION.name()));

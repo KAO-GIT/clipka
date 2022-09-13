@@ -32,12 +32,12 @@ class KeyStructsTest
 		String s1 ;
 		ArrayList<KeyStructs> ks1; 
 		
-		s1 = "{CONTROL S}{S}{R}";
+		s1 = "{CONTROL S M}{S}{R}";
 		ks1 = KeyUtil.getKeyStructs(s1);
 		
 		keysm.put(ks1.get(0), s1); 
 		
-		s1 = "{CONTROL S}{S}{S}{S}";
+		s1 = "{ALT}{S}{S}{S}";
 		ks1 = KeyUtil.getKeyStructs(s1);
 		
 		keysm.put(ks1.get(0), s1); 

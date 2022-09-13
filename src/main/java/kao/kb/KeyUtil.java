@@ -1,5 +1,7 @@
 package kao.kb;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -199,7 +201,21 @@ public class KeyUtil
 //		return SPECIAL_SYMBOLS_VIEWS;
 //	}
 
+	//private static Robot robot ;
+	public static Robot getRobot() throws AWTException
+	{
+//		if(robot==null) robot = new Robot(); 
+//		return robot; 
+		return new Robot(); 
+	}
 	
+	
+	/**
+	 * Получает массив кодов для перечачи в объект Robot для эмуляциии нажатия клавиш  
+	 * 
+	 * @param key - KeyStruct  
+	 * @return - int[]
+	 */
 	public static int[] getKeysForRobot(KeyStruct key)
 	{
 		int[] ret = key.getModifiers().stream().mapToInt(m -> EModifiers.getKeyEventCode(m)).distinct().toArray();
@@ -211,6 +227,33 @@ public class KeyUtil
 		return ret;
 	}
 
+//	/**
+//	 * Получает массив кодов для перечачи в объект Robot для эмуляциии нажатия клавиш. 
+//	 * Если первый объект KeyStructs, это клавиша управления - остальные клавиши нажимаются при нажатой клавише управления      
+//	 * 
+//	 * @param key - KeyStructs, обрабатывает несколько KeyStruct   
+//	 * @return - int[]
+//	 */
+//	public static int[] getKeysForRobot(KeyStructs keys)
+//	{
+//		
+////		int[] ret = key.getModifiers().stream().mapToInt(m -> EModifiers.getKeyEventCode(m)).distinct().toArray();
+////		if (key.getCode() > 0)
+////		{
+////			ret = Arrays.copyOf(ret, 1 + ret.length);
+////			ret[ret.length - 1] = KeyUtil.getKeyEventCode(key.getCode());
+////		}
+////		return ret;
+//		
+////		for (KeyStruct k : keys)
+////		{
+////			if(k.getCode()=0)
+////				
+////		}
+//		
+//		return null; 
+//	}
+	
 	/**
 	 * 
 	 * Имитирует нажатия клавиш, описанных в параметре hotkeys   
@@ -238,7 +281,7 @@ public class KeyUtil
 			ArrayList<KeyStructs> keys = KeyUtil.getKeyStructs(hotkeys); 
 			for (KeyStruct k : keys.get(0))
 			{
-				Utils.pressReleaseKeys(KeyUtil.getKeysForRobot(k),variant);
+				Utils.pressReleaseKeys(KeyUtil.getKeysForRobot(k),variant,false,KeyUtil.getRobot());
 			}
 		}
 	}
@@ -320,37 +363,15 @@ public class KeyUtil
 	 */
 	public static KeyStruct getKeyStruct(String str)
 	{
-		return (getKeyStructsSimilar(str, true)).stream().findAny().orElse(null);
+		//return (getKeyStructsSimilar(str, true)).stream().findAny().orElse(null); // работает, но лучше использовать KeyUtil.getKeyStructs 
+		
+		ArrayList<KeyStructs> akss = KeyUtil.getKeyStructs(str);
+		if(akss.isEmpty()) return null;
+		KeyStructs kss = akss.get(0);  
+		if(kss.isEmpty()) return null;
+				
+		return kss.get(0); 
 	}
-	// old	
-	//	public static KeyStruct getKeyStruct(String str)
-	//	{
-	//		
-	//		KeyStruct keyStruct = new KeyStruct();
-	//	
-	//		if(str.startsWith("{") && str.endsWith("}")) str = str.substring(1, str.length()-1); // уберем обрамляющие скобки 
-	//		String[] words = str.split("\\s");
-	//		for (String subStr : words)
-	//		{
-	//			String su = subStr.toUpperCase();
-	//			if (getModifiersSynonyms().containsKey(su))
-	//			{	
-	//				keyStruct.setModifier(getModifiersSynonyms().get(su), true);
-	//			}
-	//			else
-	//			{
-	//				// это не модификатор, разберем представление кода. Числовое значение кода может быть разным в разных системах
-	//				// но представление уже подготовлено только одно
-	//				Integer code = getCodeFromString(su);  
-	//				if (code != null)
-	//				{
-	//					keyStruct.setCode(code);
-	//				}
-	//			}
-	//			su = null;
-	//		}
-	//		return keyStruct;
-	//	}
 
 	/**
 	 * Разбирает строковое представление клавиш в коллекцию походящих описаний клавиш  

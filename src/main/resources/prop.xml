@@ -6,7 +6,9 @@
 <entry key="ABOUTH">This program is a multiple clipboard and hotkey manager. 
 Replacing incorrect encoding, replacing incorrectly typed text case, tasks in Groovy script language. 
 keys: 
--p [Port] - change socket port 
+-p [Port], --port [Port] - change socket port 
+-t [Number], --task [Number] - run task with id = Number 
+-g [Number], --group [Number] - show tasksgroup with id = Number 
 </entry>
 <entry key="ALL_MESS_DISABLED">Attention. This is a disabled object.</entry>
 <entry key="ALL_MESS_PREDEFINED">Attention. This is a predefined object.</entry>
@@ -56,6 +58,7 @@ keys:
 <entry key="DBCOMMAND_UP">Up</entry>
 <entry key="DBCOMMAND_VIEW">View</entry>
 <entry key="DESCRIPTION_FILTER_FOREGROUND_WINDOW_DEFAULT">Default filter - any windows if you do not fill fields</entry>
+<entry key="DESCRIPTION_GROUPTASK__ADMINISTRATIVE__">Administratives tasks</entry>
 <entry key="DESCRIPTION_GROUPTASK__ALL__">All tasks</entry>
 <entry key="DESCRIPTION_GROUPTASK__CLIPS__">Auto replace</entry>
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">Favorites</entry>
@@ -131,6 +134,7 @@ keys:
 <entry key="FORM_SUBTASK_HEADERTYPE">Type</entry>
 <entry key="FORM_TASK_HEADERNAME">Task name</entry>
 <entry key="GROUPTASK_MESS_DUPLICATENAME">tasks group name must be unique</entry>
+<entry key="GROUPTASK__ADMINISTRATIVE__">Administratives tasks</entry>
 <entry key="GROUPTASK__ALL__">All tasks</entry>
 <entry key="GROUPTASK__CLIPS__">Tasks in the clips list</entry>
 <entry key="GROUPTASK__FAVORITES__">Favorites</entry>
@@ -142,6 +146,7 @@ keys:
 <entry key="MAIN_OPEN_WINDOW">Open window with action buttons (along with the system tray)</entry>
 <entry key="NOERRORS">Successfully</entry>
 <entry key="NOTSUPPORTED">Not supported</entry>
+<entry key="PARAM_COMMAND_PROMPT">Command prompt</entry>
 <entry key="PARAM_CURRENT_SYSTEM">Current system</entry>
 <entry key="PARAM_CURRENT_SYSTEM_IS64BIT">Current system - 64 Bit</entry>
 <entry key="PARAM_CURRENT_SYSTEM_WINDOWS">Current system - Windows</entry>

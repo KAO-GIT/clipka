@@ -14,6 +14,12 @@ import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kao.db.ConData;
+import kao.db.fld.DBRecordTask;
+import kao.db.fld.DataFieldNames;
+import kao.db.fld.IRecord;
+import kao.res.ResNames;
+
 public class Utils
 {
 
@@ -38,18 +44,18 @@ public class Utils
 		}, java.util.Map.of("max", 10, "timeout", 100, "message", "Extend time for pressReleaseKeys task for {0} msec"));
 	}
 
-	/**
-	 * Пытается нажать / отпустить клавиши. Не запускается в отдельном потоке. 
-	 * 
-	 * @param keys - массив кодов KeyEvent
-	 * @param variant - вид нажатий: 0 - нажатие и отпускание, 1 - нажатие, -1 - отпускание
-	 *
-	 * @throws Exception
-	 */
-	public static void pressReleaseKeys(int[] keys, int variant) throws Exception
-	{
-		pressReleaseKeys(keys, variant, false);
-	}
+//	/**
+//	 * Пытается нажать / отпустить клавиши. Не запускается в отдельном потоке. 
+//	 * 
+//	 * @param keys - массив кодов KeyEvent
+//	 * @param variant - вид нажатий: 0 - нажатие и отпускание, 1 - нажатие, -1 - отпускание
+//	 *
+//	 * @throws Exception
+//	 */
+//	public static void pressReleaseKeys(int[] keys, int variant) throws Exception
+//	{
+//		pressReleaseKeys(keys, variant, false);
+//	}
 
 	/**
 	 * Пытается нажать / отпустить клавиши 
@@ -62,7 +68,7 @@ public class Utils
 	public static void pressReleaseKeys(int[] keys, int variant, boolean inNewThread) throws Exception
 	{
 		java.awt.Robot robot = new java.awt.Robot();
-		pressReleaseKeys(keys, inNewThread, variant, robot);
+		pressReleaseKeys(keys,  variant,inNewThread, robot);
 	}
 
 	/**
@@ -74,7 +80,7 @@ public class Utils
 	 * @param robot - объект для имитации нажатия клавиш 
 	 * @throws Exception
 	 */
-	public static void pressReleaseKeys(int[] keys, boolean inNewThread, int variant, java.awt.Robot robot) throws Exception
+	public static void pressReleaseKeys(int[] keys,int variant,  boolean inNewThread, java.awt.Robot robot) throws Exception
 	{
 		//waitEmptyModifiers();
 
@@ -475,6 +481,12 @@ public class Utils
 		return basePath;
 	}
 
+	public static String getCommandPromptParameters(IRecord r)
+	{
+		String type = r instanceof DBRecordTask ? "--task" : "--group";  
+		return String.format("--port %d %s %d", ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT),type,r.getIntValue(DataFieldNames.DATAFIELD_ID) ); 
+	}
+	
 	public static <T extends Enum<?>> boolean isInEnum(Class<T> enumClass, String value)
 	{
 		//return true; 

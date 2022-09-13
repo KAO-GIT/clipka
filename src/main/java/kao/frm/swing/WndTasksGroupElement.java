@@ -24,6 +24,7 @@ import kao.db.fld.DBRecordTasksGroup;
 import kao.db.fld.DataFieldNames;
 import kao.db.fld.DataFieldProp;
 import kao.prop.ResKA;
+import kao.prop.Utils;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
 import kao.res.ResNames;
@@ -107,6 +108,13 @@ public class WndTasksGroupElement extends JDialog
 		fieldsDataWithType.put(data.getDataFieldName(), field);
 		
 		p0.add(p1);
+		
+		if(el.getIdInt()!=0) // если не новая запись
+		{
+			FieldString cmd = new FieldString(ResKA.getResourceBundleValue(ResNames.PARAM_COMMAND_PROMPT), Utils.getCommandPromptParameters(el));
+			cmd.setEditable(false);
+			p0.add(cmd);
+		}
 
 		add(p0);
 

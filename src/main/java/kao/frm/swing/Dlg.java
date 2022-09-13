@@ -38,7 +38,7 @@ public class Dlg
 
 		new Thread(() ->
 		{
-			String r = ResKA.getResourceBundleValue("AboutF")+"\nVersion: "+Vers.getVersion();
+			String r = ResKA.getResourceBundleValue("AboutF")+"\nVersion: "+Vers.getVersion()+"\n"+ResKA.getResourceBundleValue(ResNames.ABOUTH);
 			JOptionPane.showMessageDialog(null, r);
 		}).start();
 	}

@@ -5,8 +5,10 @@
 <entry key="ABOUTF">ClipKA - множественный буфер обмена + ...</entry>
 <entry key="ABOUTH">Эта программа - множественный буфер обмена и менеджер горячих клавиш. 
 Замена неправильной кодировки, замена неправильно набранного регистра текста, задачи на скриптовом языке Groovy. 
-Ключи: 
--p [Порт] - изменить порт, на котором работает программа 
+Ключи командной строки: 
+-p [Порт], --port [Port] - изменить порт, на котором работает программа 
+-t [Номер], --task [Номер] - номер команды, которую надо сразу запустить 
+-g [Номер], --group [Номер] - номер группы команд, которую надо показать 
 </entry>
 <entry key="ALL_MESS_DISABLED">Внимание. Этот объект неактивен.</entry>
 <entry key="ALL_MESS_PREDEFINED">Внимание. Это предопределенный объект.</entry>
@@ -56,6 +58,7 @@
 <entry key="DBCOMMAND_UP">Переместить вверх</entry>
 <entry key="DBCOMMAND_VIEW">Просмотр</entry>
 <entry key="DESCRIPTION_FILTER_FOREGROUND_WINDOW_DEFAULT">Фильтр по умолчанию, если не заполнять реквизиты - горячие клавиши будут работать во всех окнах</entry>
+<entry key="DESCRIPTION_GROUPTASK__ADMINISTRATIVE__">В группу попадают служебные задачи</entry>
 <entry key="DESCRIPTION_GROUPTASK__ALL__">В группу попадают все задачи</entry>
 <entry key="DESCRIPTION_GROUPTASK__CLIPS__">В группу попадают задачи для строк автозамены</entry>
 <entry key="DESCRIPTION_GROUPTASK__FAVORITES__">В группу попадают задачи для регулярного использования</entry>
@@ -131,6 +134,7 @@
 <entry key="FORM_SUBTASK_HEADERTYPE">Тип</entry>
 <entry key="FORM_TASK_HEADERNAME">Имя задачи</entry>
 <entry key="GROUPTASK_MESS_DUPLICATENAME">имя группы задач должно быть уникальным</entry>
+<entry key="GROUPTASK__ADMINISTRATIVE__">Служебные задачи</entry>
 <entry key="GROUPTASK__ALL__">Все задачи</entry>
 <entry key="GROUPTASK__CLIPS__">В группу попадают задачи, показываемые в списке клипов</entry>
 <entry key="GROUPTASK__FAVORITES__">Избранные задачи</entry>
@@ -142,6 +146,7 @@
 <entry key="MAIN_OPEN_WINDOW">Открыть окно с кнопками действий (наряду с системным треем)</entry>
 <entry key="NOERRORS">Успешно</entry>
 <entry key="NOTSUPPORTED">Не поддерживается</entry>
+<entry key="PARAM_COMMAND_PROMPT">Параметры командной строки</entry>
 <entry key="PARAM_CURRENT_SYSTEM">Текущая операционная система</entry>
 <entry key="PARAM_CURRENT_SYSTEM_IS64BIT">Текущая операционная система - 64 Bit</entry>
 <entry key="PARAM_CURRENT_SYSTEM_WINDOWS">Текущая операционная система - Windows</entry>

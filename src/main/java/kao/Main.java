@@ -31,12 +31,13 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 import javax.swing.*;
 
 import kao.db.*;
+import kao.el.ElementSett;
 import kao.cp.ClipboardMonitor;
-import kao.frm.WndText;
 import kao.frm.swing.WndMain;
 import kao.prop.ResKA;
 import kao.res.ResNames;
@@ -155,9 +156,14 @@ public class Main
 						printLine(socket, "EMPTY");
 						continue;
 					}
+					
+					if( /* задача */ request.startsWith("t") || /* группа задач */ request.startsWith("g") ) 
+					{
+						Tsks.analyzeCommand(request); 
+					}  
 
 					// new Thread(() -> WndText.getInstance().setVisible(true)).start();
-					java.awt.EventQueue.invokeLater(() -> WndText.getInstance().setVisible(true));
+					//java.awt.EventQueue.invokeLater(() -> WndText.getInstance().setVisible(true));
 
 					printLine(socket, "OK");
 					//                int index = request.indexOf(":");
@@ -212,37 +218,69 @@ public class Main
 		//		final Class<Main> profName = Main.class;  
 		//		ProfKA.init(profName).setLogger(LOGGER); 
 
-		int port = 0;
+		boolean portPass = false;
+		int port = ConData.PORT;
 		String сommand = "";
 
 		{
 			Map<String, String> mapArgs = new HashMap<>();
 			String key;
+			String val;
+			
+			BiFunction<String,String,String> getCmdValue = (t,v) ->
+			{
+				if(v!=null) return v;
+				if (mapArgs.containsKey(t))
+				{
+					return mapArgs.get(t);
+				} else return null;
+			};   
+			
 			if (args.length > 0) // если через консоль были введены аргументы
 			{
 				if (args.length == 1)
 				{
-					if (args[0].equals("-h"))
+					if (args[0].equals("-h") || args[0].equals("/?"))
 					{
 						System.out.println(ResKA.getResourceBundleValue(ResNames.ABOUTH));
 						System.exit(0);
 						return;
 					}
 				}
-				for (int i = 0; i + 1 <= args.length / 2; i += 2)
+				for (int i = 0; i + 1 <= args.length ; i += 2)
 				{
 					mapArgs.put(args[i], args[i + 1]);
 				}
 			}
-			key = "-c";
-			if (mapArgs.containsKey(key))
-			{
-				сommand = mapArgs.get(key);
-			}
+			val=null; 
+			key = "-t";
+			val = getCmdValue.apply(key,val); 
+			key = "--task";
+			val = getCmdValue.apply(key,val);
+			if(val!=null)	сommand = "t"+val;
+			
+			val=null; 
+			key = "-g";
+			val = getCmdValue.apply(key,val); 
+			key = "--group";
+			val = getCmdValue.apply(key,val); 
+			if(val!=null)	сommand = "g"+val;
+			
+			val=null; 
 			key = "-p";
-			if (mapArgs.containsKey(key))
+			val = getCmdValue.apply(key,val);
+			key = "--port";
+			val = getCmdValue.apply(key,val); 
+			
+			if(val!=null)
 			{
-				port = Integer.parseInt(mapArgs.get(key));
+					try
+					{
+						portPass = true; 
+						port = Integer.parseInt(val);
+					} catch (NumberFormatException e)
+					{
+					}
 			}
 //			key = "-d";
 //			if (mapArgs.containsKey(key))
@@ -251,13 +289,7 @@ public class Main
 //				ConData.INSTANCE.setDataFolder(dataFolder);
 //			}
 		}
-		ConData.initialize();
-		if (port == 0) port = ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT);
-
-		LOGGER.info("Start programm in {}, port {}", System.getProperty("user.dir"), port);
-
-		//		ProfKA.start(profName,"Check port");
-
+		
 		if (port != 0)
 		{
 			if (!checkSocket(port, сommand))
@@ -266,7 +298,30 @@ public class Main
 				return;
 			}
 		}
+		
+		ConData.initialize();
+		ConData.initializeTables();
+		int portSaved = ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT);
 
+		//		ProfKA.start(profName,"Check port");
+
+		if (port != portSaved)
+		{
+			if (!checkSocket(portSaved, сommand))
+			{
+				System.exit(0);
+				return;
+			}
+			port = portSaved;
+			if(portPass)
+			{
+				// запишем новый порт в базу
+				new ElementSett(ResNames.SETTINGS_SYS_SOCKETPORT.name(),port, "integer").save(); 
+			}
+		}
+
+		LOGGER.info("Start programm in {}, port {}", System.getProperty("user.dir"), port);
+		
 		//		ProfKA.print(profName);
 
 		//  ProfKA.start(profName,"Start program");
@@ -293,9 +348,6 @@ public class Main
 			// если используем JUL - можем получить, но если нет - ошибку не выдаем
 			//System.err.println("Could not setup logger configuration: " + e.toString());
 		}
-
-		ConData.initializeTables();
-		if (port == 0) port = ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT);
 
 		if (!ClipboardMonitor.getInstance().init())
 		{

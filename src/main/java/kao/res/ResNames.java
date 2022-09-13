@@ -22,13 +22,15 @@ public enum ResNames
 			+ "Replacing incorrect encoding, replacing incorrectly typed text case, tasks in Groovy script language. \n"
 			+ "keys: \n"
 			+ "-p [Port], --port [Port] - change socket port \n"
-			//+ "-t [Number] - run task with id = Number \n"
+			+ "-t [Number], --task [Number] - run task with id = Number \n"
+			+ "-g [Number], --group [Number] - show tasksgroup with id = Number \n"
 			)
 	@AnnotationDefValueRu("Эта программа - множественный буфер обмена и менеджер горячих клавиш. \n"
 			+ "Замена неправильной кодировки, замена неправильно набранного регистра текста, задачи на скриптовом языке Groovy. \n"
-			+ "Ключи: \n"
+			+ "Ключи командной строки: \n"
 			+ "-p [Порт], --port [Port] - изменить порт, на котором работает программа \n"
-			//+ "-t [Номер] - номер команды, которую надо сразу запустить \n"
+			+ "-t [Номер], --task [Номер] - номер команды, которую надо сразу запустить \n"
+			+ "-g [Номер], --group [Номер] - номер группы команд, которую надо показать \n"
 			)
 	ABOUTH(),
 	
@@ -87,6 +89,10 @@ public enum ResNames
 	@AnnotationDefValue("Current system - 64 Bit")
 	@AnnotationDefValueRu("Текущая операционная система - 64 Bit")
 	PARAM_CURRENT_SYSTEM_IS64BIT(),
+	
+	@AnnotationDefValue("Command prompt")
+	@AnnotationDefValueRu("Параметры командной строки")
+	PARAM_COMMAND_PROMPT(),
 	
 	@AnnotationDefValue("Clipboard settings")
 	@AnnotationDefValueRu("Настройки для буфера обмена")
@@ -316,6 +322,14 @@ public enum ResNames
 	@AnnotationDefValueRu("В группу попадают задачи для строк автозамены")
 	DESCRIPTION_GROUPTASK__CLIPS__(),
 	
+	@AnnotationDefValue("Administratives tasks")
+	@AnnotationDefValueRu("Служебные задачи")
+	GROUPTASK__ADMINISTRATIVE__(),
+
+	@AnnotationDefValue("Administratives tasks")
+	@AnnotationDefValueRu("В группу попадают служебные задачи")
+	DESCRIPTION_GROUPTASK__ADMINISTRATIVE__(),
+		
 	@AnnotationDefValue("All hotkeys")
 	@AnnotationDefValueRu("Все горячие клавиши")
 	HOTKEYS__ALL__(),
