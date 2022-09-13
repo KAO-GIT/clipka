@@ -5,7 +5,7 @@
 <entry key="ABOUTF">ClipKA - clipboard+...</entry>
 <entry key="ABOUTH">This program is a multiple clipboard and hotkey manager. 
 Replacing incorrect encoding, replacing incorrectly typed text case, tasks in Groovy script language. 
-keys: 
+Command prompt: 
 -p [Port], --port [Port] - change socket port 
 -t [Number], --task [Number] - run task with id = Number 
 -g [Number], --group [Number] - show tasksgroup with id = Number 
