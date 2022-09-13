@@ -20,7 +20,7 @@ public enum ResNames
 
 	@AnnotationDefValue("This program is a multiple clipboard and hotkey manager. \n"
 			+ "Replacing incorrect encoding, replacing incorrectly typed text case, tasks in Groovy script language. \n"
-			+ "keys: \n"
+			+ "Command prompt: \n"
 			+ "-p [Port], --port [Port] - change socket port \n"
 			+ "-t [Number], --task [Number] - run task with id = Number \n"
 			+ "-g [Number], --group [Number] - show tasksgroup with id = Number \n"
