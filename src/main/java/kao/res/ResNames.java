@@ -161,6 +161,15 @@ public enum ResNames
 	@AnnotationDefValue("If the check box is not selected, a window with action buttons is displayed. To apply this setting, you need to close the program")
 	@AnnotationDefValueRu("Если флажок не установлен, показывается окно с кнопками действий. Для применения настройки небходимо завершить работу программы")
 	DESCRIPTION_SETTINGS_SYS_SHOW_TRAY(),
+
+	
+	@AnnotationDefValue("Default timeout for notification (sec) ")
+	@AnnotationDefValueRu("Время в секундах для всплывающего окна уведомления по умолчанию ")
+	SETTINGS_SYS_TIMEOUT_DEFAULT(),
+
+	@AnnotationDefValue("If the value is not set, windows is not closed. ")
+	@AnnotationDefValueRu("Если значение равно нулю, окно не закрывается ")
+	DESCRIPTION_SETTINGS_SYS_TIMEOUT_DEFAULT(),
 	
 	@AnnotationDefValue("Timeout for notification of errors (sec) ")
 	@AnnotationDefValueRu("Время в секундах для всплывающего окна уведомления об ошибке ")
