@@ -43,6 +43,10 @@ public enum ResErrors implements IResErrors
 	@AnnotationDefValue("Exclude")
 	@AnnotationDefValueRu("Исключено")
 	ERR_EXCLUDE, 
+
+	@AnnotationDefValue("Timeout")
+	@AnnotationDefValueRu("Время выполнения истекло")
+	ERR_TIMEOUT, 
 	
 	@AnnotationDefValue("DB error")
 	@AnnotationDefValueRu("Ошибка базы данных")

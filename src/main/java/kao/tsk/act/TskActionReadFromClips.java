@@ -1,7 +1,9 @@
 package kao.tsk.act;
 
+import kao.db.ConDataClp;
 import kao.db.fld.IRecord;
 import kao.res.*;
+import kao.tsk.Tsks;
 
 public class TskActionReadFromClips extends TskActionAbstract
 {
@@ -14,7 +16,19 @@ public class TskActionReadFromClips extends TskActionAbstract
 	@Override
 	public IResErrors runAction() throws Exception
 	{
-		return ResErrors.NOERRORS; 
+		String s ; 
+		if(getContent().isBlank())
+		{
+			int [] selClp = ConDataClp.getSelectedClips(); 
+			if(selClp!=null && selClp.length>0) s = ConDataClp.loadData(selClp);
+			else s = ConDataClp.loadData(0);
+		}
+		else 
+		{	
+			s = ConDataClp.loadData(0);
+		}
+		Tsks.putRep(s);
+		return ResErrors.NOERRORS;
 	}
 
 }

@@ -1,6 +1,7 @@
 package kao.prop;
 
 import java.awt.AWTException;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -82,7 +83,7 @@ public class Utils
 	 */
 	public static void pressReleaseKeys(int[] keys,int variant,  boolean inNewThread, java.awt.Robot robot) throws Exception
 	{
-		//waitEmptyModifiers();
+		//waitEmptyModifiers(); - сейчас задачи знают, нужно ли ждать 
 
 		Runnable r = () ->
 		{
@@ -138,17 +139,42 @@ public class Utils
 
 	public static void pressWithComposeKeys(int[] keys, String s)
 	{
-		//waitEmptyModifiers();
-
+		//waitEmptyModifiers(); - сейчас задачи знают, нужно ли ждать
+		
+		boolean isOnNM = false;
+		boolean getStateNM = false;
+		
+		try
+		{
+			Toolkit toolkit = Toolkit.getDefaultToolkit();
+			isOnNM = toolkit.getLockingKeyState(KeyEvent.VK_NUM_LOCK); // Get the locking state of the Num Lock button.
+			getStateNM = true;
+		} catch (UnsupportedOperationException e1)
+		{
+		}
+		
 		byte[] bytes;
 		try
 		{
+			Thread.sleep(1);
+	    if(!isOnNM && getStateNM) 
+	    {
+	    	pressReleaseKeys(new int[] {KeyEvent.VK_NUM_LOCK}, 0, false); 
+	    }
+	    	
+			
 			bytes = s.getBytes("CP866");
 			for (byte b : bytes)
 			{
 				pressWithComposeKeys(keys, b);
 				Thread.sleep(1);
 			}
+			
+	    if(!isOnNM && getStateNM) 
+	    {
+	    	pressReleaseKeys(new int[] {KeyEvent.VK_NUM_LOCK}, 0, false); 
+	    }
+			
 		} catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block
@@ -157,6 +183,12 @@ public class Utils
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
 		}
 	}
 

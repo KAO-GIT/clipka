@@ -7,6 +7,7 @@ import javax.script.ScriptException;
 import kao.db.fld.IRecord;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
+import kao.res.ResErrorsWithAdditionalData;
 import kao.tsk.Tsks;
 
 public class TskActionRunCodeGroovy extends TskActionAbstract
@@ -37,7 +38,7 @@ public class TskActionRunCodeGroovy extends TskActionAbstract
       Thread.sleep(10);
     } catch (ScriptException e) {
       e.printStackTrace();
-    	return ResErrors.ERR_SCRIPT;
+    	return new ResErrorsWithAdditionalData(ResErrors.ERR_SCRIPT, e.getLocalizedMessage());
     }
     //Thread.sleep(10);
 		return ResErrors.NOERRORS; 

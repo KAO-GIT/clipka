@@ -17,6 +17,7 @@ import kao.el.KitForListing;
 import kao.frm.WndText;
 import kao.frm.WndsVarios;
 import kao.kb.KeyStruct;
+import kao.prop.ResKA;
 import kao.prop.Utils;
 
 public class Tsks
@@ -131,6 +132,11 @@ public class Tsks
 
 	}
 
+	public static String getCommandtextForAnalize(String id, ResNamesWithId type)
+	{
+		return type==ResNamesWithId.VALUE_TASKSGROUP?"g":"t"+id; 
+	}
+
 	public static void analyzeCommand(String command)
 	{
 		try
@@ -172,7 +178,7 @@ public class Tsks
 				{
 					if (!Utils.waitEmptyModifiers())
 					{
-						ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), "Timeout");
+						ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), ResKA.getResourceBundleValue(ResErrors.ERR_TIMEOUT.name()), true);
 						return;
 					}
 				}
@@ -184,11 +190,12 @@ public class Tsks
 				IResErrors res = tsk.runTsk();
 				if (!res.isSuccess())
 				{
-					ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), res.toString());
+					ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), res.toString(), true);
 				}
 
 			} catch (Exception e)
 			{
+				ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), e.getLocalizedMessage(), true);
 				e.printStackTrace();
 			} finally
 			{

@@ -41,6 +41,7 @@ import kao.cp.ClipboardMonitor;
 import kao.frm.swing.WndMain;
 import kao.prop.ResKA;
 import kao.res.ResNames;
+import kao.res.ResNamesWithId;
 import kao.tsk.Tsks;
 
 public class Main
@@ -257,14 +258,14 @@ public class Main
 			val = getCmdValue.apply(key,val); 
 			key = "--task";
 			val = getCmdValue.apply(key,val);
-			if(val!=null)	сommand = "t"+val;
+			if(val!=null)	сommand = Tsks.getCommandtextForAnalize(val,ResNamesWithId.VALUE_TASK); 
 			
 			val=null; 
 			key = "-g";
 			val = getCmdValue.apply(key,val); 
 			key = "--group";
 			val = getCmdValue.apply(key,val); 
-			if(val!=null)	сommand = "g"+val;
+			if(val!=null)	сommand = Tsks.getCommandtextForAnalize(val,ResNamesWithId.VALUE_TASKSGROUP);;
 			
 			val=null; 
 			key = "-p";

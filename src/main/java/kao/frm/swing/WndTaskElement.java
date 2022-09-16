@@ -224,7 +224,7 @@ public class WndTaskElement extends JDialog
 
 		// w.setLocationByPlatform(true);
 		setLocationRelativeTo(owner);
-
+		
 		// Dlg.addEscapeListener(this,new ActionCancel());
 		//    Dlg.addEscapeListener(this,new ActionListener()
 		//		{

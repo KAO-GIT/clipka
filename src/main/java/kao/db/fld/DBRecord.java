@@ -244,13 +244,15 @@ public class DBRecord implements IRecord, IElement
 	@Override
 	public String getId()
 	{
-		return (String) getIdObject();
+		Object ret = getIdObject(); 
+		return ret==null?"":(String) ret;
 	}
 
 	@Override
 	public Integer getIdInt()
 	{
-		return (Integer) getIdObject();
+		Object ret = getIdObject(); 
+		return ret==null?0:(Integer) ret;
 	}
 
 	@Override

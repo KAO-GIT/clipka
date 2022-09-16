@@ -7,6 +7,8 @@ import kao.prop.ResKA;
 import kao.prop.Vers;
 //import kao.prop.*;
 import kao.res.ResNames;
+import kao.res.ResNamesWithId;
+import kao.tsk.Tsks;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -292,10 +294,21 @@ public class PanelClp extends JPanel implements ActionListener
 						ActionEvent event = new ActionEvent(jFilter, ActionEvent.ACTION_PERFORMED, "");
 						action.actionPerformed(event);
 					}
-				} else if (e.getModifiersEx() == 0 && ((e.getKeyCode() >= KeyEvent.VK_A && e.getKeyCode() <= KeyEvent.VK_Z)
-						|| (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9)))
+				} else if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 				{
-					//System.out.println("///"); 
+					int selectedIndex = jList.getSelectedIndex();
+          if(selectedIndex != -1){
+              Point indexToLocation = jList.indexToLocation(selectedIndex);
+              Rectangle cellBounds = jList.getCellBounds(selectedIndex, selectedIndex);
+              jP.show(jList, indexToLocation.x, indexToLocation.y+cellBounds.height);
+          } else jP.show(jList, 0, 0);
+					//jP.requestFocus();
+					e.consume();
+					
+				} else if ((e.getModifiersEx() == 0 || e.getModifiersEx() == java.awt.event.InputEvent.SHIFT_DOWN_MASK)
+						&& ((e.getKeyCode() >= KeyEvent.VK_A && e.getKeyCode() <= KeyEvent.VK_Z)
+								|| (e.getKeyCode() >= KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9)))
+				{
 					jFilter.requestFocusInWindow();
 					jFilter.dispatchEvent(new KeyEvent(jFilter, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, e.getKeyChar()));
 					e.consume();
@@ -347,6 +360,7 @@ public class PanelClp extends JPanel implements ActionListener
 				{
 					popupShow((ClipboardElement) jList.getSelectedValue().get());
 				}
+				ConDataClp.setSelectedClips(jList.getSelectedValuesList().stream().mapToInt(el -> el.get().getIdInt()).toArray());
 			}
 		});
 
@@ -490,32 +504,67 @@ public class PanelClp extends JPanel implements ActionListener
 			public void actionPerformed(ActionEvent e)
 			{
 				//System.out.println("MENU " + e.getActionCommand());
-				if (e.getActionCommand() == "__Help__")
+				if (e.getActionCommand() == "__Close__")
+				{
+				} else if (e.getActionCommand() == "__Help__")
 				{
 					kao.prop.HelpKA.browseHelp(PanelClp.class);
 					// popupShow((ClipboardElement)jList.getSelectedValue().get());
-				} else if(e.getActionCommand().startsWith("TASK_"))
+				} else if (e.getActionCommand().startsWith("TASK_"))
 				{
-					//String id = e.getActionCommand().replace("TASK_", "");
+					String id = e.getActionCommand().replace("TASK_", "");
+					Tsks.analyzeCommand(Tsks.getCommandtextForAnalize(id,ResNamesWithId.VALUE_TASK)); 
 				}
 			}
 		}
-		;
-		//jP = new JPopupMenu();
-		//		jP = new JPopupMenu() {
-		//			private static final long serialVersionUID = 1L;
-		//
-		//			@Override
-		//	    public void show(Component invoker, int x, int y) {
-		//	        int row = jList.locationToIndex(new Point(x, y));
-		//	        System.out.println("row = "+row); 
-		////	        if (row != -1) {
-		////	            jList.setSelectedIndex(row);
-		////	        }
-		//	        super.show(invoker, x, y);
-		//	    }
-		//		};
+		
+//		class MKeyAdapter extends KeyAdapter
+//		{
+//
+//			@Override
+//			public void keyPressed(KeyEvent e)
+//			{
+//				System.out.println("keyPressed "+e.getKeyCode() );
+//				super.keyPressed(e);
+//			}
+//		}
+		
+//				jP = new JPopupMenu() {
+//					private static final long serialVersionUID = 1L;
+//		
+//					@Override
+//			    public void show(Component invoker, int x, int y) {
+//			        int row = jList.locationToIndex(new Point(x, y));
+//			        System.out.println("row = "+row); 
+//		//	        if (row != -1) {
+//		//	            jList.setSelectedIndex(row);
+//		//	        }
+//			        super.show(invoker, x, y);
+//			    }
+//				};
 
+//		jP.addKeyListener(new KeyAdapter()
+//		{
+//
+//			@Override
+//			public void keyPressed(KeyEvent e)
+//			{
+//				System.out.println("keyPressed "+e.getKeyCode() );
+////				if (e.getKeyCode() == KeyEvent.VK_LEFT)
+////				{
+////					//new MAction().actionPerformed(new ActionEvent(jP, ActionEvent.ACTION_PERFORMED, "__Close__"));
+////					jP.setVisible(false);
+////					e.consume();
+////				}
+////				else
+////				{
+//				super.keyPressed(e);
+////				}
+//				
+//			}
+//		});
+		
+		
 		jP.addPopupMenuListener(new PopupMenuListener()
 		{
 
@@ -525,8 +574,38 @@ public class PanelClp extends JPanel implements ActionListener
 				JMenuItem it;
 				String namecom;
 				Action mAaction = new MAction();
-
+				//KeyAdapter keyAdapter = new MKeyAdapter();  
+				
 				jP.removeAll();
+
+				namecom = "__Close__";
+				it = new JMenuItem();
+				it.setAction(mAaction);
+				it.setActionCommand(namecom);
+				it.setIcon(null);
+				it.setText(ResKA.getResourceBundleValue(kao.db.cmd.DBCommandNames.DBCOMMAND_CLOSE.name()));
+				it.setHorizontalAlignment(SwingConstants.LEFT);
+				//it.addKeyListener(keyAdapter);
+				jP.add(it);
+				
+				jP.addSeparator();
+				
+				KitForListing kit = ConDataTask.Tasks.fillClips();
+				for (var el : kit.getElements())
+				{
+					jP.add(new JMenuItem()
+					{
+						private static final long serialVersionUID = 1L;
+						{
+							setAction(mAaction);
+							setActionCommand("TASK_" + el.getId());
+							setText(el.getTitle());
+							setHorizontalAlignment(SwingConstants.LEFT);
+						}
+					});
+				}
+
+				if (!kit.getElements().isEmpty()) jP.addSeparator();
 
 				namecom = "__Help__";
 				it = new JMenuItem();
@@ -537,23 +616,6 @@ public class PanelClp extends JPanel implements ActionListener
 				it.setHorizontalAlignment(SwingConstants.LEFT);
 				jP.add(it);
 
-				jP.addSeparator();
-
-				KitForListing kit = ConDataTask.Tasks.fillClips();
-				for (var el : kit.getElements())
-				{
-					jP.add(new JMenuItem()
-					{
-						private static final long serialVersionUID = 1L;
-						{
-							setAction(mAaction);
-							setActionCommand("TASK_"+el.getId());
-							setText(el.getTitle());
-							setHorizontalAlignment(SwingConstants.LEFT);
-						}
-					});
-				}
-				
 			}
 
 			@Override
@@ -566,7 +628,6 @@ public class PanelClp extends JPanel implements ActionListener
 			{
 			}
 		});
-
 
 		//		namecom = "Edit";
 		//		it = new JMenuItem();
@@ -749,6 +810,7 @@ public class PanelClp extends JPanel implements ActionListener
 	public void popupHide()
 	{
 		selTip.hide();
+
 		//		if (popup != null)
 		//		{
 		//			popup.hide();

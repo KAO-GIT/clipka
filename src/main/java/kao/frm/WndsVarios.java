@@ -48,6 +48,7 @@ public class WndsVarios
 		kao.frm.swing.Wnd wndTasks = new kao.frm.swing.Wnd(owner,false, false);
 		kao.frm.swing.PanelTasksList p = new kao.frm.swing.PanelTasksList(group); 
 		wndTasks.setP( p );
+		p.requestFocusForList(); 
 		if(group==null)
 			kao.frm.swing.Dlg.setDefaultCommand(p, DBCommandNames.DBCOMMAND_EDIT);
 		else

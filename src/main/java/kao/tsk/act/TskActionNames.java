@@ -179,7 +179,7 @@ public enum TskActionNames
 	
 	@AnnotationDefValue("Read string from clips")
 	@AnnotationDefValueRu("Прочитать строку из списка клипов")
-	TSKTYPE_READ_FROM_CLIPS(0){ // пока не используется
+	TSKTYPE_READ_FROM_CLIPS(42){ 
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
@@ -198,6 +198,57 @@ public enum TskActionNames
 		}
 	},
 
+	@AnnotationDefValue("Show window with notification")
+	@AnnotationDefValueRu("Показать окно оповещения")
+	TSKTYPE_SHOW_NOTIFICATION_ALERT(61){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionShowNotificationAlert.class;
+		}
+	},
+
+	@AnnotationDefValue("Show window with notification of error")
+	@AnnotationDefValueRu("Показать окно уведомления об ошибке ")
+	TSKTYPE_SHOW_NOTIFICATION_ERROR(62){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionShowNotificationError.class;
+		}
+	},
+	
+	@AnnotationDefValue("Save current text as alert in the 'Alerts and Errors'")
+	@AnnotationDefValueRu("Записать оповещение в таблицу 'Оповещения и ошибки'")
+	TSKTYPE_SAVE_ALERT_TO_TABLE(65){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionSaveNotificationAlert.class;
+		}
+	},
+	
+	@AnnotationDefValue("Save current text as error in the 'Alerts and Errors'")
+	@AnnotationDefValueRu("Записать ошибку в таблицу 'Оповещения и ошибки'")
+	TSKTYPE_SAVE_ERROR_TO_TABLE(66){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionSaveNotificationError.class;
+		}
+	},
+	
+	@AnnotationDefValue("Clear 'Alerts and Errors'")
+	@AnnotationDefValueRu("Очистить таблицу 'Оповещения и ошибки'")
+	TSKTYPE_CLEAR_ALERT_ERRORS(69){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionClearAlertErrors.class;
+		}
+	},
+	
+	
 	@AnnotationDefValue("Run Groovy code")
 	@AnnotationDefValueRu("Выполнить код на языке Groovy")
 	TSKTYPE_RUNCODE_GROOVY(101){
@@ -247,6 +298,26 @@ public enum TskActionNames
 		@AnnotationDefValue("Only for keys that are independent of the keyboard layout. Do not use to transfer text")
 		@AnnotationDefValueRu("Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста ")
 		TSKTYPE_RELEASEKEYS,
+
+		@AnnotationDefValue("Show window with notification if the current processed string is not empty")
+		@AnnotationDefValueRu("Показывает окно оповещения, если заполнена текущая обрабатываемая строка")
+		TSKTYPE_SHOW_NOTIFICATION_ALERT,
+
+		@AnnotationDefValue("Show window with notification of error if the current processed string is not empty")
+		@AnnotationDefValueRu("Показывает окно уведомления об ошибке, если заполнена текущая обрабатываемая строка")
+		TSKTYPE_SHOW_NOTIFICATION_ERROR,
+
+		@AnnotationDefValue("Save current text as alert in the 'Alerts and Errors'")
+		@AnnotationDefValueRu("Записывает текущую обрабатываемую строку как оповещение в таблицу 'Оповещения и ошибки'")
+		TSKTYPE_SAVE_ALERT_TO_TABLE,
+		
+		@AnnotationDefValue("Save current text as error in the 'Alerts and Errors'")
+		@AnnotationDefValueRu("Записывает текущую обрабатываемую строку как ошибку в таблицу 'Оповещения и ошибки'")
+		TSKTYPE_SAVE_ERROR_TO_TABLE,
+		
+		@AnnotationDefValue("Clear 'Alerts and Errors'")
+		@AnnotationDefValueRu("Очищает таблицу 'Оповещения и ошибки'")
+		TSKTYPE_CLEAR_ALERT_ERRORS,
 
 		
 		@AnnotationDefValue("Send keys using a special key Compose (for Windows - Alt)")
@@ -329,10 +400,29 @@ public enum TskActionNames
 		@AnnotationDefValueRu("Содержание не требуется")
 		TSKTYPE_SET_IN_CLIPS,
 		
-		@AnnotationDefValue("Offset from the last clip is printed in the contents. If not specified, the last clip is used.")
-		@AnnotationDefValueRu("В содержание заносится смещение от последнего клипа. Если не указывать - используется последний клип.")
+		@AnnotationDefValue("Offset from the last clip is printed in the contents. If not specified, the last clip or selected clip is used.")
+		@AnnotationDefValueRu("Если в содержании указано число, оно интерпретируется как смещение от последнего клипа. Число 0 - последний клип. Если содержание пустое и задача выполняется из списка клипов - получает выделенные строки. Если содержание пустое и задача выполняется самостоятельно - получает последний клип.")
 		TSKTYPE_READ_FROM_CLIPS,
 		
+		@AnnotationDefValue("Timeout for notification is printed in the contents. If not specified, used timeout from settings.")
+		@AnnotationDefValueRu("В содержание можно занести время в секундах, в течение которого будет открыто окно")
+		TSKTYPE_SHOW_NOTIFICATION_ALERT,
+
+		@AnnotationDefValue("Timeout for notification is printed in the contents. If not specified, used timeout from settings.")
+		@AnnotationDefValueRu("В содержание можно занести время в секундах, в течение которого будет открыто окно.")
+		TSKTYPE_SHOW_NOTIFICATION_ERROR,
+
+		@AnnotationDefValue("Name may be printed in the contents")
+		@AnnotationDefValueRu("В содержание можно занести имя оповещения")
+		TSKTYPE_SAVE_ALERT_TO_TABLE,
+		
+		@AnnotationDefValue("Name may be printed in the contents")
+		@AnnotationDefValueRu("В содержание можно занести имя ошибки")
+		TSKTYPE_SAVE_ERROR_TO_TABLE,
+		
+		@AnnotationDefValue("Content is not required")
+		@AnnotationDefValueRu("Содержание не требуется")
+		TSKTYPE_CLEAR_ALERT_ERRORS,
 
 		@AnnotationDefValue("Groovy code. You can use the variable 'result', containing the currently processed string. Returns the last value or value in the variable 'result'")
 		@AnnotationDefValueRu("В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result ")

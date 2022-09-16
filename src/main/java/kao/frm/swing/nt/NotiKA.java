@@ -42,10 +42,14 @@ public class NotiKA extends JDialog
 
 	public static void showNotification(String text, kao.res.ResNamesWithId variant)
 	{
+		showNotification(text,variant,ConData.getIntProp(ResNames.SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT)); 
+	}
+	
+	public static void showNotification(String text, kao.res.ResNamesWithId variant, final int duration )
+	{
+		if (text == null || text.isBlank()) return;
+
 		boolean isErrorMessage = ConDataTask.AlertWindow.isErrorMessage(variant);
-		final int duration = isErrorMessage ? ConData.getIntProp(ResNames.SETTINGS_SYS_TIMEOUT_ERRORS)
-				: ConData.getIntProp(ResNames.SETTINGS_SYS_TIMEOUT_ALERTS);
-		if (duration == 0) return; // в настройках указано, что открывать окно не надо
 
 		String curText = "";
 		NotiKA cur0 = getInstance();
@@ -55,11 +59,11 @@ public class NotiKA extends JDialog
 			cur0.dispose();
 		}
 		final NotiKA cur = updateInstance();
-		if (curText.isBlank()) cur.setText( (isErrorMessage?"<b>!</b> ":"")+kao.prop.Utils.toHtml(text));
-		else cur.setText(curText + "<br>"+(isErrorMessage?"<b>!</b> ":"")+ kao.prop.Utils.toHtml(text));
-		
+		if (curText.isBlank()) cur.setText((isErrorMessage ? "<b>!</b> " : "") + kao.prop.Utils.toHtml(text));
+		else cur.setText(curText + "<br>" + (isErrorMessage ? "<b>!</b> " : "") + kao.prop.Utils.toHtml(text));
+
 		//System.out.println("showNotification 1: "+cur.getText()); 
-		
+
 		cur.getToolTip().setTipText("<html>" + (cur.getText()) + "</html>");
 		cur.pack();
 
@@ -72,17 +76,19 @@ public class NotiKA extends JDialog
 
 		cur.setVisible(true);
 
-		new Thread(() ->
+		if (duration != 0) // в противном случае поток с ожиданием закрытия не запускается
 		{
-			try
+			new Thread(() ->
 			{
-				Thread.sleep(duration * 1000);
-				cur.dispose();
-			} catch (InterruptedException e)
-			{
-			}
-		}).start();
-
+				try
+				{
+					Thread.sleep(duration * 1000);
+					cur.dispose();
+				} catch (InterruptedException e)
+				{
+				}
+			}).start();
+		}
 	}
 
 	@Override

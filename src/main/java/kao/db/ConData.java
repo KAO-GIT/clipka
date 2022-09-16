@@ -206,8 +206,11 @@ public class ConData implements AutoCloseable
 		hashValues.put(ResNames.SETTINGS_CLP_REMOVEDUPLICATES, getIntProp(ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name())); 
 		hashValues.put(ResNames.SETTINGS_CLP_TIMEOUTPOSITION, getIntProp(ResNames.SETTINGS_CLP_TIMEOUTPOSITION.name()));
 
-		hashValues.put(ResNames.SETTINGS_SYS_TIMEOUT_ALERTS, getIntProp(ResNames.SETTINGS_SYS_TIMEOUT_ALERTS.name())); 
-		hashValues.put(ResNames.SETTINGS_SYS_TIMEOUT_ERRORS, getIntProp(ResNames.SETTINGS_SYS_TIMEOUT_ERRORS.name())); 
+//		hashValues.put(ResNames.SETTINGS_SYS_TIMEOUT_ALERTS, getIntProp(ResNames.SETTINGS_SYS_TIMEOUT_ALERTS.name())); 
+//		hashValues.put(ResNames.SETTINGS_SYS_TIMEOUT_ERRORS, getIntProp(ResNames.SETTINGS_SYS_TIMEOUT_ERRORS.name())); 
+
+		hashValues.put(ResNames.SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT, getIntProp(ResNames.SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT.name())); 
+		hashValues.put(ResNames.SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR, getIntProp(ResNames.SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR.name())); 
 		
 		int showMainWindow = getIntProp(ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW.name()); 
 		hashValues.put(ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW, showMainWindow);

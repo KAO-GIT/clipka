@@ -1339,14 +1339,14 @@ public class ConDataTask
 		 * @param title
 		 * @return
 		 */
-		public static IResErrors save(kao.res.ResNamesWithId variant, String name, String title)
+		public static IResErrors save(kao.res.ResNamesWithId variant, String name, String title, boolean autoShowNotification)
 		{
 			DBRecordAlert cp = new DBRecordAlert();
 
 			// in description and title one value
 			cp.setValue(DataFieldNames.DATAFIELD_VARIANT, variant.getIntValue()).setValue(DataFieldNames.DATAFIELD_NAME, name)
 					.setValue(DataFieldNames.DATAFIELD_TITLE, title).setValue(DataFieldNames.DATAFIELD_DESCRIPTION, title);
-			IResErrors ret = save(cp);
+			IResErrors ret = save(cp, autoShowNotification);
 			if (!ret.isSuccess())
 			{
 				LOGGER.info("Error: not save {}: {}, {}", variant, name, title);
@@ -1355,8 +1355,9 @@ public class ConDataTask
 			return ret;
 		}
 
-		public static IResErrors save(DBRecordAlert cp)
+		public static IResErrors save(DBRecordAlert cp, boolean autoShowNotification)
 		{
+			if(autoShowNotification && ConData.getIntProp(ResNames.SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR)!=0)
 			{
 				int variant = cp.getIntValue(DataFieldNames.DATAFIELD_VARIANT);
 				NotiKA.showNotification(cp.getStringValue(DataFieldNames.DATAFIELD_TITLE), ResNamesWithId.getFromIntValue(variant));

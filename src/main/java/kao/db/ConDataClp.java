@@ -1,10 +1,13 @@
 package kao.db;
 
+import java.sql.Connection;
 //import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.StringJoiner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +19,22 @@ public class ConDataClp
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConDataClp.class);
 
-	private static volatile long lastTime = 0;
-
 	public ConDataClp()
 	{
+	}
+	
+	private static volatile long lastTime = 0;
+
+	private static volatile int[] selectedClips;
+	
+	public static int[] getSelectedClips()
+	{
+		return selectedClips;
+	}
+
+	public static void setSelectedClips(int[] selectedClips)
+	{
+		ConDataClp.selectedClips = selectedClips;
 	}
 
 	public static synchronized long getLastTime()
@@ -106,18 +121,76 @@ public class ConDataClp
 		statement = null;
 	}
 
-	public void del(ClipboardElementText cp) throws SQLException
-	{
+	
+//	//clp delete
+//	public static IResErrors delete(Integer id)
+//	{
+//		try
+//		{
+//			Connection connection = ConData.getConn();
+//
+//			PreparedStatement statement;
+//
+//			statement = connection.prepareStatement("DELETE FROM data.tt1 WHERE ROWID = ?");
+//			statement.setInt(1, id);
+//			statement.execute();
+//			statement.close();
+//			return ResErrors.NOERRORS;
+//		} catch (SQLException e)
+//		{
+//			return new ResErrorsWithAdditionalData(ResErrors.ERR_DBERROR, e.getLocalizedMessage());
+//		}
+//	}
 
-		//		Connection connection = getCon().getConnection();
-		//		
-		//		PreparedStatement statement = connection.prepareStatement(
-		//                     "DELETE FROM data.tt1 WHERE ROWID = ?");
-		//		//statement.setQueryTimeout(30);  // set timeout to 30 sec.
-		//    statement.setInt(1, cp.getId());
-		//    statement.executeUpdate();
-		//
-		//		setModified(true); 
+	/**
+	 * @param offSet - смещение от последнего клипа 
+	 * @return - String - только текстовое содержимое 
+	 * @throws SQLException
+	 */
+	public static String loadData(int offSet) throws SQLException
+	{
+	
+		StringBuilder sb = new StringBuilder();   
+		
+		Connection connection = ConData.getConn();
+
+		PreparedStatement statement;
+		statement = connection.prepareStatement(String.format("SELECT val FROM data.tt1 ORDER BY ROWID DESC LIMIT 1 OFFSET %d",offSet));
+		ResultSet resultSet = statement.executeQuery();
+		if (resultSet.next())
+		{
+			sb.append(resultSet.getString("val")); 
+		}
+		
+		return sb.toString(); 
+	}
+	
+	/**
+	 * @param selectedId - массив id
+	 * @return - String - только текстовое содержимое выбранных клипов
+	 * @throws SQLException
+	 */
+	public static String loadData(int[] selectedId) throws SQLException
+	{
+	
+		String stringSelectedId = Arrays.toString(selectedId); 
+		stringSelectedId = stringSelectedId.substring(1, stringSelectedId.length()-1);
+		
+		String separator = ConData.getStringProp(ResNames.SETTINGS_CLP_SEPARATOR); 
+
+		StringJoiner sj = new StringJoiner(separator);  
+		
+		Connection connection = ConData.getConn();
+
+		PreparedStatement statement;
+		statement = connection.prepareStatement(String.format("SELECT val FROM data.tt1 WHERE ROWID IN ( %s ) ORDER BY ROWID ",stringSelectedId));
+		ResultSet resultSet = statement.executeQuery();
+		while (resultSet.next())
+		{
+			sj.add(resultSet.getString("val")); 
+		}
+		
+		return sj.toString(); 
 	}
 
 	public KitForClpListing fill(KitForClpListing kit, boolean checkTime)
@@ -162,7 +235,7 @@ public class ConDataClp
 				if (checkTime) // если после последнего открытия прошло время - очищаем отборы
 				{
 					java.time.Duration dr = java.time.Duration.ofNanos(System.nanoTime() - ConDataClp.getLastTime());
-					if (dr.toMinutes() >= ConData.getIntProp(ResNames.SETTINGS_CLP_TIMEOUTPOSITION))
+					if (dr.toSeconds() >= ConData.getIntProp(ResNames.SETTINGS_CLP_TIMEOUTPOSITION))
 					{
 						// обнулим индекс поиска, номер страницы, фильтр
 						numPage = 1;

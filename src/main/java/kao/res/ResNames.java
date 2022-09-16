@@ -30,7 +30,7 @@ public enum ResNames
 			+ "Ключи командной строки: \n"
 			+ "-p [Порт], --port [Port] - изменить порт, на котором работает программа \n"
 			+ "-t [Номер], --task [Номер] - номер команды, которую надо сразу запустить \n"
-			+ "-g [Номер], --group [Номер] - номер группы команд, которую надо показать \n"
+			+ "-g [Номер], --group [Номер] - номер группы команд, которую надо показать \n" 
 			)
 	ABOUTH(),
 	
@@ -102,10 +102,6 @@ public enum ResNames
 	@AnnotationDefValueRu("Настройки системные")
 	SETTINGS_SYS(),    // Категории настроек (имя не менять)
 	
-//	@AnnotationDefValue("Hotkey for clipboiard window")
-//	@AnnotationDefValueRu("Hotkey для открытия записей буфера обмена")
-//	SETTINGS_CLP_MAINHOTKEY(),
-
 	@AnnotationDefValue("Watch the clipboard: primary (mouse selection)")
 	@AnnotationDefValueRu("Отслеживать буфер обмена: выделение")
 	SETTINGS_CLP_WATCH_PRIMARY(),
@@ -114,8 +110,8 @@ public enum ResNames
 	@AnnotationDefValueRu("Если флажок не установлен, не используется буфер обмена: выделение. Для применения настройки небходимо завершить работу программы")
 	DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY(),
 	
-	@AnnotationDefValue("Timeout for save position (min)")
-	@AnnotationDefValueRu("Время в минутах, после которого прекращается запоминание позиции в списке клипов")
+	@AnnotationDefValue("Timeout for save position (sec)")
+	@AnnotationDefValueRu("Время в секундах, после которого прекращается запоминание позиции в списке клипов")
 	SETTINGS_CLP_TIMEOUTPOSITION(),
 	
 	@AnnotationDefValue("Number of items on page")
@@ -137,6 +133,14 @@ public enum ResNames
 	@AnnotationDefValue("If you delete duplicates, you may lose information about the time of creation and source of the clips")
 	@AnnotationDefValueRu("При удалении дупликатов можно потерять информацию о времени создания и источнике текста в буфере")
 	DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES(),
+	
+	@AnnotationDefValue("Separator of clip texts when selecting multiple clips in the clip list")
+	@AnnotationDefValueRu("Разделитель текстов клипов при выделении нескольких в списке клипов")
+	SETTINGS_CLP_SEPARATOR(),
+
+	@AnnotationDefValue("If you select multiple clips in the list, you can get them in one string. Each clip will be separated from the other by the specified text")
+	@AnnotationDefValueRu("При выделении нескольких клипов в списке их можно получить одной строкой. Каждый клип будет отделяться от другого указанным текстом (по умолчанию используется перенос строки) ")
+	DESCRIPTION_SETTINGS_CLP_SEPARATOR(),
 	
 	@AnnotationDefValue("Socket port")
 	@AnnotationDefValueRu("Socket port")
@@ -162,30 +166,37 @@ public enum ResNames
 	@AnnotationDefValueRu("Если флажок не установлен, показывается окно с кнопками действий. Для применения настройки небходимо завершить работу программы")
 	DESCRIPTION_SETTINGS_SYS_SHOW_TRAY(),
 
-	
+	@AnnotationDefValue("Show notification after task with error ")
+	@AnnotationDefValueRu("Показывать уведомление, если задача завершена с ошибкой")
+	SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR(),
+
+	@AnnotationDefValue("If the check box is not selected, windows with notifications is not displayed. However, you can view the records in the 'Alerts and Errors' ")
+	@AnnotationDefValueRu("Если флажок установлен, после задачи, которая завершена с ошибкой, показывается всплывающее окно уведомлений. В любом случае, записи можно посмотреть в окне 'Оповещения и ошибки' ")
+	DESCRIPTION_SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR(),
+
 	@AnnotationDefValue("Default timeout for notification (sec) ")
 	@AnnotationDefValueRu("Время в секундах для всплывающего окна уведомления по умолчанию ")
-	SETTINGS_SYS_TIMEOUT_DEFAULT(),
+	SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT(),
 
 	@AnnotationDefValue("If the value is not set, windows is not closed. ")
-	@AnnotationDefValueRu("Если значение равно нулю, окно не закрывается ")
-	DESCRIPTION_SETTINGS_SYS_TIMEOUT_DEFAULT(),
+	@AnnotationDefValueRu("Если значение равно нулю, окно уведомлений не закрывается ")
+	DESCRIPTION_SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT(),
 	
-	@AnnotationDefValue("Timeout for notification of errors (sec) ")
-	@AnnotationDefValueRu("Время в секундах для всплывающего окна уведомления об ошибке ")
-	SETTINGS_SYS_TIMEOUT_ERRORS(),
-
-	@AnnotationDefValue("If the value is not set, windows with notifications is not displayed. However, you can view the records in the <<Alerts and Errors>>")
-	@AnnotationDefValueRu("Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне <<Оповещения и ошибки>> ")
-	DESCRIPTION_SETTINGS_SYS_TIMEOUT_ERRORS(),
-
-	@AnnotationDefValue("Timeout for notification of alerts (sec) ")
-	@AnnotationDefValueRu("Время в секундах для всплывающего окна с оповещением ")
-	SETTINGS_SYS_TIMEOUT_ALERTS(),
-
-	@AnnotationDefValue("If the value is not set, windows with notifications is not displayed. However, you can view the records in the <<Alerts and Errors>>")
-	@AnnotationDefValueRu("Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне <<Оповещения и ошибки>> ")
-	DESCRIPTION_SETTINGS_SYS_TIMEOUT_ALERTS(),
+//	@AnnotationDefValue("Timeout for notification of errors (sec) ")
+//	@AnnotationDefValueRu("Время в секундах для всплывающего окна уведомления об ошибке ")
+//	SETTINGS_SYS_TIMEOUT_ERRORS(),
+//
+//	@AnnotationDefValue("If the value is not set, windows with notifications is not displayed. However, you can view the records in the 'Alerts and Errors'")
+//	@AnnotationDefValueRu("Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне <<Оповещения и ошибки>> ")
+//	DESCRIPTION_SETTINGS_SYS_TIMEOUT_ERRORS(),
+//
+//	@AnnotationDefValue("Timeout for notification of alerts (sec) ")
+//	@AnnotationDefValueRu("Время в секундах для всплывающего окна с оповещением ")
+//	SETTINGS_SYS_TIMEOUT_ALERTS(),
+//
+//	@AnnotationDefValue("If the value is not set, windows with notifications is not displayed. However, you can view the records in the <<Alerts and Errors>>")
+//	@AnnotationDefValueRu("Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне <<Оповещения и ошибки>> ")
+//	DESCRIPTION_SETTINGS_SYS_TIMEOUT_ALERTS(),
 	
 	@AnnotationDefValue("General settings")
 	@AnnotationDefValueRu("Имя настройки")
@@ -324,11 +335,11 @@ public enum ResNames
 	DESCRIPTION_GROUPTASK__HOTSTRINGS__(),
 
 	@AnnotationDefValue("Tasks in the clips list")
-	@AnnotationDefValueRu("В группу попадают задачи, показываемые в списке клипов")
+	@AnnotationDefValueRu("Задачи в списке клипов")
 	GROUPTASK__CLIPS__(),
 
-	@AnnotationDefValue("Auto replace")
-	@AnnotationDefValueRu("В группу попадают задачи для строк автозамены")
+	@AnnotationDefValue("Tasks in the clips list")
+	@AnnotationDefValueRu("В группу попадают задачи, показываемые в списке клипов")
 	DESCRIPTION_GROUPTASK__CLIPS__(),
 	
 	@AnnotationDefValue("Administratives tasks")

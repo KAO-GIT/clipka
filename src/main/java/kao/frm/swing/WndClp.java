@@ -43,6 +43,7 @@ public class WndClp
 			public void windowClosing(WindowEvent e)
 			{
 				panelClp.popupHide();
+				ConDataClp.setSelectedClips(new int[0]);
 				ConDataClp.setCurrentAsLastTime();
 				super.windowClosing(e);
 			}

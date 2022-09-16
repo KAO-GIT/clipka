@@ -199,8 +199,8 @@ public class WndMain extends JFrame
 		{
 
 			final Image i = Dlg.getIconImage();
-			//final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(-1, -1, Image.SCALE_FAST));
-			final TrayIcon trayIcon = new TrayIcon(i);
+			final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(-1, -1, Image.SCALE_FAST));
+			//final TrayIcon trayIcon = new TrayIcon(i);
 			
 			trayIcon.setImageAutoSize(true);
 			trayIcon.setToolTip("ClipKA");

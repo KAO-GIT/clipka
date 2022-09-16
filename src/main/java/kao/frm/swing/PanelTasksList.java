@@ -43,7 +43,8 @@ public class PanelTasksList extends PanelTasksNoCommands
 
 		public IResErrors execute_default()
 		{
-			return lc.get(1).execute(); // здесь используем открыть, а не выполнить 
+			JButton b = javax.swing.SwingUtilities.getRootPane(PanelTasksList.this).getDefaultButton(); 
+			return ((FieldCommand)b).execute(); // здесь используем кнопку по умолчанию 
 		}
 		
 		
@@ -255,6 +256,15 @@ public class PanelTasksList extends PanelTasksNoCommands
 		cc.execute_default();
 	}
 
+	public boolean requestFocusForList()
+	{
+		if(!kit.getElements().isEmpty())
+		{
+			getTable().getSelectionModel().setSelectionInterval(0, 0);
+		}
+		return getTable().requestFocusInWindow();
+	}
+	
 	//	public void addMenu()
 	//	{
 	//
