@@ -2,7 +2,7 @@ package kao.prop;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.awt.event.KeyEvent;
+//import java.awt.event.KeyEvent;
 //import java.util.stream.IntStream;
 
 //import javax.swing.JOptionPane;
