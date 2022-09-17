@@ -58,17 +58,25 @@ public class NotiKA extends JDialog
 			curText = cur0.getText();
 			cur0.dispose();
 		}
+		
+		//@formatter:off 
+		
+		//String textErr = "<img alt=\"err\" width=\"16\" height=\"16\" src=\"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wgARCAAQABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBv/EABUBAQEAAAAAAAAAAAAAAAAAAAQF/9oADAMBAAIQAxAAAAHYRoI1r//EABcQAQEBAQAAAAAAAAAAAAAAAAQDAhP/2gAIAQEAAQUCpfqnCtHc0qIsKS10/wD/xAAbEQACAQUAAAAAAAAAAAAAAAABEQIAAwQSgf/aAAgBAwEBPwGMMcWtiQl11//EABcRAAMBAAAAAAAAAAAAAAAAAAACERL/2gAIAQIBAT8Brah//8QAHhAAAQQCAwEAAAAAAAAAAAAAEQABAgMEEjFBYZL/2gAIAQEABj8CeppgcRI2VdFki0+idVLJxGaWzfKryMtg8PAV/8QAGxABAAIDAQEAAAAAAAAAAAAAAREhADFhQcH/2gAIAQEAAT8hvNyCnRu98jmU1aLnTq/mT92ESVPph2BF2M1Pe8z/2gAMAwEAAgADAAAAEMP/xAAbEQABBAMAAAAAAAAAAAAAAAARAAExQVFxwf/aAAgBAwEBPxAjp8TTjd8X/8QAFxEBAQEBAAAAAAAAAAAAAAAAAREAgf/aAAgBAgEBPxBWA28m/8QAGRABAQEBAQEAAAAAAAAAAAAAARExIWGR/9oACAEBAAE/EAr0fxfUTVATS3BUhGrHlVtgpSInrV8BT0Tfol6tJvOkaGhDWoqDADp//9k=\">";  
+		
+		// "&#10008; "&#9785; &#10060; "; 
+		
+		String textErr = "<strong style=\"color:#FF0000\" >&#10008; </strong>";
+		//@formatter:on 
+
 		final NotiKA cur = updateInstance();
-		if (curText.isBlank()) cur.setText((isErrorMessage ? "<b>!</b> " : "") + kao.prop.Utils.toHtml(text));
-		else cur.setText(curText + "<br>" + (isErrorMessage ? "<b>!</b> " : "") + kao.prop.Utils.toHtml(text));
+		if (curText.isBlank()) cur.setText((isErrorMessage ? textErr : "") + kao.prop.Utils.toHtml(text));
+		else cur.setText(curText + "<br>" + (isErrorMessage ? textErr : "") + kao.prop.Utils.toHtml(text));
 
 		//System.out.println("showNotification 1: "+cur.getText()); 
 
 		cur.getToolTip().setTipText("<html>" + (cur.getText()) + "</html>");
 		cur.pack();
 
-		//		Point p = jList.getLocationOnScreen();
-		//		setLocation(p.x - tip.getWidth() - 5, p.y + 100);
 
 		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();// size of the screen
 		Insets toolHeight = Toolkit.getDefaultToolkit().getScreenInsets(cur.getGraphicsConfiguration());// height of the task bar

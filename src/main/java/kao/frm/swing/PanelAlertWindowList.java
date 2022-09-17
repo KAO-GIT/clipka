@@ -85,6 +85,8 @@ public class PanelAlertWindowList extends PanelTasksAllNoCommands
 						el.getStringValue(DataFieldNames.DATAFIELD_NAME),
 						ConDataTask.AlertWindow.isErrorMessage(el.getIntValue(DataFieldNames.DATAFIELD_VARIANT)) ? JOptionPane.ERROR_MESSAGE
 								: JOptionPane.INFORMATION_MESSAGE);
+				
+				//JOptionPane.showInputDialog(PanelAlertWindowList.this, "<html>" + Utils.toHtml(el.getTitle()) + "</html>"); 	
 
 			case DBCOMMAND_DELETE:
 				return ConDataTask.AlertWindow.delete(id);

@@ -163,29 +163,7 @@ public class Main
 						Tsks.analyzeCommand(request); 
 					}  
 
-					// new Thread(() -> WndText.getInstance().setVisible(true)).start();
-					//java.awt.EventQueue.invokeLater(() -> WndText.getInstance().setVisible(true));
-
 					printLine(socket, "OK");
-					//                int index = request.indexOf(":");
-					//                if (index == -1) {
-					////                    System.out.println("runServerSocket: wrong format");
-					//                    continue;
-					//                }
-					//                int portSent = -1;
-					//                try {
-					//                    portSent = Integer.parseInt(request.substring(0, index));
-					//                } catch (Exception e) {
-					//                }
-					//                if (portSent == -1) {
-					////                    System.out.println("runServerSocket: wrong port: " + request);
-					//                    continue;
-					//                }
-					//                if (portSent != serverSocket.getLocalPort()) {
-					////                    System.out.println("runServerSocket: not equal to current port: " + portSent + " != " + serverSocket.getLocalPort());
-					//                    continue;
-					//                }
-					//                String command = request.substring(index + 1);
 				} catch (Exception ex)
 				{
 					System.out.println("Shutdown socket server:" + ex);
