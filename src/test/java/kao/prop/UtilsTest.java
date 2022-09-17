@@ -3,15 +3,15 @@ package kao.prop;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.event.KeyEvent;
-import java.util.stream.IntStream;
+//import java.util.stream.IntStream;
 
 //import javax.swing.JOptionPane;
 //import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import kao.kb.KeyStructs;
-import kao.kb.KeyUtil;
+//import kao.kb.KeyStructs;
+//import kao.kb.KeyUtil;
 
 class UtilsTest
 {
@@ -21,8 +21,8 @@ class UtilsTest
 	{
 //	
 		//final String s = "{[Привет!]}";
+//	int keys[] = new int[]{KeyEvent.VK_ALT};
 		final String s = "&";
-		int keys[] = new int[]{KeyEvent.VK_ALT};
 		assertTrue(s=="&");
 		//assertArrayEquals(keys, keys);
 //		Utils.pressWithComposeKeys(keys, s);
