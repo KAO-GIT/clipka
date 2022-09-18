@@ -19,7 +19,7 @@ class KeyUtilTest
 		int codeKeyEvent, codeKeyEvent2, codeKeyStruct;  
 		int[] codesKeyEvent, codesKeyStruct;  
 		
-		s = "f1"; 
+		s = "{f1}"; 
 		key = KeyUtil.getKeyStruct(s);
 		codeKeyEvent  = KeyEvent.VK_F1;
 		codeKeyStruct = KeyUtil.getKeyEventCode(key.getCode());
@@ -97,18 +97,18 @@ class KeyUtilTest
 
 		s = "{ANY_SPACE}";  
 		key = KeyUtil.getKeyStruct(s);
-		key2 = KeyUtil.getKeyStruct("space");
+		key2 = KeyUtil.getKeyStruct("{space}");
 		assertTrue(key.equals(key2));
 		
 		
-		s = "kp_begin";  
+		s = "{kp_begin}";  
 		key = KeyUtil.getKeyStruct(s);
 		System.out.println(""+key+" "+key.getCode());		
 		assertTrue(s.indexOf(key.toString())>=0); 
 
-		s = "kp_pgup";  
+		s = "{kp_pgup}";  
 		key = KeyUtil.getKeyStruct(s);
-		key2 = KeyUtil.getKeyStruct("kp_prior");
+		key2 = KeyUtil.getKeyStruct("{kp_prior}");
 		System.out.println(""+key+" "+key.getCode());		
 		assertTrue(key.equals(key2)); 
 		

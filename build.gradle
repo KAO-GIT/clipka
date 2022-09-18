@@ -60,9 +60,8 @@ String vers = prop.getProperty("version");
 //println("$buildDir"); 
 
 application {
-    // Define the main class for the application.
-    mainClass = 'kao.Main'
-//		applicationDefaultJvmArgs = ['-Xmn16m -Xmx96m']    
+    mainClass = 'kao.Main' // Define the main class for the application.
+//  applicationDefaultJvmArgs = []
 }
 
 java {
