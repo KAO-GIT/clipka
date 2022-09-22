@@ -142,6 +142,14 @@ public enum ResNames
 	@AnnotationDefValueRu("При выделении нескольких клипов в списке их можно получить одной строкой. Каждый клип будет отделяться от другого указанным текстом (по умолчанию используется перенос строки) ")
 	DESCRIPTION_SETTINGS_CLP_SEPARATOR(),
 	
+	@AnnotationDefValue("Search clips with any keyboard layout")
+	@AnnotationDefValueRu("Поиск в списке клипов без учета раскладки клавиатуры")
+	SETTINGS_CLP_SEARCH_WO_ENCODE(),
+
+	@AnnotationDefValue("Search clips with any keyboard layout")
+	@AnnotationDefValueRu("При установленном флажке поиск будет происходить, даже если выбрана другая раскладка клавиатуры ")
+	DESCRIPTION_SETTINGS_CLP_SEARCH_WO_ENCODE(),
+	
 	@AnnotationDefValue("Socket port")
 	@AnnotationDefValueRu("Socket port")
 	SETTINGS_SYS_SOCKETPORT(),

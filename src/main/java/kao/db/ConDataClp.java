@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kao.el.*;
+import kao.prop.Utils;
 import kao.res.ResNames;
 
 public class ConDataClp
@@ -324,7 +325,10 @@ public class ConDataClp
 		if (!filter.isBlank())
 		{
 			isWhere = true;
-			queryNew.append(" WHERE val_s like ? ");
+			if( ConData.getIntProp(ResNames.SETTINGS_CLP_SEARCH_WO_ENCODE)==0 )
+				queryNew.append(" WHERE (val_s like ?) ");
+			else 
+				queryNew.append(" WHERE (val_s like ? or val_s like ?) ");
 		}
 		if (id != 0)
 		{
@@ -342,6 +346,10 @@ public class ConDataClp
 		if (!filter.isBlank())
 		{
 			statement.setString(++n, "%" + filter + "%");
+			if( ConData.getIntProp(ResNames.SETTINGS_CLP_SEARCH_WO_ENCODE)!=0 )
+			{
+				statement.setString(++n, "%" + Utils.encodeCon(filter) + "%");
+			}
 		}
 		if (id != 0)
 		{

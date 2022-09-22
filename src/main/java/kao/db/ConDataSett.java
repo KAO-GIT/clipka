@@ -104,7 +104,7 @@ public class ConDataSett
 			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecOnPage", 36, "integer", 20, "", 0);
 //			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecCount", 100000, "integer", 25, "disable", 0);
 			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_SizeTextElem", 512000, "integer", 30, "", 0);
-			//this.<String>setDefSett(statement, currentName, "Settings_Sys_DataPath", "", "path", 40, "", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_SEARCH_WO_ENCODE.name(), 1, "checkbox", 40, "", 0);
 			this.<String>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_SEPARATOR.name(), "\n", "memo", 50, "", 0);
 			//this.<String>setDefSett(statement, currentName, "Settings_Clp_TaskEncodeConHotkey", "F9", "hotkey", 60, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), ConData.PORT, "integer", 50, "", 0);
