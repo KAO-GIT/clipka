@@ -66,6 +66,7 @@ Command prompt:
 <entry key="DESCRIPTION_GROUPTASK__KEYBOARDKEYS__">Keyboard keys</entry>
 <entry key="DESCRIPTION_HOTKEYS__ALL__">All hotkeys</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">If you delete duplicates, you may lose information about the time of creation and source of the clips</entry>
+<entry key="DESCRIPTION_SETTINGS_CLP_SEARCH_WO_ENCODE">Search clips with any keyboard layout</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_SEPARATOR">If you select multiple clips in the list, you can get them in one string. Each clip will be separated from the other by the specified text</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY">If the check box is not selected, exclude primary clipboard (mouse selection). To apply this setting, you need to close the program</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">By default, a window with action buttons is displayed if the system tray is not available. When the check box is selected, it will always be displayed</entry>
@@ -170,8 +171,11 @@ Command prompt:
 <entry key="SETTINGS_CLP_RECCOUNT">Number of items</entry>
 <entry key="SETTINGS_CLP_RECONPAGE">Number of items on page</entry>
 <entry key="SETTINGS_CLP_REMOVEDUPLICATES">Remove duplicates items</entry>
+<entry key="SETTINGS_CLP_SEARCH_WO_ENCODE">Search clips with any keyboard layout</entry>
 <entry key="SETTINGS_CLP_SEPARATOR">Separator of clip texts when selecting multiple clips in the clip list</entry>
 <entry key="SETTINGS_CLP_SIZETEXTELEM">Maximum text size</entry>
+<entry key="SETTINGS_CLP_STRING_ENC">String to convert keyboard layouts</entry>
+<entry key="SETTINGS_CLP_STRING_REG">String to convert register</entry>
 <entry key="SETTINGS_CLP_TIMEOUTPOSITION">Timeout for save position (sec)</entry>
 <entry key="SETTINGS_CLP_WATCH_PRIMARY">Watch the clipboard: primary (mouse selection)</entry>
 <entry key="SETTINGS_SYS">System settings</entry>

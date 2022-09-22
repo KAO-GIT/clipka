@@ -104,14 +104,22 @@ public class ConDataSett
 			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecOnPage", 36, "integer", 20, "", 0);
 //			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_RecCount", 100000, "integer", 25, "disable", 0);
 			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_SizeTextElem", 512000, "integer", 30, "", 0);
-			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_SEARCH_WO_ENCODE.name(), 1, "checkbox", 40, "", 0);
-			this.<String>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_SEPARATOR.name(), "\n", "memo", 50, "", 0);
-			//this.<String>setDefSett(statement, currentName, "Settings_Clp_TaskEncodeConHotkey", "F9", "hotkey", 60, "", 0);
-			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), ConData.PORT, "integer", 50, "", 0);
-			//			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_CumulativeFlag", 0, "integer", 70, "", 0);
-			//			this.<String>setDefSett(statement, currentName, "Settings_Clp_CumulativeText", "", "memo", 75, "", 0);
-			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name(), 1, "checkbox", 80, "", 0);
+
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_REMOVEDUPLICATES.name(), 1, "checkbox", 40, "", 0);
+			
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_SEARCH_WO_ENCODE.name(), 1, "checkbox", 60, "", 0);
+			
+			this.<String>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_STRING_ENC.name(), Utils.DEFAULT_ENC_STRING, "string", 70, "", 0);
+			this.<String>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_STRING_REG.name(), Utils.DEFAULT_REG_STRING, "string", 75, "", 0);
+			//			this.<Integer>setDefSett(statement, currentName, "Settings_Clp_CumulativeFlag", 0, "integer", 270, "", 0);
+			//			this.<String>setDefSett(statement, currentName, "Settings_Clp_CumulativeText", "", "memo", 275, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_TIMEOUTPOSITION.name(), 5*60, "integer", 90, "", 0);
+			
+			this.<String>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_SEPARATOR.name(), "\n", "memo", 95, "", 0);
+			
+
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), ConData.PORT, "integer", 50, "", 0);
+			
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW.name(), 0, "checkbox", 100, "", 0);
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_TRAY.name(), 1, "checkbox", 110, "", 0);
 

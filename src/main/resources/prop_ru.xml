@@ -66,6 +66,7 @@
 <entry key="DESCRIPTION_GROUPTASK__KEYBOARDKEYS__">В группу попадают задачи для ввода специальных символов</entry>
 <entry key="DESCRIPTION_HOTKEYS__ALL__">Все горячие клавиши</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">При удалении дупликатов можно потерять информацию о времени создания и источнике текста в буфере</entry>
+<entry key="DESCRIPTION_SETTINGS_CLP_SEARCH_WO_ENCODE">При установленном флажке поиск будет происходить, даже если выбрана другая раскладка клавиатуры </entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_SEPARATOR">При выделении нескольких клипов в списке их можно получить одной строкой. Каждый клип будет отделяться от другого указанным текстом (по умолчанию используется перенос строки) </entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY">Если флажок не установлен, не используется буфер обмена: выделение. Для применения настройки небходимо завершить работу программы</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">По умолчанию, окно с кнопками действий показывается, если недоступен системный трей. При установке флажка будет показываться всегда</entry>
@@ -170,8 +171,11 @@
 <entry key="SETTINGS_CLP_RECCOUNT">Количество записей в базе</entry>
 <entry key="SETTINGS_CLP_RECONPAGE">Количество записей на странице</entry>
 <entry key="SETTINGS_CLP_REMOVEDUPLICATES">Удалить дубликаты текстов в буфере</entry>
+<entry key="SETTINGS_CLP_SEARCH_WO_ENCODE">Поиск в списке клипов без учета раскладки клавиатуры</entry>
 <entry key="SETTINGS_CLP_SEPARATOR">Разделитель текстов клипов при выделении нескольких в списке клипов</entry>
 <entry key="SETTINGS_CLP_SIZETEXTELEM">Максимальный размер текста</entry>
+<entry key="SETTINGS_CLP_STRING_ENC">Строка для конвертирования ошибочных раскладок клавиатуры </entry>
+<entry key="SETTINGS_CLP_STRING_REG">Строка для конвертирования ошибочно набранного регистра букв </entry>
 <entry key="SETTINGS_CLP_TIMEOUTPOSITION">Время в секундах, после которого прекращается запоминание позиции в списке клипов</entry>
 <entry key="SETTINGS_CLP_WATCH_PRIMARY">Отслеживать буфер обмена: выделение</entry>
 <entry key="SETTINGS_SYS">Настройки системные</entry>

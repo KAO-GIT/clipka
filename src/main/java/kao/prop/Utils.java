@@ -26,6 +26,9 @@ public class Utils
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
+	public static final String DEFAULT_ENC_STRING = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЯЧСМИТЬБЮ,йцукенгшщзхъфывапролджэячсмитьбю.ёЁ№;:?/Э" + "QWERTYUIOP{}ASDFGHJKL:ZXCVBNM<>?qwertyuiop[]asdfghjkl;'zxcvbnm,./`~#$^&|\"";
+	public static final String DEFAULT_REG_STRING = "ёйцукенгшщзхъфывапролджэячсмитьбюqwertyuiopasdfghjklzxcvbnm" + "ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮQWERTYUIOPASDFGHJKLZXCVBNM";
+	
 	private Utils()
 	{
 	}
@@ -315,13 +318,11 @@ public class Utils
 		}).collect(Collectors.joining(""));
 	}
 
-	public static String encodeCon(String source)
+	public static String encodeCon(final String source)
 	{
-		final String c = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЯЧСМИТЬБЮ,йцукенгшщзхъфывапролджэячсмитьбю.ёЁ№;:?/Э"
-				+ "QWERTYUIOP{}ASDFGHJKL:ZXCVBNM<>?qwertyuiop[]asdfghjkl;'zxcvbnm,./`~#$^&|\"";
-
-		//				"ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ/ёйцукенгшщзхъфывапролджэячсмитьбю,.\"№;?:"
-		//			+ "~QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>|`qwertyuiop[]asdfghjkl;'zxcvbnm,.?/@#$&^";
+		//final String c = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЯЧСМИТЬБЮ,йцукенгшщзхъфывапролджэячсмитьбю.ёЁ№;:?/Э" + "QWERTYUIOP{}ASDFGHJKL:ZXCVBNM<>?qwertyuiop[]asdfghjkl;'zxcvbnm,./`~#$^&|\"";
+		
+		final String c = ConData.getStringProp(ResNames.SETTINGS_CLP_STRING_ENC); 
 
 		final int l = c.length() / 2;
 
@@ -345,11 +346,13 @@ public class Utils
 
 	}
 
-	public static String encodeReg(String source)
+	public static String encodeReg(final String source)
 	{
 
-		final String c = "ёйцукенгшщзхъфывапролджэячсмитьбюqwertyuiopasdfghjklzxcvbnm" + "ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮQWERTYUIOPASDFGHJKLZXCVBNM";
+		//final String c = "ёйцукенгшщзхъфывапролджэячсмитьбюqwertyuiopasdfghjklzxcvbnm" + "ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮQWERTYUIOPASDFGHJKLZXCVBNM";
 
+		final String c = ConData.getStringProp(ResNames.SETTINGS_CLP_STRING_REG); 
+		
 		final int l = c.length() / 2;
 
 		return source.chars().mapToObj(i ->

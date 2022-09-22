@@ -149,6 +149,14 @@ public enum ResNames
 	@AnnotationDefValue("Search clips with any keyboard layout")
 	@AnnotationDefValueRu("При установленном флажке поиск будет происходить, даже если выбрана другая раскладка клавиатуры ")
 	DESCRIPTION_SETTINGS_CLP_SEARCH_WO_ENCODE(),
+
+	@AnnotationDefValue("String to convert keyboard layouts")
+	@AnnotationDefValueRu("Строка для конвертирования ошибочных раскладок клавиатуры ")
+	SETTINGS_CLP_STRING_ENC(),
+
+	@AnnotationDefValue("String to convert register")
+	@AnnotationDefValueRu("Строка для конвертирования ошибочно набранного регистра букв ")
+	SETTINGS_CLP_STRING_REG(),
 	
 	@AnnotationDefValue("Socket port")
 	@AnnotationDefValueRu("Socket port")
