@@ -27,7 +27,7 @@ public enum EModifiers
 		case META:
 		case META_L:
 		case META_R:
-			return KeyEvent.VK_META; 
+			return KeyEvent.VK_WINDOWS; 
 		case SHIFT:
 		case SHIFT_L:
 		case SHIFT_R:

@@ -797,6 +797,12 @@ public class PanelClp extends JPanel implements ActionListener
 		};
 	}
 
+	public void menuHide()
+	{
+		jP.setVisible(false);
+		jP.removeAll();
+	}
+	
 	void popupShow(ClipboardElement el)
 	{
 		kit.setSelectedId(el.getIdInt());

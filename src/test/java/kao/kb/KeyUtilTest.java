@@ -11,6 +11,23 @@ class KeyUtilTest
 {
 
 	@Test
+	void testGetKeysForRobot()
+	{
+		String s; 
+		s = "{win space}"; 
+		ArrayList<KeyStructs> keys = KeyUtil.getKeyStructs(s); 
+		for (KeyStruct k : keys.get(0))
+		{
+			int[] kk  = KeyUtil.getKeysForRobot(k);
+//			System.out.println(Arrays.toString(kk)); 
+//			System.out.println(Arrays.toString(new int[] {KeyEvent.VK_WINDOWS, KeyEvent.VK_SPACE}));
+			
+			assertArrayEquals(kk,new int[] {KeyEvent.VK_WINDOWS, KeyEvent.VK_SPACE}); 
+			
+		}
+		
+	}
+	@Test
 	void testGetKeysSeveral()
 	{
 		String s; 
@@ -103,13 +120,13 @@ class KeyUtilTest
 		
 		s = "{kp_begin}";  
 		key = KeyUtil.getKeyStruct(s);
-		System.out.println(""+key+" "+key.getCode());		
+		//System.out.println(""+key+" "+key.getCode());		
 		assertTrue(s.indexOf(key.toString())>=0); 
 
 		s = "{kp_pgup}";  
 		key = KeyUtil.getKeyStruct(s);
 		key2 = KeyUtil.getKeyStruct("{kp_prior}");
-		System.out.println(""+key+" "+key.getCode());		
+		//System.out.println(""+key+" "+key.getCode());		
 		assertTrue(key.equals(key2)); 
 		
 	}
