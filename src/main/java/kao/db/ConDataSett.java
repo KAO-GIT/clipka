@@ -122,7 +122,7 @@ public class ConDataSett
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), ConData.PORT, "integer", 50, "", 0);
 			
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW.name(), isw?0:1, "checkbox", 100, "", 0);
-			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_TRAY.name(), isw?1:0, "checkbox", 110, "", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_TRAY.name(), 1, "checkbox", 110, "", 0);
 
 //			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_TIMEOUT_ALERTS.name(), 5, "integer", 120, "", 0);
 //			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_TIMEOUT_ERRORS.name(), 5, "integer", 130, "", 0);
