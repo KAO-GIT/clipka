@@ -195,14 +195,16 @@ Command prompt:
 <entry key="TASK_PREDEFINED_CHANGE_ENCODING_TEXT">Change the encoding of the selected text</entry>
 <entry key="TASK_PREDEFINED_CLIPS">Clips list</entry>
 <entry key="TASK_PREDEFINED_CURRENT_DATE">Current date</entry>
+<entry key="TSKTYPE_CHANGESTATEWND_CLIPLIST">Show/hide clips</entry>
 <entry key="TSKTYPE_CHANGE_CASE_TEXT">Change the case of the current text</entry>
 <entry key="TSKTYPE_CHANGE_ENCODING_TEXT">Change the encoding of the current text</entry>
 <entry key="TSKTYPE_CLEARSTRINGFROMMAP">Delete string from map</entry>
 <entry key="TSKTYPE_CLEAR_ALERT_ERRORS">Clear 'Alerts and Errors'</entry>
+<entry key="TSKTYPE_CLOSEWND_CLIPLIST">Hide clips</entry>
 <entry key="TSKTYPE_COPY">Copy selected text into clipboard</entry>
 <entry key="TSKTYPE_GETCLIPBOARDCONTENS">Get string from clipboard and put in map</entry>
 <entry key="TSKTYPE_GETCURRENTSTRINGFROMMAP">Get current string from map</entry>
-<entry key="TSKTYPE_OPENWND_CLIPLIST">Show/hide clips</entry>
+<entry key="TSKTYPE_OPENWND_CLIPLIST">Show clips</entry>
 <entry key="TSKTYPE_PASTE">Paste text</entry>
 <entry key="TSKTYPE_PRESSKEYS">Send pressing the symbol - simulating keyboard input</entry>
 <entry key="TSKTYPE_READ_FROM_CLIPS">Read string from clips</entry>

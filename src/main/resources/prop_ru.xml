@@ -195,14 +195,16 @@
 <entry key="TASK_PREDEFINED_CHANGE_ENCODING_TEXT">Изменить кодировку выделенного текста</entry>
 <entry key="TASK_PREDEFINED_CLIPS">Список сохраненных записей из буфера обмена</entry>
 <entry key="TASK_PREDEFINED_CURRENT_DATE">Вставить текущую дату</entry>
+<entry key="TSKTYPE_CHANGESTATEWND_CLIPLIST">Показать/скрыть сохраненный список клипов буфера обмена</entry>
 <entry key="TSKTYPE_CHANGE_CASE_TEXT">Изменить регистр текста</entry>
 <entry key="TSKTYPE_CHANGE_ENCODING_TEXT">Изменить кодировку текста</entry>
 <entry key="TSKTYPE_CLEARSTRINGFROMMAP">Удалить строку из словаря (если больше не нужна)</entry>
 <entry key="TSKTYPE_CLEAR_ALERT_ERRORS">Очистить таблицу 'Оповещения и ошибки'</entry>
+<entry key="TSKTYPE_CLOSEWND_CLIPLIST">Скрыть сохраненный список клипов буфера обмена</entry>
 <entry key="TSKTYPE_COPY">Попытаться скопировать выделенный текст в буфер обмена</entry>
 <entry key="TSKTYPE_GETCLIPBOARDCONTENS">Получить строку из буфера обмена и поместить в словарь</entry>
 <entry key="TSKTYPE_GETCURRENTSTRINGFROMMAP">Получить текущую обрабатываемую строку из словаря</entry>
-<entry key="TSKTYPE_OPENWND_CLIPLIST">Показать/скрыть сохраненный список буфера обмена</entry>
+<entry key="TSKTYPE_OPENWND_CLIPLIST">Показать сохраненный список клипов буфера обмена</entry>
 <entry key="TSKTYPE_PASTE">Попытаться вставить текст из буфера обмена в текущую позицию курсора</entry>
 <entry key="TSKTYPE_PRESSKEYS">Посылать нажатие символа, имитируя ввод на клавиатуре</entry>
 <entry key="TSKTYPE_READ_FROM_CLIPS">Прочитать строку из списка клипов</entry>
