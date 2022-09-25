@@ -38,4 +38,10 @@ public class TskActionCopy extends TskActionAbstract
 		return true;
 	}
 
+	@Override
+	public boolean needCloseAllSpecialWindows()
+	{
+		return true;
+	}
+	
 }

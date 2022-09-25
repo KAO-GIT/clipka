@@ -98,6 +98,7 @@ public class ConDataSett
 	{
 		try
 		{
+			boolean isw = com.sun.jna.Platform.isWindows(); 
 			PreparedStatement statement;
 			statement = ConData.getConn().prepareStatement("INSERT OR IGNORE INTO set1 (name,val,typ,pos,state_type,state) VALUES (?,?,?,?,?,?)");
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_CLP_WATCH_PRIMARY.name(), 0, "checkbox", 10, "", 0);
@@ -120,8 +121,8 @@ public class ConDataSett
 
 			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SOCKETPORT.name(), ConData.PORT, "integer", 50, "", 0);
 			
-			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW.name(), 0, "checkbox", 100, "", 0);
-			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_TRAY.name(), 1, "checkbox", 110, "", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_MAIN_WINDOW.name(), isw?0:1, "checkbox", 100, "", 0);
+			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_SHOW_TRAY.name(), isw?1:0, "checkbox", 110, "", 0);
 
 //			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_TIMEOUT_ALERTS.name(), 5, "integer", 120, "", 0);
 //			this.<Integer>setDefSett(statement, currentName, ResNames.SETTINGS_SYS_TIMEOUT_ERRORS.name(), 5, "integer", 130, "", 0);

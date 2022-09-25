@@ -1,6 +1,7 @@
 package kao.tsk;
 
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 import kao.cp.*;
 import kao.res.*;
@@ -16,6 +17,8 @@ import kao.el.IElement;
 import kao.el.KitForListing;
 import kao.frm.WndText;
 import kao.frm.WndsVarios;
+import kao.frm.swing.Dlg;
+import kao.frm.swing.WndMain;
 import kao.kb.KeyStruct;
 import kao.prop.ResKA;
 import kao.prop.Utils;
@@ -134,10 +137,10 @@ public class Tsks
 
 	public static String getCommandtextForAnalize(String id, ResNamesWithId type)
 	{
-		return type==ResNamesWithId.VALUE_TASKSGROUP?"g":"t"+id; 
+		return type == ResNamesWithId.VALUE_TASKSGROUP ? "g" : "t" + id;
 	}
 
-	public static void analyzeCommand(String command)
+	public static void analyzeCommand(final String command, final java.awt.Window owner)
 	{
 		try
 		{
@@ -154,14 +157,33 @@ public class Tsks
 			default:
 				break;
 			}
-			if(r!=null)
+			if (r != null)
 			{
-				prepareAndRunTask(r); 
+				prepareAndRunTask(r, owner);
 			}
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public static void prepareAndRunTask(final IRecord source, final java.awt.Window owner)
+	{
+		if (owner != null)
+		{
+			Tsk tsk = Tsks.getTsk(source);
+			if (tsk instanceof INeedCloseSpecialWindows)
+			{
+				boolean needCloseAllSpecialWindows = ((INeedCloseSpecialWindows) tsk).needCloseAllSpecialWindows();
+				if (needCloseAllSpecialWindows)
+				{
+					WndMain.closeMainWindow();
+					Dlg.closeWindow(owner);
+					java.util.concurrent.locks.LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(500));
+				}
+			}
+		}
+		prepareAndRunTask(source);
 	}
 
 	public static void prepareAndRunTask(final IRecord source)
@@ -178,7 +200,8 @@ public class Tsks
 				{
 					if (!Utils.waitEmptyModifiers())
 					{
-						ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME), ResKA.getResourceBundleValue(ResErrors.ERR_TIMEOUT.name()), true);
+						ConDataTask.AlertWindow.save(ResNamesWithId.VALUE_ERROR, source.getStringValue(DataFieldNames.DATAFIELD_NAME),
+								ResKA.getResourceBundleValue(ResErrors.ERR_TIMEOUT.name()), true);
 						return;
 					}
 				}

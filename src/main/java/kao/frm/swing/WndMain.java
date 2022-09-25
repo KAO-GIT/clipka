@@ -39,7 +39,7 @@ public class WndMain extends JFrame
 
 	public WndMain()
 	{
-		super.setTitle("ClipKA");
+		setTitle("ClipKA");
 		setIconImage(Dlg.getIconImage());
 
 		//this.setSize(800, 600);     
@@ -144,7 +144,8 @@ public class WndMain extends JFrame
 		AbstractButton closeItem = new JButton(b.getString(ResNames.MAIN_CLOSE_WINDOW.name()));
 		closeItem.addActionListener(e ->
 		{
-			this.setVisible(false);
+			WindowEvent wev = new WindowEvent(getInstance(), WindowEvent.WINDOW_CLOSING);
+			java.awt.Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
 		});
 		p.add(closeItem);
 
@@ -199,10 +200,10 @@ public class WndMain extends JFrame
 		{
 
 			final Image i = Dlg.getIconImage();
-			final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(16, 16, Image.SCALE_FAST));
+			final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(-1, 16, Image.SCALE_AREA_AVERAGING));
 			//final TrayIcon trayIcon = new TrayIcon(i);
 			
-			trayIcon.setImageAutoSize(true);
+			trayIcon.setImageAutoSize(false);
 			trayIcon.setToolTip("ClipKA");
 
 			trayIcon.addActionListener(e ->

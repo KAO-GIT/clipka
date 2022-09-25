@@ -2,7 +2,7 @@ package kao.tsk.act;
 
 import kao.db.fld.*;
 import kao.res.*;
-import kao.tsk.IClipboardBlock;
+import kao.tsk.*;
 
 
 /**
@@ -11,7 +11,7 @@ import kao.tsk.IClipboardBlock;
  * @author kao
  *
  */
-public abstract class TskActionAbstract implements TskAction, IClipboardBlock
+public abstract class TskActionAbstract implements TskAction, IClipboardBlock, INeedCloseSpecialWindows
 {
 	
 	final TskActionNames type ;
@@ -41,6 +41,12 @@ public abstract class TskActionAbstract implements TskAction, IClipboardBlock
 
 	@Override
 	public boolean workWithClipboard()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean needCloseAllSpecialWindows()
 	{
 		return false;
 	}

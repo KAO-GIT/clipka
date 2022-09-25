@@ -26,4 +26,10 @@ public class TskActionPressKeys extends TskActionAbstract
 		return true;
 	}
 	
+	@Override
+	public boolean needCloseAllSpecialWindows()
+	{
+		return true;
+	}
+	
 }

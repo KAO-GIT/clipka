@@ -79,13 +79,9 @@ public class PanelTasksList extends PanelTasksNoCommands
 						return ResErrors.ERR_DISABLED;
 					}
 					
-					WndMain.closeMainWindow();
-					Dlg.closeWindow(PanelTasksList.this); 
-					Thread.sleep(500);
-					
 					if(el.get().getHotkey().isBlank())
 					{
-						Tsks.prepareAndRunTask(el.get());
+						Tsks.prepareAndRunTask(el.get(), SwingUtilities.getWindowAncestor(PanelTasksList.this));
 					} else
 					{
 						KeyUtil.sendKeys(el.get().getHotkey());

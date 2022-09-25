@@ -160,7 +160,7 @@ public class Main
 					
 					if( /* задача */ request.startsWith("t") || /* группа задач */ request.startsWith("g") ) 
 					{
-						Tsks.analyzeCommand(request); 
+						Tsks.analyzeCommand(request, null); 
 					}  
 
 					printLine(socket, "OK");

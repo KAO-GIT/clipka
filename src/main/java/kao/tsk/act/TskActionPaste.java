@@ -37,4 +37,10 @@ public class TskActionPaste extends TskActionAbstract
 		return true;
 	}
 	
+	@Override
+	public boolean needCloseAllSpecialWindows()
+	{
+		return true;
+	}
+	
 }

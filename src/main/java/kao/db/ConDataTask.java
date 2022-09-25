@@ -62,6 +62,7 @@ public class ConDataTask
 		// Tasks Grouos version 1
 		statement.executeUpdate("CREATE TABLE IF NOT EXISTS tsk.tsg1 (" 
 				+ " id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+				+ " par         INTEGER NOT NULL DEFAULT 0, "  
 				+ " hotkey      TEXT NOT NULL DEFAULT '',"
 				+ " position    INTEGER NOT NULL DEFAULT 100000," 
 				+ " predefined  INTEGER NOT NULL DEFAULT 0," 
@@ -75,7 +76,8 @@ public class ConDataTask
 				+ " id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
 //				+ " val1        TEXT NOT NULL DEFAULT ''," 
 //				+ " val2        TEXT NOT NULL DEFAULT ''," 
-				+ " filterwnd   INT NOT NULL DEFAULT 1, "  
+				+ " par         INTEGER NOT NULL DEFAULT 0, "  
+				+ " filterwnd   INTEGER NOT NULL DEFAULT 1, "  
   			+ " content     TEXT NOT NULL DEFAULT ''," 
 				+ " hotkey      TEXT NOT NULL DEFAULT '',"
 				+ " position    INTEGER NOT NULL DEFAULT 100000," 

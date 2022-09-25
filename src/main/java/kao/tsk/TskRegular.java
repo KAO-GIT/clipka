@@ -17,7 +17,7 @@ import kao.tsk.act.TskAction;
  * @author kao
  *
  */
-public class TskRegular implements Tsk,IClipboardBlock
+public class TskRegular implements Tsk,IClipboardBlock,INeedCloseSpecialWindows
 {
 //	private static final Logger LOGGER = LoggerFactory.getLogger(TskRegular.class);
 
@@ -61,6 +61,28 @@ public class TskRegular implements Tsk,IClipboardBlock
 				if(a instanceof IClipboardBlock) 
 				{	
 					if( ((IClipboardBlock)a).workWithClipboard() ) {
+						ret = true;  
+						break; 
+					}
+				}
+			}
+			
+		}
+		return ret; 
+	}
+
+	@Override
+	public boolean needCloseAllSpecialWindows()
+	{
+		boolean ret = false; 
+		for (DBRecordSubTask subtask : subtasks)
+		{
+			TskAction a = TskAction.getAction(subtask);
+			if (a != null)
+			{
+				if(a instanceof INeedCloseSpecialWindows) 
+				{	
+					if( ((INeedCloseSpecialWindows)a).needCloseAllSpecialWindows() ) {
 						ret = true;  
 						break; 
 					}

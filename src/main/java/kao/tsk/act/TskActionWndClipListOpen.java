@@ -4,10 +4,10 @@ import kao.db.fld.IRecord;
 import kao.frm.WndText;
 import kao.res.*;
 
-public class TskActionOpenWndClipList extends TskActionAbstract
+public class TskActionWndClipListOpen extends TskActionAbstract
 {
 
-	public TskActionOpenWndClipList(IRecord source)
+	public TskActionWndClipListOpen(IRecord source)
 	{
 		super(source);
 	}
@@ -15,7 +15,7 @@ public class TskActionOpenWndClipList extends TskActionAbstract
 	@Override
 	public IResErrors runAction() throws Exception
 	{
-		WndText.getInstance().updatePrimaryWnd();
+		WndText.getInstance().setVisible(true);
 		return ResErrors.NOERRORS; 
 	}
 

@@ -260,12 +260,32 @@ public enum TskActionNames
 	},
 
 	@AnnotationDefValue("Show/hide clips")
-	@AnnotationDefValueRu("Показать/скрыть сохраненный список буфера обмена")
-	TSKTYPE_OPENWND_CLIPLIST(201){
+	@AnnotationDefValueRu("Показать/скрыть сохраненный список клипов буфера обмена")
+	TSKTYPE_CHANGESTATEWND_CLIPLIST(201){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
-			return  TskActionOpenWndClipList.class;
+			return  TskActionWndClipListChangeState.class;
+		}
+	},
+
+	@AnnotationDefValue("Show clips")
+	@AnnotationDefValueRu("Показать сохраненный список клипов буфера обмена")
+	TSKTYPE_OPENWND_CLIPLIST(202){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionWndClipListOpen.class;
+		}
+	},
+	
+	@AnnotationDefValue("Hide clips")
+	@AnnotationDefValueRu("Скрыть сохраненный список клипов буфера обмена")
+	TSKTYPE_CLOSEWND_CLIPLIST(203){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionWndClipListClose.class;
 		}
 	},
 	

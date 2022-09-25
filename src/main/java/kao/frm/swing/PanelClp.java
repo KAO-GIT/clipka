@@ -513,7 +513,7 @@ public class PanelClp extends JPanel implements ActionListener
 				} else if (e.getActionCommand().startsWith("TASK_"))
 				{
 					String id = e.getActionCommand().replace("TASK_", "");
-					Tsks.analyzeCommand(Tsks.getCommandtextForAnalize(id,ResNamesWithId.VALUE_TASK)); 
+					Tsks.analyzeCommand(Tsks.getCommandtextForAnalize(id,ResNamesWithId.VALUE_TASK), SwingUtilities.getWindowAncestor(PanelClp.this)); 
 				}
 			}
 		}
