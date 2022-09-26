@@ -93,7 +93,7 @@ public class KeyUtil
 		private static final long serialVersionUID = 1L;
 		{
 			put("CTRL", EModifiers.CONTROL);
-			put("WIN", EModifiers.META);
+			put("WIN", EModifiers.SUPER);
 
 			// оставшиеся модификаторы закешируем
 			for (EModifiers e : EModifiers.values())

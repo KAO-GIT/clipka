@@ -78,13 +78,13 @@ public class WindowsKbTrack extends KbTrack
 			//				if ((vkCode & 0x5C) == 0x5C)
 			if (vkCode == 0x5C)
 			{
-				keyStruct.setModifier(EModifiers.META_R, stateModificator(vkCode));
+				keyStruct.setModifier(EModifiers.SUPER_R, stateModificator(vkCode));
 			}
 			; // right Win
 			//				if ((vkCode & 0x5B) == 0x5B)
 			if (vkCode == 0x5B)
 			{
-				keyStruct.setModifier(EModifiers.META_L, stateModificator(vkCode));
+				keyStruct.setModifier(EModifiers.SUPER_L, stateModificator(vkCode));
 			}
 			; // left Win
 			//				if ( (vkCode & WinUser.VK_)==WinUser.VK_) {ALTGR=newSet; return "";};

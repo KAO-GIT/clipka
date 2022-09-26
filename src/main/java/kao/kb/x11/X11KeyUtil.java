@@ -36,8 +36,10 @@ public class X11KeyUtil
 		MODIFIERS.put(XK_Control_R, EModifiers.CONTROL_R);
 		MODIFIERS.put(XK_Alt_L, EModifiers.ALT_L);
 		MODIFIERS.put(XK_Alt_R, EModifiers.ALT_R);
-		MODIFIERS.put(XK_Meta_L, EModifiers.META_L);
-		MODIFIERS.put(XK_Meta_R, EModifiers.META_R);
+//	MODIFIERS.put(XK_Meta_L, EModifiers.SUPER_L);
+//	MODIFIERS.put(XK_Meta_R, EModifiers.SUPER_R);
+		MODIFIERS.put(XK_Super_L, EModifiers.SUPER_L);
+		MODIFIERS.put(XK_Super_R, EModifiers.SUPER_R);
 		MODIFIERS.put(XK_Shift_L, EModifiers.SHIFT_L);
 		MODIFIERS.put(XK_Shift_R, EModifiers.SHIFT_R);
 		

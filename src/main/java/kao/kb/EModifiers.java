@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
  */
 public enum EModifiers
 {
-	CONTROL_L, CONTROL_R, ALT_L, ALT_R, META_L, META_R, SHIFT_L, SHIFT_R, CONTROL, ALT, META, SHIFT;
+	CONTROL_L, CONTROL_R, ALT_L, ALT_R, SUPER_L, SUPER_R, SHIFT_L, SHIFT_R, CONTROL, ALT, SUPER, SHIFT;
 	
 	public static int getKeyEventCode(EModifiers key)
 	{
@@ -24,9 +24,9 @@ public enum EModifiers
 		case ALT_L:
 		case ALT_R:
 			return KeyEvent.VK_ALT; 
-		case META:
-		case META_L:
-		case META_R:
+		case SUPER:
+		case SUPER_L:
+		case SUPER_R:
 			return KeyEvent.VK_WINDOWS; 
 		case SHIFT:
 		case SHIFT_L:

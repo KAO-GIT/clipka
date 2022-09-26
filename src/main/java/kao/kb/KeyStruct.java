@@ -20,8 +20,8 @@ public class KeyStruct
 	//	private boolean CONTROL_R ;
 	//	private boolean ALT_L ;
 	//	private boolean ALT_R ;
-	//	private boolean META_L ;
-	//	private boolean META_R ;
+	//	private boolean SUPER_L ;
+	//	private boolean SUPER_R ;
 	//	private boolean SHIFT_L ;
 	//	private boolean SHIFT_R ;
 	//	private boolean ALTGR ;
@@ -117,7 +117,7 @@ public class KeyStruct
 			result = result + (1 << 17);
 		if (modifiers.contains(EModifiers.ALT) || modifiers.contains(EModifiers.ALT_L) || modifiers.contains(EModifiers.ALT_R))
 			result = result + (1 << 18);
-		if (modifiers.contains(EModifiers.META) || modifiers.contains(EModifiers.META_L) || modifiers.contains(EModifiers.META_R))
+		if (modifiers.contains(EModifiers.SUPER) || modifiers.contains(EModifiers.SUPER_L) || modifiers.contains(EModifiers.SUPER_R))
 			result = result + (1 << 19);
 		//		result	+= code;	// сейчас код сравнивается только через equals
 		return result;
@@ -161,14 +161,14 @@ public class KeyStruct
 			if(other.modifiers.contains(EModifiers.ALT_R)	!= this.modifiers.contains(EModifiers.ALT_R)) return false;
 		}
 		
-		if(other.modifiers.contains(EModifiers.META) || this.modifiers.contains(EModifiers.META))	
+		if(other.modifiers.contains(EModifiers.SUPER) || this.modifiers.contains(EModifiers.SUPER))	
 		{
-			if(other.modifiers.contains(EModifiers.META) && !(this.modifiers.contains(EModifiers.META_L) || this.modifiers.contains(EModifiers.META_R) || this.modifiers.contains(EModifiers.META))) return false;
-			if(this.modifiers.contains(EModifiers.META) && !(other.modifiers.contains(EModifiers.META_L) || other.modifiers.contains(EModifiers.META_R) || other.modifiers.contains(EModifiers.META))) return false;
+			if(other.modifiers.contains(EModifiers.SUPER) && !(this.modifiers.contains(EModifiers.SUPER_L) || this.modifiers.contains(EModifiers.SUPER_R) || this.modifiers.contains(EModifiers.SUPER))) return false;
+			if(this.modifiers.contains(EModifiers.SUPER) && !(other.modifiers.contains(EModifiers.SUPER_L) || other.modifiers.contains(EModifiers.SUPER_R) || other.modifiers.contains(EModifiers.SUPER))) return false;
 		} else 
 		{
-			if(other.modifiers.contains(EModifiers.META_L)	!= this.modifiers.contains(EModifiers.META_L)) return false;
-			if(other.modifiers.contains(EModifiers.META_R)	!= this.modifiers.contains(EModifiers.META_R)) return false;
+			if(other.modifiers.contains(EModifiers.SUPER_L)	!= this.modifiers.contains(EModifiers.SUPER_L)) return false;
+			if(other.modifiers.contains(EModifiers.SUPER_R)	!= this.modifiers.contains(EModifiers.SUPER_R)) return false;
 		}
 		
 		if(other.modifiers.contains(EModifiers.SHIFT) || this.modifiers.contains(EModifiers.SHIFT))	
