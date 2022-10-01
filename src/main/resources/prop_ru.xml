@@ -68,6 +68,7 @@
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">При удалении дупликатов можно потерять информацию о времени создания и источнике текста в буфере</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_SEARCH_WO_ENCODE">При установленном флажке поиск будет происходить, даже если выбрана другая раскладка клавиатуры </entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_SEPARATOR">При выделении нескольких клипов в списке их можно получить одной строкой. Каждый клип будет отделяться от другого указанным текстом (по умолчанию используется перенос строки) </entry>
+<entry key="DESCRIPTION_SETTINGS_CLP_TIMEOUTPOSITION">Для удобного выбора нескольких идущих последовательно клипов, при открытии списка сохраняется предыдущая позиция. После указанного времени - список клипов открывается, начиная с самых последних.</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY">Если флажок не установлен, не используется буфер обмена: выделение. Для применения настройки небходимо завершить работу программы</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">По умолчанию, окно с кнопками действий показывается, если недоступен системный трей. При установке флажка будет показываться всегда</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR">Если флажок установлен, после задачи, которая завершена с ошибкой, показывается всплывающее окно уведомлений. В любом случае, записи можно посмотреть в окне 'Оповещения и ошибки' </entry>
@@ -222,6 +223,7 @@
 <entry key="TSKTYPE_SHOW_NOTIFICATION_ALERT">Показать окно оповещения</entry>
 <entry key="TSKTYPE_SHOW_NOTIFICATION_ERROR">Показать окно уведомления об ошибке </entry>
 <entry key="TSKTYPE_SKIP">Пропустить (никаких действий не происходит)</entry>
+<entry key="TSKTYPE_WND_PROPERTIES">Получить свойства текущего окна</entry>
 <entry key="VALUE_ALERT">Оповещение</entry>
 <entry key="VALUE_EMPTY">Пустое значение</entry>
 <entry key="VALUE_ERROR">Ошибка</entry>

@@ -68,6 +68,7 @@ Command prompt:
 <entry key="DESCRIPTION_SETTINGS_CLP_REMOVEDUPLICATES">If you delete duplicates, you may lose information about the time of creation and source of the clips</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_SEARCH_WO_ENCODE">Search clips with any keyboard layout</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_SEPARATOR">If you select multiple clips in the list, you can get them in one string. Each clip will be separated from the other by the specified text</entry>
+<entry key="DESCRIPTION_SETTINGS_CLP_TIMEOUTPOSITION">To easily select several consecutive clips, the previous position is saved when the list is opened. Later - the list of clips opens, starting with the most recent.</entry>
 <entry key="DESCRIPTION_SETTINGS_CLP_WATCH_PRIMARY">If the check box is not selected, exclude primary clipboard (mouse selection). To apply this setting, you need to close the program</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_MAIN_WINDOW">By default, a window with action buttons is displayed if the system tray is not available. When the check box is selected, it will always be displayed</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR">If the check box is not selected, windows with notifications is not displayed. However, you can view the records in the 'Alerts and Errors' </entry>
@@ -222,6 +223,7 @@ Command prompt:
 <entry key="TSKTYPE_SHOW_NOTIFICATION_ALERT">Show window with notification</entry>
 <entry key="TSKTYPE_SHOW_NOTIFICATION_ERROR">Show window with notification of error</entry>
 <entry key="TSKTYPE_SKIP">Skip</entry>
+<entry key="TSKTYPE_WND_PROPERTIES">Get window properties</entry>
 <entry key="VALUE_ALERT">Alert</entry>
 <entry key="VALUE_EMPTY">Empty</entry>
 <entry key="VALUE_ERROR">Error</entry>
