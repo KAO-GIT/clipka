@@ -102,9 +102,11 @@ public class WndFilterForegroundWindowElement extends JDialog
 
 		p1 = new JPanel(new GridLayout(0, 2, 5, 10));
 		
+			int columns = 40;
 			//p1 = new JPanel(new FlowLayout(FlowLayout.LEADING));
 			data = el.getDataFieldProp(DataFieldNames.DATAFIELD_FOREGROUND_WINDOW_TITLE_INCLUDE);
 			field = new FieldDataWithType(data);
+			((javax.swing.JTextArea) field.getCurrComponent()).setColumns(columns); 
 			p1.add(field);
 			fieldsDataWithType.put(data.getDataFieldName(), field);
 
@@ -113,6 +115,7 @@ public class WndFilterForegroundWindowElement extends JDialog
 			//p1 = new JPanel(new FlowLayout(FlowLayout.LEADING));
 			data = el.getDataFieldProp(DataFieldNames.DATAFIELD_FOREGROUND_WINDOW_TITLE_EXCLUDE);
 			field = new FieldDataWithType(data);
+			((javax.swing.JTextArea) field.getCurrComponent()).setColumns(columns); 
 			p1.add(field);
 			fieldsDataWithType.put(data.getDataFieldName(), field);
 
@@ -121,6 +124,7 @@ public class WndFilterForegroundWindowElement extends JDialog
 //			p1 = new JPanel(new FlowLayout(FlowLayout.LEADING));
 			data = el.getDataFieldProp(DataFieldNames.DATAFIELD_FOREGROUND_WINDOW_CLASS_INCLUDE);
 			field = new FieldDataWithType(data);
+			((javax.swing.JTextArea) field.getCurrComponent()).setColumns(columns); 
 			p1.add(field);
 			fieldsDataWithType.put(data.getDataFieldName(), field);
 
@@ -128,6 +132,7 @@ public class WndFilterForegroundWindowElement extends JDialog
 
 			data = el.getDataFieldProp(DataFieldNames.DATAFIELD_FOREGROUND_WINDOW_CLASS_EXCLUDE);
 			field = new FieldDataWithType(data);
+			((javax.swing.JTextArea) field.getCurrComponent()).setColumns(columns); 
 			p1.add(field);
 			fieldsDataWithType.put(data.getDataFieldName(), field);
 

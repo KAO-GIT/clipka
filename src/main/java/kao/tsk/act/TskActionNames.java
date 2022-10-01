@@ -259,6 +259,16 @@ public enum TskActionNames
 		}
 	},
 
+		@AnnotationDefValue("Get window properties")
+	@AnnotationDefValueRu("Получить свойства текущего окна")
+	TSKTYPE_WND_PROPERTIES(151){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionWndProperties.class;
+		}
+	},
+	
 	@AnnotationDefValue("Show/hide clips")
 	@AnnotationDefValueRu("Показать/скрыть сохраненный список клипов буфера обмена")
 	TSKTYPE_CHANGESTATEWND_CLIPLIST(201){

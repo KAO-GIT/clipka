@@ -113,6 +113,10 @@ public enum ResNames
 	@AnnotationDefValue("Timeout for save position (sec)")
 	@AnnotationDefValueRu("Время в секундах, после которого прекращается запоминание позиции в списке клипов")
 	SETTINGS_CLP_TIMEOUTPOSITION(),
+
+	@AnnotationDefValue("To easily select several consecutive clips, the previous position is saved when the list is opened. Later - the list of clips opens, starting with the most recent.")
+	@AnnotationDefValueRu("Для удобного выбора нескольких идущих последовательно клипов, при открытии списка сохраняется предыдущая позиция. После указанного времени - список клипов открывается, начиная с самых последних.")
+	DESCRIPTION_SETTINGS_CLP_TIMEOUTPOSITION(),
 	
 	@AnnotationDefValue("Number of items on page")
 	@AnnotationDefValueRu("Количество записей на странице")

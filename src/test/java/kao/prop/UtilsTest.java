@@ -2,6 +2,8 @@ package kao.prop;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.awt.event.KeyEvent;
+
 //import java.awt.event.KeyEvent;
 //import java.util.stream.IntStream;
 
@@ -21,11 +23,11 @@ class UtilsTest
 	{
 //	
 		//final String s = "{[Привет!]}";
-//	int keys[] = new int[]{KeyEvent.VK_ALT};
+		//int keys[] = new int[]{KeyEvent.VK_COMPOSE};
 		final String s = "&";
 		assertTrue(s=="&");
 		//assertArrayEquals(keys, keys);
-//		Utils.pressWithComposeKeys(keys, s);
+		//Utils.pressWithComposeKeys(keys, s);
 
 //		Runnable r = () ->  
 //		{
@@ -50,10 +52,30 @@ class UtilsTest
 //		LockSupport.parkNanos(100_000_000);
 //		//Thread.sleep(100);
 
-//		java.awt.Robot robot = new java.awt.Robot();
-//		robot.setAutoDelay(1);
-//		robot.keyPress(KeyEvent.VK_ENTER);
-//		robot.keyRelease(KeyEvent.VK_ENTER);
+		java.awt.Robot robot = new java.awt.Robot();
+		robot.setAutoDelay(1);
+		robot.keyPress(KeyEvent.VK_COMPOSE);
+		robot.delay(10);
+		robot.keyPress(KeyEvent.VK_O);
+		robot.delay(10);
+		robot.keyRelease(KeyEvent.VK_O);
+		robot.delay(10);
+		robot.keyPress(KeyEvent.VK_C);
+		robot.delay(10);
+		robot.keyRelease(KeyEvent.VK_C);
+		robot.delay(10);
+		robot.keyRelease(KeyEvent.VK_COMPOSE);
+//		robot.keyPress(KeyEvent.VK_NUMPAD0);
+//		robot.delay(10);
+//		robot.keyRelease(KeyEvent.VK_NUMPAD0);
+//		robot.delay(10);
+//		robot.keyPress(KeyEvent.VK_NUMPAD3);
+//		robot.delay(10);
+//		robot.keyRelease(KeyEvent.VK_NUMPAD3);
+//		robot.delay(10);
+//		robot.keyPress(KeyEvent.VK_NUMPAD8);
+//		robot.delay(10);
+//		robot.keyRelease(KeyEvent.VK_NUMPAD8);
 
 	}
 	

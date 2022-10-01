@@ -11,10 +11,10 @@ class KeyUtilTest
 {
 
 	@Test
-	void testGetKeysForRobot()
+	void testGetKeysForRobot() throws Exception
 	{
 		String s; 
-		s = "{win space}"; 
+		s = "{super space}"; 
 		ArrayList<KeyStructs> keys = KeyUtil.getKeyStructs(s); 
 		for (KeyStruct k : keys.get(0))
 		{
@@ -23,6 +23,7 @@ class KeyUtilTest
 //			System.out.println(Arrays.toString(new int[] {KeyEvent.VK_WINDOWS, KeyEvent.VK_SPACE}));
 			
 			assertArrayEquals(kk,new int[] {KeyEvent.VK_WINDOWS, KeyEvent.VK_SPACE}); 
+			//Utils.pressReleaseKeys(kk, 0, false);
 			
 		}
 		

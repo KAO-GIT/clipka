@@ -1,5 +1,8 @@
 package kao.cp;
 
+import kao.db.ConData;
+import kao.res.ResNames;
+
 /**
  * Описывает параметры окна владельца: заголовок, класс, координаты левого-верхнего угла   
  * 
@@ -74,5 +77,10 @@ public class OwnerProperties
 	public String toString()
 	{
 		return "OwnerProperties [title=" + title + ", wndClassName=" + wndClassName + ", left=" + left + ", top=" + top + "]";
+	}
+	
+	public String toSpecialString()
+	{
+		return  getTitle()+ConData.getStringProp(ResNames.SETTINGS_CLP_SEPARATOR)+getWndClassName();
 	}
 }

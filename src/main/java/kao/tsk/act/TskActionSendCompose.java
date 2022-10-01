@@ -1,6 +1,6 @@
 package kao.tsk.act;
 
-import java.awt.event.KeyEvent;
+//import java.awt.event.KeyEvent;
 
 import kao.db.fld.IRecord;
 import kao.prop.Utils;
@@ -19,8 +19,8 @@ public class TskActionSendCompose extends TskActionAbstract
 	@Override
 	public IResErrors runAction() throws Exception
 	{
-		int keys[] = new int[]{KeyEvent.VK_ALT}; 
-		Utils.pressWithComposeKeys(keys, Tsks.getRep());
+//		int keys[] = new int[]{KeyEvent.VK_COMPOSE}; 
+		Utils.pressWithComposeKeys(Tsks.getRep());
 		return ResErrors.NOERRORS;
 	}
 	

@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.nio.charset.CharacterCodingException;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Map;
@@ -26,9 +27,11 @@ public class Utils
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
-	public static final String DEFAULT_ENC_STRING = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЯЧСМИТЬБЮ,йцукенгшщзхъфывапролджэячсмитьбю.ёЁ№;:?/Э" + "QWERTYUIOP{}ASDFGHJKL:ZXCVBNM<>?qwertyuiop[]asdfghjkl;'zxcvbnm,./`~#$^&|\"";
-	public static final String DEFAULT_REG_STRING = "ёйцукенгшщзхъфывапролджэячсмитьбюqwertyuiopasdfghjklzxcvbnm" + "ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮQWERTYUIOPASDFGHJKLZXCVBNM";
-	
+	public static final String DEFAULT_ENC_STRING = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЯЧСМИТЬБЮ,йцукенгшщзхъфывапролджэячсмитьбю.ёЁ№;:?/Э"
+			+ "QWERTYUIOP{}ASDFGHJKL:ZXCVBNM<>?qwertyuiop[]asdfghjkl;'zxcvbnm,./`~#$^&|\"";
+	public static final String DEFAULT_REG_STRING = "ёйцукенгшщзхъфывапролджэячсмитьбюqwertyuiopasdfghjklzxcvbnm"
+			+ "ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮQWERTYUIOPASDFGHJKLZXCVBNM";
+
 	private Utils()
 	{
 	}
@@ -39,8 +42,8 @@ public class Utils
 	public static boolean waitEmptyModifiers()
 	{
 		// уже идет обработка задач - ожидать сброса модификаторов не нужно 
-		if(kao.kb.KbTrackStart.getGeneralTrack().isWorkPaused()) return true;
-		
+		if (kao.kb.KbTrackStart.getGeneralTrack().isWorkPaused()) return true;
+
 		return Utils.repeatUntilSuccess((BooleanSupplierWithException<Exception>) () ->
 		{
 			if (kao.kb.KbTrackStart.getGeneralTrack().isModificatorPressed()) throw new Exception("Modificator pressed");
@@ -48,18 +51,18 @@ public class Utils
 		}, java.util.Map.of("max", 10, "timeout", 100, "message", "Extend time for pressReleaseKeys task for {0} msec"));
 	}
 
-//	/**
-//	 * Пытается нажать / отпустить клавиши. Не запускается в отдельном потоке. 
-//	 * 
-//	 * @param keys - массив кодов KeyEvent
-//	 * @param variant - вид нажатий: 0 - нажатие и отпускание, 1 - нажатие, -1 - отпускание
-//	 *
-//	 * @throws Exception
-//	 */
-//	public static void pressReleaseKeys(int[] keys, int variant) throws Exception
-//	{
-//		pressReleaseKeys(keys, variant, false);
-//	}
+	//	/**
+	//	 * Пытается нажать / отпустить клавиши. Не запускается в отдельном потоке. 
+	//	 * 
+	//	 * @param keys - массив кодов KeyEvent
+	//	 * @param variant - вид нажатий: 0 - нажатие и отпускание, 1 - нажатие, -1 - отпускание
+	//	 *
+	//	 * @throws Exception
+	//	 */
+	//	public static void pressReleaseKeys(int[] keys, int variant) throws Exception
+	//	{
+	//		pressReleaseKeys(keys, variant, false);
+	//	}
 
 	/**
 	 * Пытается нажать / отпустить клавиши 
@@ -72,7 +75,7 @@ public class Utils
 	public static void pressReleaseKeys(int[] keys, int variant, boolean inNewThread) throws Exception
 	{
 		java.awt.Robot robot = new java.awt.Robot();
-		pressReleaseKeys(keys,  variant,inNewThread, robot);
+		pressReleaseKeys(keys, variant, inNewThread, robot);
 	}
 
 	/**
@@ -84,7 +87,7 @@ public class Utils
 	 * @param robot - объект для имитации нажатия клавиш 
 	 * @throws Exception
 	 */
-	public static void pressReleaseKeys(int[] keys,int variant,  boolean inNewThread, java.awt.Robot robot) throws Exception
+	public static void pressReleaseKeys(int[] keys, int variant, boolean inNewThread, java.awt.Robot robot) throws Exception
 	{
 		//waitEmptyModifiers(); - сейчас задачи знают, нужно ли ждать 
 
@@ -140,13 +143,13 @@ public class Utils
 		IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
 	}
 
-	public static void pressWithComposeKeys(int[] keys, String s)
+	public static void pressWithComposeKeys(String s)
 	{
 		//waitEmptyModifiers(); - сейчас задачи знают, нужно ли ждать
-		
+
 		boolean isOnNM = false;
 		boolean getStateNM = false;
-		
+
 		try
 		{
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -155,29 +158,31 @@ public class Utils
 		} catch (UnsupportedOperationException e1)
 		{
 		}
-		
+
 		byte[] bytes;
 		try
 		{
 			Thread.sleep(1);
-	    if(!isOnNM && getStateNM) 
-	    {
-	    	pressReleaseKeys(new int[] {KeyEvent.VK_NUM_LOCK}, 0, false); 
-	    }
-	    	
-			
+			if (!isOnNM && getStateNM)
+			{
+				pressReleaseKeys(new int[]
+				{ KeyEvent.VK_NUM_LOCK }, 0, false);
+			}
+
 			bytes = s.getBytes("CP866");
 			for (byte b : bytes)
 			{
-				pressWithComposeKeys(keys, b);
+				pressWithComposeKeys(new int[]{KeyEvent.VK_COMPOSE}, b);
+				pressWithComposeKeys(new int[]{KeyEvent.VK_ALT}, b);
 				Thread.sleep(1);
 			}
-			
-	    if(!isOnNM && getStateNM) 
-	    {
-	    	pressReleaseKeys(new int[] {KeyEvent.VK_NUM_LOCK}, 0, false); 
-	    }
-			
+
+			if (!isOnNM && getStateNM)
+			{
+				pressReleaseKeys(new int[]
+				{ KeyEvent.VK_NUM_LOCK }, 0, false);
+			}
+
 		} catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block
@@ -197,7 +202,7 @@ public class Utils
 
 	public static void pressWithComposeKeys(int[] keys, byte symbol)
 	{
-		String ascii = Integer.valueOf((int) symbol & 0xff).toString(); // byte -> int
+		String ascii = String.format("%03d", (int) symbol & 0xff); // byte -> int 
 		Integer[] codes = ascii.chars().mapToObj(i ->
 		{
 			switch (i)
@@ -227,6 +232,8 @@ public class Utils
 			}
 		}).toArray(Integer[]::new);
 
+		//System.out.println("pressWithComposeKeys: "+Arrays.toString(codes));
+		
 		java.awt.Robot robot;
 		try
 		{
@@ -249,6 +256,35 @@ public class Utils
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Получает символ из числового представления байта в указанной кодировке
+	 * 
+	 * @param b - числовое значение для получения символа в указанной кодировке
+	 * @param charsetName - имя кодировки
+	 * @return полученный символ
+	 * @throws CharacterCodingException
+	 */
+	public static char decodeByte(int b, String charsetName) throws CharacterCodingException
+	{
+		return java.nio.charset.Charset.forName(charsetName).newDecoder().decode(
+				java.nio.ByteBuffer.wrap(new byte[]{(byte) b })).charAt(0);
+	}
+
+	/**
+	 * Возвращает числовое значение символа в указанной кодировке
+	 * 
+	 * @param s - строка из одного символа
+	 * @param charsetName - имя кодировки
+	 * @return - числовое значение в данной кодировке
+	 * @throws UnsupportedEncodingException
+	 */
+	public static int encodeByte(String s, String charsetName) throws UnsupportedEncodingException
+	{
+		//(int)java.nio.charset.Charset.forName(charsetName).encode(s).array()[0] & 0xff
+		byte[] bytes = s.getBytes(charsetName);
+		return (int) bytes[0] & 0xff;
 	}
 
 	public static boolean startsWithIgnoreCase​(String source, String find)
@@ -321,8 +357,8 @@ public class Utils
 	public static String encodeCon(final String source)
 	{
 		//final String c = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЯЧСМИТЬБЮ,йцукенгшщзхъфывапролджэячсмитьбю.ёЁ№;:?/Э" + "QWERTYUIOP{}ASDFGHJKL:ZXCVBNM<>?qwertyuiop[]asdfghjkl;'zxcvbnm,./`~#$^&|\"";
-		
-		final String c = ConData.getStringProp(ResNames.SETTINGS_CLP_STRING_ENC); 
+
+		final String c = ConData.getStringProp(ResNames.SETTINGS_CLP_STRING_ENC);
 
 		final int l = c.length() / 2;
 
@@ -351,8 +387,8 @@ public class Utils
 
 		//final String c = "ёйцукенгшщзхъфывапролджэячсмитьбюqwertyuiopasdfghjklzxcvbnm" + "ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮQWERTYUIOPASDFGHJKLZXCVBNM";
 
-		final String c = ConData.getStringProp(ResNames.SETTINGS_CLP_STRING_REG); 
-		
+		final String c = ConData.getStringProp(ResNames.SETTINGS_CLP_STRING_REG);
+
 		final int l = c.length() / 2;
 
 		return source.chars().mapToObj(i ->
@@ -518,10 +554,10 @@ public class Utils
 
 	public static String getCommandPromptParameters(IRecord r)
 	{
-		String type = r instanceof DBRecordTask ? "--task" : "--group";  
-		return String.format("--port %d %s %d", ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT),type,r.getIntValue(DataFieldNames.DATAFIELD_ID) ); 
+		String type = r instanceof DBRecordTask ? "--task" : "--group";
+		return String.format("--port %d %s %d", ConData.getIntProp(ResNames.SETTINGS_SYS_SOCKETPORT), type, r.getIntValue(DataFieldNames.DATAFIELD_ID));
 	}
-	
+
 	public static <T extends Enum<?>> boolean isInEnum(Class<T> enumClass, String value)
 	{
 		//return true; 
@@ -529,27 +565,34 @@ public class Utils
 	}
 
 	// https://stackoverflow.com/users/26609/jonas-k
-	public static boolean isInteger(String str) {
-    if (str == null) {
-        return false;
-    }
-    int length = str.length();
-    if (length == 0) {
-        return false;
-    }
-    int i = 0;
-    if (str.charAt(0) == '-') {
-        if (length == 1) {
-            return false;
-        }
-        i = 1;
-    }
-    for (; i < length; i++) {
-        char c = str.charAt(i);
-        if (c < '0' || c > '9') {
-            return false;
-        }
-    }
-    return true;
-	}	
+	public static boolean isInteger(String str)
+	{
+		if (str == null)
+		{
+			return false;
+		}
+		int length = str.length();
+		if (length == 0)
+		{
+			return false;
+		}
+		int i = 0;
+		if (str.charAt(0) == '-')
+		{
+			if (length == 1)
+			{
+				return false;
+			}
+			i = 1;
+		}
+		for (; i < length; i++)
+		{
+			char c = str.charAt(i);
+			if (c < '0' || c > '9')
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 }
