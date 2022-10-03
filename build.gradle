@@ -7,6 +7,10 @@ plugins {
 	
 }
 
+plugins {
+    id 'com.palantir.git-version' version '0.15.0'
+}
+
 repositories {
 	flatDir {
 		dirs 'libs'
@@ -52,12 +56,28 @@ dependencies {
 
 }
 
+/*
 File configFile = file('src/main/resources/version.properties');
 InputStream input = new FileInputStream(configFile);  
 Properties prop = new Properties();
 prop.load(input);
 String vers = prop.getProperty("version");
 //println("$buildDir"); 
+*/
+
+String vers =  versionDetails().lastTag;
+
+File configFile = file('src/main/resources/version.properties');
+Properties prop = new Properties();
+prop.setProperty("version", vers);
+try (OutputStream output = new FileOutputStream(configFile))
+{
+ prop.store(output, null);
+}
+catch (IOException io)
+{
+}
+
 
 application {
     mainClass = 'kao.Main' // Define the main class for the application.
