@@ -143,11 +143,7 @@ public class Utils
 		IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
 	}
 
-	/**
-	 * @param s
-	 * @param otherParam - нужен только для Linux, если в приходящей строке есть символ W - передает Alt, если нет символа W или есть любой	 другой символ - передает Compose  
-	 */
-	public static void pressWithComposeKeys(String s, String otherParam)
+	public static void pressWithComposeKeys(String s)
 	{
 		//waitEmptyModifiers(); - сейчас задачи знают, нужно ли ждать
 
@@ -176,15 +172,8 @@ public class Utils
 			bytes = s.getBytes("CP866");
 			for (byte b : bytes)
 			{
-				if(ConData.getIntProp(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS)==1)
-				{
-					pressWithComposeKeys(new int[]{KeyEvent.VK_ALT}, b);
-				}
-				else 
-				{
-					if(otherParam.contains("W")) pressWithComposeKeys(new int[]{KeyEvent.VK_ALT}, b);
-					if(!otherParam.equals("W")) pressWithComposeKeys(new int[]{KeyEvent.VK_COMPOSE}, b);
-				}
+				pressWithComposeKeys(new int[]{KeyEvent.VK_COMPOSE}, b);
+				pressWithComposeKeys(new int[]{KeyEvent.VK_ALT}, b);
 				Thread.sleep(1);
 			}
 

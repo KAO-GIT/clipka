@@ -19,7 +19,8 @@ public class TskActionSendCompose extends TskActionAbstract
 	@Override
 	public IResErrors runAction() throws Exception
 	{
-		Utils.pressWithComposeKeys(Tsks.getRep(),getContent());
+//		int keys[] = new int[]{KeyEvent.VK_COMPOSE}; 
+		Utils.pressWithComposeKeys(Tsks.getRep());
 		return ResErrors.NOERRORS;
 	}
 	
