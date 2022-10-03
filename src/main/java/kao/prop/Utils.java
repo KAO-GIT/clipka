@@ -182,8 +182,16 @@ public class Utils
 				}
 				else 
 				{
-					if(otherParam.contains("W")) pressWithComposeKeys(new int[]{KeyEvent.VK_ALT}, b);
-					if(!otherParam.equals("W")) pressWithComposeKeys(new int[]{KeyEvent.VK_COMPOSE}, b);
+					if(otherParam.contains("W")) 
+					{
+						LOGGER.info("pressWithComposeKeys alt");
+						pressWithComposeKeys(new int[]{KeyEvent.VK_ALT}, b);
+					}
+					if(!otherParam.equals("W"))
+					{	
+						LOGGER.info("pressWithComposeKeys compose");
+						pressWithComposeKeys(new int[]{KeyEvent.VK_COMPOSE}, b);
+					}	
 				}
 				Thread.sleep(1);
 			}
