@@ -2,8 +2,6 @@ package kao.prop;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.awt.event.KeyEvent;
-
 //import java.awt.event.KeyEvent;
 //import java.util.stream.IntStream;
 
@@ -52,19 +50,19 @@ class UtilsTest
 //		LockSupport.parkNanos(100_000_000);
 //		//Thread.sleep(100);
 
-		java.awt.Robot robot = new java.awt.Robot();
-		robot.setAutoDelay(1);
-		robot.keyPress(KeyEvent.VK_COMPOSE);
-		robot.delay(10);
-		robot.keyPress(KeyEvent.VK_O);
-		robot.delay(10);
-		robot.keyRelease(KeyEvent.VK_O);
-		robot.delay(10);
-		robot.keyPress(KeyEvent.VK_C);
-		robot.delay(10);
-		robot.keyRelease(KeyEvent.VK_C);
-		robot.delay(10);
-		robot.keyRelease(KeyEvent.VK_COMPOSE);
+//		java.awt.Robot robot = new java.awt.Robot();
+//		robot.setAutoDelay(1);
+//		robot.keyPress(KeyEvent.VK_COMPOSE);
+//		robot.delay(10);
+//		robot.keyPress(KeyEvent.VK_O);
+//		robot.delay(10);
+//		robot.keyRelease(KeyEvent.VK_O);
+//		robot.delay(10);
+//		robot.keyPress(KeyEvent.VK_C);
+//		robot.delay(10);
+//		robot.keyRelease(KeyEvent.VK_C);
+//		robot.delay(10);
+//		robot.keyRelease(KeyEvent.VK_COMPOSE);
 //		robot.keyPress(KeyEvent.VK_NUMPAD0);
 //		robot.delay(10);
 //		robot.keyRelease(KeyEvent.VK_NUMPAD0);
