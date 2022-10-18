@@ -2,6 +2,7 @@ package kao.frm.swing;
 
 import kao.db.ConDataTask;
 import kao.db.MetaTypes.DBTypes;
+import kao.db.fld.DBRecordTask;
 
 //import kao.cp.*;
 //import kao.el.*;
@@ -14,11 +15,14 @@ import kao.db.fld.DataFieldProp;
 import kao.el.ETitleSource;
 import kao.el.ElementForChoice;
 import kao.el.ElementsForChoice;
+import kao.el.IElement;
 import kao.el.KitForListing;
 import kao.prop.ResKA;
 import kao.tsk.act.TskActionNames;
 
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.Optional;
 
 /**
  * Класс для визуализации поля базы данных. Автоматически определяет тип из свойства DataFieldProp м соответствующим образом отображает   
@@ -95,6 +99,19 @@ public class FieldDataWithType extends FieldKA
 		case STRING:
 			field = new FieldString(label, sv);
 			break;
+		case TASKTYPE:
+			Optional<DBRecordTask> o;
+			IElement v = null;  
+			try
+			{
+				o = ConDataTask.Tasks.load(iv);
+				if(!o.isEmpty()) v = o.get(); 
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+			field = new FieldRefTask(label, v);
+			break;
 		case ARRAY:
 			// не нужно отображать
 			break;
@@ -127,6 +144,7 @@ public class FieldDataWithType extends FieldKA
 	{
 		Object ret = field.getCurrValue();
 		if(ret instanceof ElementForChoice) ret = ((ElementForChoice)ret).getIdInt();   
+		//if(ret instanceof DBRecord) ret = ((DBRecord)ret).getIdInt();   
 		return ret; 
 	}
 	

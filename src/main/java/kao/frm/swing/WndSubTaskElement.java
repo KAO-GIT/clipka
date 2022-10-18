@@ -40,11 +40,24 @@ public class WndSubTaskElement extends JDialog
 	private EnumMap<DataFieldNames, FieldDataWithType> fieldsDataWithType = new EnumMap<DataFieldNames, FieldDataWithType>(DataFieldNames.class);
 	private FieldMemo messages;
 
-	private void updateMessages(ActionEvent e)
+	private void updateMessagesAndFields(ActionEvent e)
 	{
 		StringBuilder contentDesription = new StringBuilder();
 		TskActionNames oper = TskActionNames.getFromIntValue(((ElementForChoice) ((FieldCombo) (e.getSource())).getCurrValue()).getIdInt());
 
+		// поле с вложенной задачей не нужно показывать всегда
+		FieldDataWithType f = fieldsDataWithType.get(DataFieldNames.DATAFIELD_NESTED_TASK);
+		if(f!=null)
+		{
+			f.setVisible(oper.isTask());
+		}
+		
+		FieldDataWithType fw = fieldsDataWithType.get(DataFieldNames.DATAFIELD_FILTER_FOREGROUND_WINDOW);
+		if(fw!=null)
+		{
+			fw.setVisible(oper.isFilterWindow());
+		} 
+		
 		contentDesription.append(TskActionNames.getDescription(oper));
 		contentDesription.append(System.lineSeparator());
 		contentDesription.append(TskActionNames.getContentDescription(oper));
@@ -77,11 +90,13 @@ public class WndSubTaskElement extends JDialog
 
 		data = el.getDataFieldProp(DataFieldNames.DATAFIELD_SUBTASKTYPE);
 		field = new FieldDataWithType(data);
-		((FieldCombo) field.getField()).setAction(e -> updateMessages(e));
-
+		((FieldCombo) field.getField()).setAction(e -> updateMessagesAndFields(e));
+		
 		p0.add(field);
 		fieldsDataWithType.put(data.getDataFieldName(), field);
-
+		
+		FieldDataWithType fieldType = field;
+		
 		messages = new FieldMemo("", "");
 
 		Consumer<JTextArea> func = t ->
@@ -90,13 +105,21 @@ public class WndSubTaskElement extends JDialog
 			t.setEditable(false);
 			t.setBackground(getBackground());
 			//t.setRows(4);
-//			t.setLineWrap(true);
-//			t.setWrapStyleWord(true);
+			//			t.setLineWrap(true);
+			//			t.setWrapStyleWord(true);
 		};
 		func.accept(((JTextArea) messages.getCurrComponent()));
-
-		updateMessages(new ActionEvent(field.getField(), 0, "COMBO"));
 		p0.add(messages);
+
+		data = el.getDataFieldProp(DataFieldNames.DATAFIELD_NESTED_TASK);
+		field = new FieldDataWithType(data);
+		p0.add(field);
+		fieldsDataWithType.put(data.getDataFieldName(), field);
+		
+		data = el.getDataFieldProp(DataFieldNames.DATAFIELD_FILTER_FOREGROUND_WINDOW);
+		field = new FieldDataWithType(data);
+		p0.add(field);
+		fieldsDataWithType.put(data.getDataFieldName(), field);
 
 		data = el.getDataFieldProp(DataFieldNames.DATAFIELD_CONTENT);
 		field = new FieldDataWithType(data);
@@ -107,9 +130,10 @@ public class WndSubTaskElement extends JDialog
 		field = new FieldDataWithType(data);
 		p0.add(field);
 		fieldsDataWithType.put(data.getDataFieldName(), field);
-
 		add(p0);
 
+		updateMessagesAndFields(new ActionEvent(fieldType.getField(), 0, "COMBO"));
+		
 		class DBCommandSaveSubTasks extends DBCommandSave
 		{
 

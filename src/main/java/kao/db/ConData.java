@@ -226,6 +226,9 @@ public class ConData implements AutoCloseable
 		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM_IS64BIT, com.sun.jna.Platform.is64Bit()?1:0);
 		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM, com.sun.jna.Platform.isWindows()?"W":com.sun.jna.Platform.isX11()?"X":"");
 		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS, com.sun.jna.Platform.isWindows()?1:0);
+
+		hashValues.put(ResNames.SETTINGS_SYS_TASK_MAX_LEVEL, 10); // пока запишем безусловно
+		hashValues.put(ResNames.SETTINGS_CLP_COMPOSE_SIZETEXTELEM, 50); // пока запишем безусловно
 		
 	}
 

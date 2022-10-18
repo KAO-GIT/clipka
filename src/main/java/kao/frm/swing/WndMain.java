@@ -200,7 +200,10 @@ public class WndMain extends JFrame
 		{
 
 			final Image i = Dlg.getIconImage();
-			final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(-1, 16, Image.SCALE_AREA_AVERAGING));
+			
+			java.awt.Dimension d = java.awt.SystemTray.getSystemTray().getTrayIconSize(); 
+			
+			final TrayIcon trayIcon = new TrayIcon(i.getScaledInstance(d.width, d.height, Image.SCALE_AREA_AVERAGING));
 			//final TrayIcon trayIcon = new TrayIcon(i);
 			
 			trayIcon.setImageAutoSize(false);

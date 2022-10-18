@@ -1,5 +1,9 @@
 package kao.db.fld;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import kao.db.ConDataTask;
 import kao.db.MetaTypes;
 import kao.el.ETitleSource;
 import kao.tsk.act.TskActionNames;
@@ -30,14 +34,53 @@ public class DBRecordSubTask extends DBRecord
 		//getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_TITLE, MetaTypes.STRING, "content")); 
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_DESCRIPTION, MetaTypes.STRING, "description",source)); 
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_CONTENT, MetaTypes.MEMO, "content")); 
-		//getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_TASK, MetaTypes.INTEGER, "owner")); 
-		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_SUBTASKTYPE, MetaTypes.SUBTASKTYPE, "type")); 
+		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_SUBTASKTYPE, MetaTypes.SUBTASKTYPE, "type"));
+		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_NESTED_TASK, MetaTypes.TASKTYPE, "cmdtsk")); 
+		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_FILTER_FOREGROUND_WINDOW, MetaTypes.FILTER_FOREGROUND_WINDOW_TYPE, "cmdflt")); 
+		
 	}
+	
+	public Integer getIntNestedTask()
+	{
+		int type = getIntValue(DataFieldNames.DATAFIELD_SUBTASKTYPE);
+		if(TskActionNames.getFromIntValue(type).isTask()) 
+		{
+			return getIntValue(DataFieldNames.DATAFIELD_NESTED_TASK);
+		} else 
+		{
+			return 0; 
+		}
+	}
+	
+	public Integer getIntFilterWindow()
+	{
+		int type = getIntValue(DataFieldNames.DATAFIELD_SUBTASKTYPE);
+		if(TskActionNames.getFromIntValue(type).isFilterWindow()) 
+		{
+			return getIntValue(DataFieldNames.DATAFIELD_FILTER_FOREGROUND_WINDOW);
+		} else 
+		{
+			return 0; 
+		}
+	}
+	
 	
 	@Override
 	public String getTitle()
 	{
-		return getStringValue(DataFieldNames.DATAFIELD_CONTENT);
+		String st1 = ""; 
+		Integer it = getIntNestedTask();
+		if(it>0) 
+		{
+			st1 = ConDataTask.Tasks.getTitleWithId(it); 
+		}
+		String st2 = ""; 
+		it = getIntFilterWindow();
+		if(it>0) 
+		{
+			st2 = ConDataTask.FilterForegroundWindow.getTitleWithId(it); 
+		}		
+		return Stream.of(st1,st2,getStringValue(DataFieldNames.DATAFIELD_CONTENT)).filter(s -> s!=null && !s.isEmpty()).collect(Collectors.joining(", ")); 
 	}
 
 	/**

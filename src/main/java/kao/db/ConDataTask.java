@@ -32,12 +32,12 @@ import kao.prop.Utils;
 public class ConDataTask
 {
 
-	private static final int GROUPTASK__ALL__ = 100;
+	public static final int GROUPTASK__ALL__ = 100;
 	
 	public static final int GROUPTASK__CLIP__ = 90;
 	public static final int GROUPTASK__ADMINISTRATIVE__ = 80;
 	
-	private static final int TASK_PREDEFINED_CLIPS__ = 1;
+	//private static final int TASK_PREDEFINED_CLIPS__ = 1;
 	
 	public static final int FILTER_FOREGROUND_WINDOW_DEFAULT = 1;
 
@@ -62,21 +62,22 @@ public class ConDataTask
 		// Tasks Grouos version 1
 		statement.executeUpdate("CREATE TABLE IF NOT EXISTS tsk.tsg1 (" 
 				+ " id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-				+ " par         INTEGER NOT NULL DEFAULT 0, "  
+				+ " parent      INTEGER NULL, "  
+				//+ " par         INTEGER NOT NULL DEFAULT 0, "  
 				+ " hotkey      TEXT NOT NULL DEFAULT '',"
 				+ " position    INTEGER NOT NULL DEFAULT 100000," 
 				+ " predefined  INTEGER NOT NULL DEFAULT 0," 
 				+ " disabled    INTEGER NOT NULL DEFAULT 0," 
 				+ " name        TEXT NOT NULL DEFAULT ''," 
-				+ " description TEXT NOT NULL DEFAULT ''" 
+				+ " description TEXT NOT NULL DEFAULT ''," 
+				+ " FOREIGN KEY (parent) REFERENCES tsg1(id)  "
 				+ ") ");
 
 		// Tasks Table version 1
 		statement.executeUpdate("CREATE TABLE IF NOT EXISTS tsk.tsh1 (" 
 				+ " id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-//				+ " val1        TEXT NOT NULL DEFAULT ''," 
-//				+ " val2        TEXT NOT NULL DEFAULT ''," 
-				+ " par         INTEGER NOT NULL DEFAULT 0, "  
+				+ " parent      INTEGER NULL, "  
+				//+ " par         INTEGER NOT NULL DEFAULT 0, "  
 				+ " filterwnd   INTEGER NOT NULL DEFAULT 1, "  
   			+ " content     TEXT NOT NULL DEFAULT ''," 
 				+ " hotkey      TEXT NOT NULL DEFAULT '',"
@@ -85,7 +86,8 @@ public class ConDataTask
 				+ " disabled    INTEGER NOT NULL DEFAULT 0," 
 				+ " name        TEXT NOT NULL DEFAULT '', " 
 				+ " description TEXT NOT NULL DEFAULT '', " 
-				+ " FOREIGN KEY (filterwnd) REFERENCES ffw1(id)  " 
+				+ " FOREIGN KEY (filterwnd) REFERENCES ffw1(id),  " 
+				+ " FOREIGN KEY (parent) REFERENCES tsh1(id)  "
 				+ ") ");
 
 				// Table 'Groups in task' version 1
@@ -109,9 +111,14 @@ public class ConDataTask
 				+ " type         INT NOT NULL DEFAULT 0,"
 				+ " sett         TEXT NOT NULL DEFAULT '',"
 				+ " content      TEXT NOT NULL DEFAULT ''," 
+				+ " cond         TEXT NOT NULL DEFAULT ''," 
+				+ " cmdtsk       INT NULL," 
+				+ " cmdflt       INT NULL," 
+				+ " cmdoth       INT NULL," 
 			//	+ " predefined   INTEGER NOT NULL DEFAULT 0," 
 				+ " description  TEXT NOT NULL DEFAULT '', " 
-				+ " FOREIGN KEY (owner) REFERENCES tsh1(id) ON DELETE CASCADE "
+				+ " FOREIGN KEY (owner) REFERENCES tsh1(id) ON DELETE CASCADE, "
+				+ " FOREIGN KEY (cmdtsk) REFERENCES tsh1(id)  "
 				+ ") ");
 		statement.executeUpdate("CREATE INDEX IF NOT EXISTS tsk.tss_owner ON tsts1 ( owner )");
 		
@@ -145,6 +152,19 @@ public class ConDataTask
 				+ " description  TEXT NOT NULL DEFAULT '' " 
 				+ ")  ");
 		
+
+		// добавим столбцы без изменения номера версии cond, cmdtsk, cmdflt, cmdoth в подзадачи, так же добавим parent в задачи и группы 
+		ResultSet resultSet = statement.executeQuery("SELECT * FROM tsk.sqlite_master  WHERE tbl_name LIKE '%tsts1' AND sql LIKE '%cond%'");
+		if (!resultSet.next()) // нет столбца - добавим cond, cmdtsk, cmdflt
+		{
+			statement.executeUpdate("ALTER TABLE tsk.tsts1 ADD COLUMN cond TEXT NOT NULL DEFAULT '' ");
+			statement.executeUpdate("ALTER TABLE tsk.tsts1 ADD COLUMN cmdtsk INT NULL ");
+			statement.executeUpdate("ALTER TABLE tsk.tsts1 ADD COLUMN cmdflt INT NULL ");
+			statement.executeUpdate("ALTER TABLE tsk.tsts1 ADD COLUMN cmdoth INT NULL ");
+			
+			statement.executeUpdate("ALTER TABLE tsk.tsh1 ADD COLUMN parent INT NULL ");
+			statement.executeUpdate("ALTER TABLE tsk.tsg1 ADD COLUMN parent INT NULL ");
+		}
 		
 		//@formatter:on
 
@@ -217,6 +237,36 @@ public class ConDataTask
 				// есть запись 
 				DBRecordTasksGroup r = new DBRecordTasksGroup(resultSet.getInt("predefined"));
 				r.setValue("id", resultSet).setValue("name", resultSet).setValue("hotkey", resultSet).setValue("description", resultSet);
+				
+				ElementsForListing<IElement> elements = new ElementsForListing<IElement>();
+				if(id!=ConDataTask.GROUPTASK__ALL__) 
+				{
+					PreparedStatement statement2;
+					// получим задачи, привязанные к группе
+					//@formatter:off 
+					statement2 = connection.prepareStatement(
+							  "SELECT S.position position,T.id,T.name,T.description,T.predefined FROM tsk.tstg1 S INNER JOIN tsk.tsh1 T ON S.owner=T.id  WHERE S.tasksgroup=?  "
+							+ "ORDER BY position "
+						);
+					//@formatter:on
+					statement2.setInt(1, id);
+	
+					ResultSet resultSet2 = statement2.executeQuery();
+					while (resultSet2.next())
+					{
+	
+						int predefined = resultSet2.getInt("predefined");
+						ETitleSource source = ETitleSource.checkPredefined(predefined);
+	
+						Element el = new Element(resultSet2.getInt("id"), resultSet2.getString("name"), source);
+						el.setDescription(resultSet2.getString("description"));
+	
+						elements.add(el);
+					}
+				}
+				r.setValue(DataFieldNames.DATAFIELD_TASKS_IN_GROUP, elements);
+				
+				
 				return Optional.of(r);
 			} else
 			{
@@ -309,13 +359,43 @@ public class ConDataTask
 					id = resultSet.getInt("id");
 				}
 
+				connection.setAutoCommit(false);
+
+				// пока для групп позиция берется из кода, возможно потом будет изменено
+				
 				statement = connection.prepareStatement("UPDATE tsk.tsg1 SET name=?,description=?,hotkey=?,position=? WHERE id=?");
 				statement.setString(1, cp.getStringValueForDataBase(DataFieldNames.DATAFIELD_NAME));
 				statement.setString(2, cp.getStringValueForDataBase(DataFieldNames.DATAFIELD_DESCRIPTION));
 				statement.setString(3, cp.getStringValue(DataFieldNames.DATAFIELD_HOTKEY));
-				statement.setInt(4, cp.getIntValue(DataFieldNames.DATAFIELD_POSITION));
+				statement.setInt(4, id > GROUPTASK__ALL__?id:-id);
 				statement.setInt(5, id);
 				statement.executeUpdate();
+				
+				if (id != GROUPTASK__ALL__)
+				{
+					
+					statement = connection.prepareStatement("DELETE FROM tsk.tstg1 WHERE tasksgroup=?");
+					statement.setInt(1, id);
+					statement.executeUpdate();
+					
+					int i = 0;
+					Object obj = cp.getValue(DataFieldNames.DATAFIELD_TASKS_IN_GROUP);
+					Collection<IElement> elements = ElementsForListing.castCollection(obj, IElement.class);
+					if (elements != null)
+					{
+						for (IElement el : elements)
+						{
+							statement = connection.prepareStatement("INSERT INTO tsk.tstg1 (owner,tasksgroup,position) VALUES (?,?,?)");
+							statement.setInt(1, el.getIdInt());
+							statement.setInt(2, id);
+							statement.setInt(3, ++i);
+							statement.executeUpdate();
+						}
+					}
+				}
+			
+				connection.commit();
+				connection.setAutoCommit(true);
 
 				return ResErrors.NOERRORS;
 			} catch (SQLException e)
@@ -593,11 +673,39 @@ public class ConDataTask
 
 		}
 
-		public static boolean isOpenClips(Integer id)
-		{
-			return id == TASK_PREDEFINED_CLIPS__;
-		}
+//		public static boolean isOpenClips(Integer id)
+//		{
+//			return id == TASK_PREDEFINED_CLIPS__;
+//		}
 
+		// возращает имя задачи для отображения, ошибки уже скрывает
+		public static String getTitleWithId(Integer id)
+		{
+			Connection connection = ConData.getConn();
+
+			PreparedStatement statement;
+			try
+			{
+				statement = connection.prepareStatement("SELECT predefined,name FROM tsk.tsh1 WHERE id=?");
+				statement.setInt(1, id);
+				ResultSet resultSet = statement.executeQuery();
+				if (resultSet.next())
+				{
+					ETitleSource source = ETitleSource.checkPredefined(resultSet.getInt("predefined")); 
+					Element el = new Element(id, resultSet.getString("name"), source);
+					return el.getTitleWithId(); 
+				}
+				else 
+				{	
+					return "";
+				}	
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+				return "";
+			}
+		}
+		
 		// Tasks load
 		public static Optional<DBRecordTask> load(Integer id) throws SQLException
 		{
@@ -652,7 +760,7 @@ public class ConDataTask
 				// получим подзадачи, привязанные к задачам
 				//@formatter:off 
 				statement3 = connection.prepareStatement(
-						  "SELECT S.position,1+S.position id,S.description,S.content,S.type,T.predefined FROM tsk.tsts1 S INNER JOIN tsk.tsh1 T ON S.owner=T.id WHERE S.owner=? "
+						  "SELECT S.position,1+S.position id,S.description,S.content,S.type,IFNULL(S.cmdtsk,0) cmdtsk, T.predefined FROM tsk.tsts1 S INNER JOIN tsk.tsh1 T ON S.owner=T.id WHERE S.owner=? "
 						+ "ORDER BY S.position "
 					);
 				//@formatter:on
@@ -667,7 +775,8 @@ public class ConDataTask
 					//ETitleSource source = ETitleSource.checkPredefined(predefined);
 
 					DBRecordSubTask st = new DBRecordSubTask(0, r); // всегда можем редактировать
-					st.setValue("id", resultSet3).setValue("content", resultSet3).setValue("type", resultSet3).setValue("description", resultSet3);
+					st.setValue("id", resultSet3).setValue("content", resultSet3).setValue("type", resultSet3).setValue("description", resultSet3)
+							.setValue("cmdtsk", resultSet3);
 
 					subtasks.add(st);
 				}
@@ -890,12 +999,19 @@ public class ConDataTask
 					{
 						for (DBRecordSubTask el : elements)
 						{
-							statement = connection.prepareStatement("INSERT INTO tsk.tsts1 (owner,position,description,type,content) VALUES (?,?,?,?,?)");
+							Integer nt = el.getIntNestedTask(); 
+							if(nt==0) nt=null;
+							
+							int type = el.getIntValue(DataFieldNames.DATAFIELD_SUBTASKTYPE);
+							
+							statement = connection.prepareStatement("INSERT INTO tsk.tsts1 (owner,position,description,type,content,cmdtsk) VALUES (?,?,?,?,?,?)");
 							statement.setInt(1, id);
 							statement.setInt(2, ++i);
 							statement.setString(3, el.getStringValue(DataFieldNames.DATAFIELD_DESCRIPTION));
-							statement.setInt(4, el.getIntValue(DataFieldNames.DATAFIELD_SUBTASKTYPE));
+							statement.setInt(4, type);
 							statement.setString(5, el.getStringValue(DataFieldNames.DATAFIELD_CONTENT));
+							if(nt==null) statement.setNull(6, java.sql.Types.INTEGER);
+							else statement.setInt(6, nt);
 
 							statement.executeUpdate();
 						}
@@ -903,6 +1019,8 @@ public class ConDataTask
 				}
 				//connection.createStatement().execute("COMMIT");
 				connection.commit();
+				connection.setAutoCommit(true);
+
 
 				return ResErrors.NOERRORS;
 			} catch (SQLException e)
@@ -967,8 +1085,8 @@ public class ConDataTask
 
 					} else
 					{
-						statement = ConData.getConn().prepareStatement("SELECT id,name,description,hotkey,predefined,disabled FROM tsk.tsh1 "
-								+ " WHERE id in (SELECT owner FROM tsk.tstg1 WHERE tasksgroup = ?) ORDER BY position");
+						statement = ConData.getConn().prepareStatement("SELECT T.id,T.name,T.description,T.hotkey,T.predefined,T.disabled,S.position FROM tsk.tsh1 T "
+								+ " INNER JOIN tsk.tstg1 S ON S.owner = T.id  WHERE tasksgroup = ? ORDER BY S.position");
 						statement.setInt(1, category.getIdInt());
 					}
 
@@ -1110,6 +1228,21 @@ public class ConDataTask
 			}
 		}
 
+		// возращает имя фильтра для отображения, ошибки уже скрывает
+		public static String getTitleWithId(Integer id)
+		{
+			Optional<DBRecordFilterForegroundWindow> o;
+			try
+			{
+				o = load(id);
+				return o.get().getTitleWithId();   
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+				return "";
+			}
+		}
+		
 		public static Optional<DBRecordFilterForegroundWindow> load(Integer id) throws SQLException
 		{
 			Connection connection = ConData.getConn();

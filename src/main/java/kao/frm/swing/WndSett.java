@@ -135,7 +135,7 @@ public class WndSett extends JDialog
 				{
 
 					Object curr = ((FieldKA) e.getSource()).getCurrValue();
-					System.out.println("WndSett:" + curr);
+					//System.out.println("WndSett:" + curr);
 
 					if (e.getActionCommand().equalsIgnoreCase("COMBO")) kit.setCategory((ElementForChoice) curr);
 

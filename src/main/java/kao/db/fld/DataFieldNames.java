@@ -58,6 +58,10 @@ public enum DataFieldNames
 	@AnnotationDefValueRu("Группы")
 	DATAFIELD_GROUPS, 
 
+	@AnnotationDefValue("Tasks")
+	@AnnotationDefValueRu("Задачм")
+	DATAFIELD_TASKS_IN_GROUP, 
+	
 	@AnnotationDefValue("Subtasks")
 	@AnnotationDefValueRu("Подзадачи")
 	DATAFIELD_SUBTASKS, 
@@ -66,9 +70,9 @@ public enum DataFieldNames
 	@AnnotationDefValueRu("Содержание")
 	DATAFIELD_CONTENT, 
 	
-	@AnnotationDefValue("Task")
-	@AnnotationDefValueRu("Задача")
-	DATAFIELD_TASK, 
+	@AnnotationDefValue("Nested task")
+	@AnnotationDefValueRu("Вложенная задача")
+	DATAFIELD_NESTED_TASK, 
 
 	@AnnotationDefValue("Variant")
 	@AnnotationDefValueRu("Вариант")
@@ -117,6 +121,7 @@ public enum DataFieldNames
 	@AnnotationDefValue("Disabled")
 	@AnnotationDefValueRu("Не используется")
 	DATAFIELD_DISABLED, 
+	
 	
 //	@AnnotationDefValue("Other window title include (use regexp)")
 //	@AnnotationDefValueRu("Включамые заголовки указанного окна (используются регулярные выражения)")

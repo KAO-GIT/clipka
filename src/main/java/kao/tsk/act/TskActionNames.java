@@ -17,22 +17,29 @@ public enum TskActionNames
 		{
 			return  TskActionSkip.class;
 		}
+		
+		@Override
+		public boolean isTask()
+		{
+			// пускай действий не происходит, задачу скрывать не надо  
+			return true;
+		}
 	},
 
-	@AnnotationDefValue("Run task")
-	@AnnotationDefValueRu("Запустить задачу")
+	@AnnotationDefValue("Run nested task")
+	@AnnotationDefValueRu("Запустить вложенную задачу")
 	TSKTYPE_RUNTASK(1)
 	{
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
-			return  TskActionSkip.class;
+			return  TskActionRunTask.class;
 		}
 		
 		@Override
-		public TskFields getTaskFields()
+		public boolean isTask()
 		{
-			return TskFields.TASK;
+			return true;
 		}
 	},
 
@@ -298,6 +305,56 @@ public enum TskActionNames
 			return  TskActionWndClipListClose.class;
 		}
 	},
+
+	@AnnotationDefValue("Check the current window and the specified filter")
+	@AnnotationDefValueRu("Проверить, что текущее окно удовлетворяет указанному фильтру")
+	TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW(301){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionCheckFilterForegroundWindow.class;
+		}
+	},
+
+	@AnnotationDefValue("Set label")
+	@AnnotationDefValueRu("Установить метку")
+	TSKTYPE_CONDITION_LABEL(501){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionCondLabel.class;
+		}
+	},
+
+	@AnnotationDefValue("Go to label")
+	@AnnotationDefValueRu("Перейти к метке безусловно")
+	TSKTYPE_CONDITION_GOTO(502){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionCondGoto.class;
+		}
+	},
+
+	@AnnotationDefValue("Go to label, if current text is empty")
+	@AnnotationDefValueRu("Перейти к метке, если текущая обрабатываемая строка не заполнена")
+	TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY(503){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionCondGotoEmpty.class;
+		}
+	},
+	
+	@AnnotationDefValue("Go to label, if current text is not empty")
+	@AnnotationDefValueRu("Перейти к метке, если текущая обрабатываемая строка заполнена")
+	TSKTYPE_CONDITION_GOTO_IF_STR_FILL(504){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionCondGotoFill.class;
+		}
+	},
 	
 	;
 
@@ -354,6 +411,26 @@ public enum TskActionNames
 		@AnnotationDefValueRu("Отсылает коды клавиш с помощью специально настроеной клавиши Compose (для системы Windows - Alt). Может являться аналогом вставки из буфера обмена  ")
 		TSKTYPE_SENDKEYS_COMPOSE,
 		
+		@AnnotationDefValue("The specified window filter is checked. If the condition fails, the current processed string is cleared")
+		@AnnotationDefValueRu("По указанному фильтру окна выполняется проверка. Если условие не проходит - текущая обрабатываемая строка очищается")
+		TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW,
+
+		@AnnotationDefValue("Set label")
+		@AnnotationDefValueRu("Устанавливает метку")
+		TSKTYPE_CONDITION_LABEL,
+		
+		@AnnotationDefValue("Go to the subtask with the specified label")
+		@AnnotationDefValueRu("Переходит к подзадаче с указанной меткой")
+		TSKTYPE_CONDITION_GOTO,
+
+		@AnnotationDefValue("Go to the subtask with the specified label, if current text is empty")
+		@AnnotationDefValueRu("Переходит к подзадаче с указанной меткой, если текущая обрабатываемая строка не заполнена")
+		TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY,
+		
+		@AnnotationDefValue("Go to the subtask with the specified label, if current text is not empty")
+		@AnnotationDefValueRu("Переходит к подзадаче с указанной меткой, если текущая обрабатываемая строка заполнена")
+		TSKTYPE_CONDITION_GOTO_IF_STR_FILL,
+		
 	}
 
 	/**
@@ -369,8 +446,8 @@ public enum TskActionNames
 		@AnnotationDefValueRu("Содержание не требуется")
 		TSKTYPE_SKIP,
 
-		@AnnotationDefValue("Task code")
-		@AnnotationDefValueRu("В содержание заносится код задачи")
+		@AnnotationDefValue("Content is not required. You can save the content and task for the future")
+		@AnnotationDefValueRu("Содержание не требуется, но можно сохранить содержание и задачу на будущее")
 		TSKTYPE_RUNTASK,
 
 		@AnnotationDefValue("Sent characters")
@@ -457,7 +534,27 @@ public enum TskActionNames
 		@AnnotationDefValue("Groovy code. You can use the variable 'result', containing the currently processed string. Returns the last value or value in the variable 'result'")
 		@AnnotationDefValueRu("В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result ")
 		TSKTYPE_RUNCODE_GROOVY,
-		
+
+		@AnnotationDefValue("Content is not required. Set filter for foreground window")
+		@AnnotationDefValueRu("Содержание не требуется. Нужно указать фильтр окна, по которому будет выполнятся проверка")
+		TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW,
+
+		@AnnotationDefValue("Label name is entered in the contents")
+		@AnnotationDefValueRu("В содержание заносится имя метки")
+		TSKTYPE_CONDITION_LABEL,
+
+		@AnnotationDefValue("Label name is entered in the contents")
+		@AnnotationDefValueRu("В содержание заносится имя метки")
+		TSKTYPE_CONDITION_GOTO,
+
+		@AnnotationDefValue("Label name is entered in the contents")
+		@AnnotationDefValueRu("В содержание заносится имя метки")
+		TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY,
+
+		@AnnotationDefValue("Label name is entered in the contents")
+		@AnnotationDefValueRu("В содержание заносится имя метки")
+		TSKTYPE_CONDITION_GOTO_IF_STR_FILL,
+
 		;
 	}
 	
@@ -483,14 +580,14 @@ public enum TskActionNames
 		return Arrays.stream(values()).filter(e -> e.getIntValue() == intValue).findAny().orElse(TskActionNames.TSKTYPE_SKIP);
 	}
 
-	public static enum TskFields
+	public boolean isTask()
 	{
-		STRING, TASK
+		return false;
 	}
 
-	public TskFields getTaskFields()
+	public boolean isFilterWindow()
 	{
-		return TskFields.STRING;
+		return false;
 	}
 
 	public static boolean isInEnum(String value)
@@ -528,12 +625,13 @@ public enum TskActionNames
 	
 	
 	/**
-	 * Возвращает список для выбора в поле. Не нужен "Запуск задачи". Для нее пока выбор не реализован.  
+	 *  e.getTaskFields() == TskFields.STRING && - Реализован запуск задачм  
+	 * Возвращает список для выбора в поле. Не нужен "Запуск задачи". Для нее пока выбор не реализован.
 	 * @return Collection<TskActionNames>
 	 */
 	public static Collection<TskActionNames> getSelectedCollection()
 	{
-		return Arrays.stream(values()).filter(e -> e.getTaskFields() == TskFields.STRING && e.getIntValue() >= 0)
+		return Arrays.stream(values()).filter(e -> e.getIntValue() >= 0)
 				.collect(Collectors.toList());
 	}
 

@@ -132,7 +132,7 @@ public class PanelTasksList extends PanelTasksNoCommands
 
 					int row = getTable().getSelectedRow();
 					r = executeSel(this);
-					if(row>=0) getTable().getSelectionModel().setSelectionInterval(row, row);
+					if(row>=0 && row<kit.getElements().size()) getTable().getSelectionModel().setSelectionInterval(row, row);
 					return r;
 				}
 			},new DBCommandEdit()

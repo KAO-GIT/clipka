@@ -24,6 +24,11 @@ public interface IElement
 	{
 		return "";
 	}
+	
+	public default String getTitleWithId()
+	{
+		return String.format("%s (%s)",getTitle(), getId()).trim();
+	}
 
 	// если в списке отображается 2-й столбец 
 	public default String getColumn2()

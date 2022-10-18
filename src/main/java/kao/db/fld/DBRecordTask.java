@@ -1,6 +1,5 @@
 package kao.db.fld;
 
-import kao.cp.ClipboardUpdaterStart;
 import kao.db.MetaTypes;
 import kao.el.ETitleSource;
 import kao.fw.FilterWindow;
@@ -38,6 +37,12 @@ public class DBRecordTask extends DBRecord implements IHotkey, IFilterWindow
 	};
 	
 	@Override
+	public String getTitle()
+	{		
+		return getStringValue(DataFieldNames.DATAFIELD_NAME);
+	}
+
+	@Override
 	public String getHotkey()
 	{
 		return getDisabled()==0?getStringValue(DataFieldNames.DATAFIELD_HOTKEY):"";  
@@ -54,10 +59,7 @@ public class DBRecordTask extends DBRecord implements IHotkey, IFilterWindow
 	{
 		FilterWindow fw = FilterWindows.getFilterWindow(getIntValue(DataFieldNames.DATAFIELD_FILTER_FOREGROUND_WINDOW));
 		if(fw==null) return true; 
-		if(fw.checkNotRequired()) return true;
-		kao.cp.OwnerProperties pr = ClipboardUpdaterStart.getOwnerProperties();
-		System.out.println("DBRecordTask.checkFilterWindow: "+pr);
-		return fw.check(pr);
+		return fw.check();
 	};
 	
 }

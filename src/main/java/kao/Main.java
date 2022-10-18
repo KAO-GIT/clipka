@@ -172,6 +172,10 @@ public class Main
 		} catch (IOException e1)
 		{
 			e1.printStackTrace();
+			
+			JOptionPane.showMessageDialog(null, "Socket error: "+e1.getLocalizedMessage());
+			System.exit(0);
+			
 		}
 	}
 

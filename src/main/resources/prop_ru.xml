@@ -31,6 +31,7 @@
 <entry key="DATAFIELD_ID">Идентификатор</entry>
 <entry key="DATAFIELD_NAME">Имя</entry>
 <entry key="DATAFIELD_NAME_PREDEFINED">Имя предопределенного</entry>
+<entry key="DATAFIELD_NESTED_TASK">Вложенная задача</entry>
 <entry key="DATAFIELD_POSITION">Приоритет</entry>
 <entry key="DATAFIELD_POS_BOTTOM">Позиция окна: низ</entry>
 <entry key="DATAFIELD_POS_LEFT">Позиция окна: лево</entry>
@@ -39,6 +40,7 @@
 <entry key="DATAFIELD_SUBTASKS">Подзадачи</entry>
 <entry key="DATAFIELD_SUBTASKTYPE">Тип подзадачи</entry>
 <entry key="DATAFIELD_TASK">Задача</entry>
+<entry key="DATAFIELD_TASKS_IN_GROUP">Задачм</entry>
 <entry key="DATAFIELD_TITLE">Заголовок</entry>
 <entry key="DATAFIELD_TITLE_PREDEFINED">Заголовок предопределенного</entry>
 <entry key="DATAFIELD_VARIANT">Вариант</entry>
@@ -74,14 +76,25 @@
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR">Если флажок установлен, после задачи, которая завершена с ошибкой, показывается всплывающее окно уведомлений. В любом случае, записи можно посмотреть в окне 'Оповещения и ошибки' </entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_TRAY">Если флажок не установлен, показывается окно с кнопками действий. Для применения настройки небходимо завершить работу программы</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SOCKETPORT">Порт используется при запуске. Запуск программы второй раз - просто открывает окно или запускает задачу</entry>
+<entry key="DESCRIPTION_SETTINGS_SYS_TASK_MAX_LEVEL">Уровень вложенных задач ограничен максимальным значением</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_ALERTS">Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне &lt;&lt;Оповещения и ошибки&gt;&gt; </entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_ERRORS">Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне &lt;&lt;Оповещения и ошибки&gt;&gt; </entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT">Если значение равно нулю, окно уведомлений не закрывается </entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_CASE_TEXT_CONTENT">Содержание не требуется. Используется текущая обрабатываемая строка.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_ENCODING_TEXT_CONTENT">Содержание не требуется. Используется текущая обрабатываемая строка.</entry>
+<entry key="DESCRIPTION_TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW">По указанному фильтру окна выполняется проверка. Если условие не проходит - текущая обрабатываемая строка очищается</entry>
+<entry key="DESCRIPTION_TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW_CONTENT">Содержание не требуется. Нужно указать фильтр окна, по которому будет выполнятся проверка</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEARSTRINGFROMMAP_CONTENT">В содержании можно указать очищаемый код словаря</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEAR_ALERT_ERRORS">Очищает таблицу 'Оповещения и ошибки'</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEAR_ALERT_ERRORS_CONTENT">Содержание не требуется</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO">Переходит к подзадаче с указанной меткой</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_CONTENT">В содержание заносится имя метки</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY">Переходит к подзадаче с указанной меткой, если текущая обрабатываемая строка не заполнена</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY_CONTENT">В содержание заносится имя метки</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_IF_STR_FILL">Переходит к подзадаче с указанной меткой, если текущая обрабатываемая строка заполнена</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_IF_STR_FILL_CONTENT">В содержание заносится имя метки</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_LABEL">Устанавливает метку</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_LABEL_CONTENT">В содержание заносится имя метки</entry>
 <entry key="DESCRIPTION_TSKTYPE_COPY">Несмотря на указание горячей клавиши, это не просто имитация нажатия клавиш. Операция пытается именно скопировать значение в буфер обмена, ожидая ответа.</entry>
 <entry key="DESCRIPTION_TSKTYPE_COPY_CONTENT">В содержание заносится горячая клавиша для копирования: {control insert} или {control c}</entry>
 <entry key="DESCRIPTION_TSKTYPE_GETCLIPBOARDCONTENS_CONTENT">В содержании можно указать код словаря, с ним будет связана строка из буфера обмена. Если не указывать - используется текущая обрабатываемая строка.</entry>
@@ -94,7 +107,7 @@
 <entry key="DESCRIPTION_TSKTYPE_RELEASEKEYS">Можно безопасно использовать только для клавиш, которые не зависят от раскладки клавиатуры. Не стоит использовать для передачи текста </entry>
 <entry key="DESCRIPTION_TSKTYPE_RELEASEKEYS_CONTENT">В содержание заносятся необходимые посылаемые символы</entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNCODE_GROOVY_CONTENT">В содержание заносится код на языке Groovy. Можно использовать переменную result, содержащую текущую обрабатываемую строку. Возвращается последнее значение или значение, находящееся в переменной result </entry>
-<entry key="DESCRIPTION_TSKTYPE_RUNTASK_CONTENT">В содержание заносится код задачи</entry>
+<entry key="DESCRIPTION_TSKTYPE_RUNTASK_CONTENT">Содержание не требуется, но можно сохранить содержание и задачу на будущее</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVEASCURRENTSTRING_CONTENT">В содержании нужно указать строку, которая будет сохранена как текущая обрабатываемая</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVE_ALERT_TO_TABLE">Записывает текущую обрабатываемую строку как оповещение в таблицу 'Оповещения и ошибки'</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVE_ALERT_TO_TABLE_CONTENT">В содержание можно занести имя оповещения</entry>
@@ -123,6 +136,8 @@
 <entry key="ERR_EXCLUDE">Исключено</entry>
 <entry key="ERR_FIELD">Ошибочное значение в поле</entry>
 <entry key="ERR_LONG">Слишком большая длина</entry>
+<entry key="ERR_NESTED_TASK_LEVEL">Невозможно выполнить вложенную задачу, превышено возможное количество уровней</entry>
+<entry key="ERR_NESTED_TASK_NOTFOUND">Не найдена вложенная задача</entry>
 <entry key="ERR_NOTFOUND">Не найдены данные</entry>
 <entry key="ERR_NOTSELECTED">Не выбрано</entry>
 <entry key="ERR_PREDEFINED">Предопределенные данные</entry>
@@ -146,7 +161,7 @@
 <entry key="FORM_GROUPTASK_HEADERNAME">Имя группы задач</entry>
 <entry key="FORM_SETTINGS_HEADERNAME">Имя настройки</entry>
 <entry key="FORM_SETTINGS_HEADERVALUE">Значение</entry>
-<entry key="FORM_SUBTASK_HEADERNAME">Содержание</entry>
+<entry key="FORM_SUBTASK_HEADERNAME">Описание</entry>
 <entry key="FORM_SUBTASK_HEADERTYPE">Тип</entry>
 <entry key="FORM_TASK_HEADERNAME">Имя задачи</entry>
 <entry key="GROUPTASK_MESS_DUPLICATENAME">имя группы задач должно быть уникальным</entry>
@@ -169,6 +184,7 @@
 <entry key="PARAM_MAIN_OPEN_WINDOW">Необходимость открытия основного окна программы, определяемая текущими настройками</entry>
 <entry key="SETTINGS">Настройки</entry>
 <entry key="SETTINGS_CLP">Настройки для буфера обмена</entry>
+<entry key="SETTINGS_CLP_COMPOSE_SIZETEXTELEM">Максимальный размер текста вставки с помощью Compose key</entry>
 <entry key="SETTINGS_CLP_RECCOUNT">Количество записей в базе</entry>
 <entry key="SETTINGS_CLP_RECONPAGE">Количество записей на странице</entry>
 <entry key="SETTINGS_CLP_REMOVEDUPLICATES">Удалить дубликаты текстов в буфере</entry>
@@ -184,6 +200,7 @@
 <entry key="SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR">Показывать уведомление, если задача завершена с ошибкой</entry>
 <entry key="SETTINGS_SYS_SHOW_TRAY">Показывать иконку в системном трее</entry>
 <entry key="SETTINGS_SYS_SOCKETPORT">Socket port</entry>
+<entry key="SETTINGS_SYS_TASK_MAX_LEVEL">Максимальный уровень для вложенных задач </entry>
 <entry key="SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT">Время в секундах для всплывающего окна уведомления по умолчанию </entry>
 <entry key="SOURCECLP_CLIPBOARD">Источник: буфер обмена</entry>
 <entry key="SOURCECLP_CURRENT">Источник: текущая программа</entry>
@@ -192,6 +209,7 @@
 <entry key="TASKS">Задачи</entry>
 <entry key="TASKSGROUPS">Группы задач</entry>
 <entry key="TASK_MESS_DUPLICATENAME">имя задачи должно быть уникальным</entry>
+<entry key="TASK_MESS_EMPTY">&lt;&lt;Задача не выбрана&gt;&gt;</entry>
 <entry key="TASK_PREDEFINED_CHANGE_CASE_TEXT">Изменить регистр выделенного текста</entry>
 <entry key="TASK_PREDEFINED_CHANGE_ENCODING_TEXT">Изменить кодировку выделенного текста</entry>
 <entry key="TASK_PREDEFINED_CLIPS">Список сохраненных записей из буфера обмена</entry>
@@ -199,9 +217,14 @@
 <entry key="TSKTYPE_CHANGESTATEWND_CLIPLIST">Показать/скрыть сохраненный список клипов буфера обмена</entry>
 <entry key="TSKTYPE_CHANGE_CASE_TEXT">Изменить регистр текста</entry>
 <entry key="TSKTYPE_CHANGE_ENCODING_TEXT">Изменить кодировку текста</entry>
+<entry key="TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW">Проверить, что текущее окно удовлетворяет указанному фильтру</entry>
 <entry key="TSKTYPE_CLEARSTRINGFROMMAP">Удалить строку из словаря (если больше не нужна)</entry>
 <entry key="TSKTYPE_CLEAR_ALERT_ERRORS">Очистить таблицу 'Оповещения и ошибки'</entry>
 <entry key="TSKTYPE_CLOSEWND_CLIPLIST">Скрыть сохраненный список клипов буфера обмена</entry>
+<entry key="TSKTYPE_CONDITION_GOTO">Перейти к метке безусловно</entry>
+<entry key="TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY">Перейти к метке, если текущая обрабатываемая строка не заполнена</entry>
+<entry key="TSKTYPE_CONDITION_GOTO_IF_STR_FILL">Перейти к метке, если текущая обрабатываемая строка заполнена</entry>
+<entry key="TSKTYPE_CONDITION_LABEL">Установить метку</entry>
 <entry key="TSKTYPE_COPY">Попытаться скопировать выделенный текст в буфер обмена</entry>
 <entry key="TSKTYPE_GETCLIPBOARDCONTENS">Получить строку из буфера обмена и поместить в словарь</entry>
 <entry key="TSKTYPE_GETCURRENTSTRINGFROMMAP">Получить текущую обрабатываемую строку из словаря</entry>
@@ -211,7 +234,7 @@
 <entry key="TSKTYPE_READ_FROM_CLIPS">Прочитать строку из списка клипов</entry>
 <entry key="TSKTYPE_RELEASEKEYS">Посылать отпускание символа, имитируя ввод на клавиатуре</entry>
 <entry key="TSKTYPE_RUNCODE_GROOVY">Выполнить код на языке Groovy</entry>
-<entry key="TSKTYPE_RUNTASK">Запустить задачу</entry>
+<entry key="TSKTYPE_RUNTASK">Запустить вложенную задачу</entry>
 <entry key="TSKTYPE_SAVEASCURRENTSTRING">Введенную в содержание строку сохранить как текущую обрабатываемую</entry>
 <entry key="TSKTYPE_SAVE_ALERT_TO_TABLE">Записать оповещение в таблицу 'Оповещения и ошибки'</entry>
 <entry key="TSKTYPE_SAVE_ERROR_TO_TABLE">Записать ошибку в таблицу 'Оповещения и ошибки'</entry>

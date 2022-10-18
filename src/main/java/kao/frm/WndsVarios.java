@@ -77,6 +77,17 @@ public class WndsVarios
 		return wndTasksGroupChoice;
 	}
 
+	synchronized public static kao.frm.swing.Wnd getWndTasksChioce(Window owner, ICheck check, ActionListener actParent) 
+	{
+		kao.frm.swing.Wnd wndTasksChoice = new kao.frm.swing.Wnd(owner,false,true);
+		kao.frm.swing.PanelTasksChoice p = new kao.frm.swing.PanelTasksChoice(null);
+		p.setActParent(actParent);
+		p.setCheck(check);
+		wndTasksChoice.setP( p );
+		kao.frm.swing.Dlg.setDefaultCommand(p, DBCommandNames.DBCOMMAND_CANCEL);
+		return wndTasksChoice;
+	}
+	
 	//private static kao.frm.swing.Wnd wndFilterForegroundWindow;
 	
 	synchronized private static kao.frm.swing.Wnd getWndFilterForegroundWindow() 

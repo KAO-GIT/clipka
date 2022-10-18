@@ -245,7 +245,7 @@ public class DBRecord implements IRecord, IElement
 	public String getId()
 	{
 		Object ret = getIdObject(); 
-		return ret==null?"":(String) ret;
+		return ret==null?"":ret.toString();
 	}
 
 	@Override

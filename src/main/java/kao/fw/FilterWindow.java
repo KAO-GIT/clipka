@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kao.cp.ClipboardUpdaterStart;
 import kao.cp.OwnerProperties;
 import kao.db.fld.DBRecordFilterForegroundWindow;
 import kao.db.fld.DataFieldNames;
@@ -132,6 +133,17 @@ public class FilterWindow
 		if(patternTitleinc==null && patternTitleexc==null && patternClassinc==null && patternClassexc==null && rest==null) return true;
 		else return false; 
 	}
+	
+	/**
+	 * Проверяет, соответствуют ли свойства текущего активного окна фильтру
+	 * 
+	 * @return false - если не соответствует фильтру
+	 */
+	public boolean check()
+	{
+		kao.cp.OwnerProperties pr = ClipboardUpdaterStart.getOwnerProperties();
+		return check(pr); 
+	}
 	/**
 	 * Проверяет, соответствуют ли свойства окна фильтру
 	 * 
@@ -142,6 +154,8 @@ public class FilterWindow
 	{
 		if(pr==null) return true; // не найдено окно 
 
+		if(checkNotRequired()) return true; 
+		
 		if(rest!=null)
 		{
 			// не проходит по координатам

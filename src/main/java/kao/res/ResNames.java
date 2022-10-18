@@ -130,6 +130,10 @@ public enum ResNames
 	@AnnotationDefValueRu("Максимальный размер текста")
 	SETTINGS_CLP_SIZETEXTELEM(),
 
+	@AnnotationDefValue("Maximum text size for paste with Compose key")
+	@AnnotationDefValueRu("Максимальный размер текста вставки с помощью Compose key")
+	SETTINGS_CLP_COMPOSE_SIZETEXTELEM(),
+	
 	@AnnotationDefValue("Remove duplicates items")
 	@AnnotationDefValueRu("Удалить дубликаты текстов в буфере")
 	SETTINGS_CLP_REMOVEDUPLICATES(),
@@ -202,14 +206,14 @@ public enum ResNames
 	@AnnotationDefValueRu("Если значение равно нулю, окно уведомлений не закрывается ")
 	DESCRIPTION_SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT(),
 	
-//	@AnnotationDefValue("Timeout for notification of errors (sec) ")
-//	@AnnotationDefValueRu("Время в секундах для всплывающего окна уведомления об ошибке ")
-//	SETTINGS_SYS_TIMEOUT_ERRORS(),
-//
-//	@AnnotationDefValue("If the value is not set, windows with notifications is not displayed. However, you can view the records in the 'Alerts and Errors'")
-//	@AnnotationDefValueRu("Если значение равно нулю, вcплывающее окно уведомлений не показывается. Но записи можно посмотреть в окне <<Оповещения и ошибки>> ")
-//	DESCRIPTION_SETTINGS_SYS_TIMEOUT_ERRORS(),
-//
+	@AnnotationDefValue("Max level for nested tasks")
+	@AnnotationDefValueRu("Максимальный уровень для вложенных задач ")
+	SETTINGS_SYS_TASK_MAX_LEVEL(),
+
+	@AnnotationDefValue("Max level for nested tasks")
+	@AnnotationDefValueRu("Уровень вложенных задач ограничен максимальным значением")
+	DESCRIPTION_SETTINGS_SYS_TASK_MAX_LEVEL(),
+
 //	@AnnotationDefValue("Timeout for notification of alerts (sec) ")
 //	@AnnotationDefValueRu("Время в секундах для всплывающего окна с оповещением ")
 //	SETTINGS_SYS_TIMEOUT_ALERTS(),
@@ -238,8 +242,8 @@ public enum ResNames
 	@AnnotationDefValueRu("имя группы задач должно быть уникальным")
 	GROUPTASK_MESS_DUPLICATENAME(),
 	
-	@AnnotationDefValue("Content")
-	@AnnotationDefValueRu("Содержание")
+	@AnnotationDefValue("Feature")
+	@AnnotationDefValueRu("Описание")
 	FORM_SUBTASK_HEADERNAME(),
 	
 	@AnnotationDefValue("Type")
@@ -305,6 +309,10 @@ public enum ResNames
 	@AnnotationDefValue("tasks name must be unique")
 	@AnnotationDefValueRu("имя задачи должно быть уникальным")
 	TASK_MESS_DUPLICATENAME(),
+	
+	@AnnotationDefValue("<<Empty>>")
+	@AnnotationDefValueRu("<<Задача не выбрана>>")
+	TASK_MESS_EMPTY(),
 
 	@AnnotationDefValue("Clips list")
 	@AnnotationDefValueRu("Список сохраненных записей из буфера обмена")

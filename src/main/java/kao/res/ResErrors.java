@@ -66,7 +66,15 @@ public enum ResErrors implements IResErrors
 
 	@AnnotationDefValue("Subtask error")
 	@AnnotationDefValueRu("Невозможно выполнить подзадачу")
-	ERR_SUBTASK_EXECUTE, 
+	ERR_SUBTASK_EXECUTE,
+	
+	@AnnotationDefValue("Unable to complete nested task, exceeded possible number of levels")
+	@AnnotationDefValueRu("Невозможно выполнить вложенную задачу, превышено возможное количество уровней")
+	ERR_NESTED_TASK_LEVEL,
+	
+	@AnnotationDefValue("Not found nested task")
+	@AnnotationDefValueRu("Не найдена вложенная задача")
+	ERR_NESTED_TASK_NOTFOUND, 
 	
 	@AnnotationDefValue("Script error")
 	@AnnotationDefValueRu("Ошибка при попытке выполнить скрипт")

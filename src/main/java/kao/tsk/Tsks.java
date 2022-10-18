@@ -15,7 +15,6 @@ import kao.el.ElementForChoice;
 import kao.el.ElementSettHotKey;
 import kao.el.IElement;
 import kao.el.KitForListing;
-import kao.frm.WndText;
 import kao.frm.WndsVarios;
 import kao.frm.swing.Dlg;
 import kao.frm.swing.WndMain;
@@ -96,42 +95,6 @@ public class Tsks
 				e.printStackTrace();
 			}
 		}
-
-		//		String keyStroke;
-		//		keyStroke = ConData.getStringProp("Settings_Clp_MainHotkey");
-		//		if (!keyStroke.isEmpty())
-		//		{
-		//			KeyStructs keys = KeyUtil.getKeyStructs("{" + keyStroke + "}");
-		//			//kao.kb.KbTrackStart.getGeneralTrack().putHotKey(keys,() -> {WndText.getInstance().updatePrimaryWnd(); return ResErrors.NOERRORS;});
-		//
-		//		}
-		//		;
-		//
-		//		keyStroke = ConData.getStringProp("Settings_Clp_TaskEncodeConHotkey");
-		//		if (!keyStroke.isEmpty())
-		//		{
-		//			KeyStructs keys = KeyUtil.getKeyStructs("{" + keyStroke + "}");
-		//			//KeyStructs keys = KeyUtil.getKeyStructs("{ctrl k}{ctrl k}");  
-		//			//kao.kb.KbTrackStart.INSTANCE.getTrack().getRingBufferAnalizer().put(keys,new TskEncodeCon());  
-		//
-		//			//				kao.kb.KbTrackStart.INSTANCE.getTrack().getRingBufferAnalizer().put(keys,() ->
-		//			//				{
-		//			//					Thread d;
-		//			//					d = new Thread(() ->
-		//			//					{
-		//			//						try (Tsk t = new TskEncodeCon())
-		//			//						{
-		//			//							t.runTsk();
-		//			//						} catch (Exception e)
-		//			//						{
-		//			//							e.printStackTrace();
-		//			//						}
-		//			//					},"Encode task");
-		//			//					d.start();
-		//			//				}
-		//			//				);
-		//		}
-		//		;
 
 	}
 
@@ -253,17 +216,15 @@ public class Tsks
 		if (source instanceof DBRecordTask)
 		{
 			DBRecordTask csource = (DBRecordTask) source;
-			if (ConDataTask.Tasks.isOpenClips(csource.getIdInt()))
-			{
-				ret = () ->
-				{
-					WndText.getInstance().updatePrimaryWnd();
-					return ResErrors.NOERRORS;
-				};
-			} else
-			{
-				ret = new TskRegular((DBRecordTask) csource);
-			}
+			//			if (ConDataTask.Tasks.isOpenClips(csource.getIdInt()))
+			//			{
+			//				ret = () ->
+			//				{
+			//					WndText.getInstance().updatePrimaryWnd();
+			//					return ResErrors.NOERRORS;
+			//				};
+			//			} else
+			ret = new TskRegular((DBRecordTask) csource);
 		} else if (source instanceof DBRecordTasksGroup)
 		{
 			ret = () ->

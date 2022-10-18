@@ -299,6 +299,8 @@ public class WindowsClipboardUpdater extends ClipboardUpdater
 		addPar.setWndClassName(String.valueOf(classname).trim());
 		addPar.setLeft(Math.max(0, rect.left));
 		addPar.setTop(Math.max(0, rect.top));
+		addPar.setRight(Math.max(0, rect.right));
+		addPar.setBottom(Math.max(0, rect.bottom));
 		
 		title=null; 
 		classname=null;

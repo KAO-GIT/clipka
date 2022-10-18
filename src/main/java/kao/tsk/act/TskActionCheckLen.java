@@ -1,13 +1,14 @@
 package kao.tsk.act;
 
 import kao.db.fld.IRecord;
-import kao.res.*;
+import kao.res.IResErrors;
+import kao.res.ResErrors;
 import kao.tsk.Tsks;
 
-public class TskActionClear extends TskActionAbstract
+public class TskActionCheckLen extends TskActionAbstract 
 {
 
-	public TskActionClear(IRecord source)
+	public TskActionCheckLen(IRecord source)
 	{
 		super(source);
 	}
@@ -23,6 +24,8 @@ public class TskActionClear extends TskActionAbstract
 		{
 			Tsks.removeRep(getContent());
 		}	
+		
+		Tsks.putRep("TRUE");
 		return ResErrors.NOERRORS; 
 	}
 

@@ -221,6 +221,7 @@ public abstract class PanelTableNoCommands<T extends IElement> extends JPanel
 			{
 				int row = table.getSelectedRow();
 				if (row == -1) description.setText(" ");
+				else if (row >= getElements().size()) description.setText(" ");
 				else
 				{
 					IElement el = (IElement) getElements().get(row);

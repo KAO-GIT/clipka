@@ -31,6 +31,7 @@ Command prompt:
 <entry key="DATAFIELD_ID">Id</entry>
 <entry key="DATAFIELD_NAME">Name</entry>
 <entry key="DATAFIELD_NAME_PREDEFINED">Predefined name</entry>
+<entry key="DATAFIELD_NESTED_TASK">Nested task</entry>
 <entry key="DATAFIELD_POSITION">Position</entry>
 <entry key="DATAFIELD_POS_BOTTOM">Window bottom position</entry>
 <entry key="DATAFIELD_POS_LEFT">Window left position</entry>
@@ -39,6 +40,7 @@ Command prompt:
 <entry key="DATAFIELD_SUBTASKS">Subtasks</entry>
 <entry key="DATAFIELD_SUBTASKTYPE">Subtasks type</entry>
 <entry key="DATAFIELD_TASK">Task</entry>
+<entry key="DATAFIELD_TASKS_IN_GROUP">Tasks</entry>
 <entry key="DATAFIELD_TITLE">Title</entry>
 <entry key="DATAFIELD_TITLE_PREDEFINED">Predefined title</entry>
 <entry key="DATAFIELD_VARIANT">Variant</entry>
@@ -74,14 +76,25 @@ Command prompt:
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR">If the check box is not selected, windows with notifications is not displayed. However, you can view the records in the 'Alerts and Errors' </entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SHOW_TRAY">If the check box is not selected, a window with action buttons is displayed. To apply this setting, you need to close the program</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_SOCKETPORT">Port is used at startup. Starting the program for the second time - just opens the window or run task</entry>
+<entry key="DESCRIPTION_SETTINGS_SYS_TASK_MAX_LEVEL">Max level for nested tasks</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_ALERTS">If the value is not set, windows with notifications is not displayed. However, you can view the records in the &lt;&lt;Alerts and Errors&gt;&gt;</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_ERRORS">If the value is not set, windows with notifications is not displayed. However, you can view the records in the &lt;&lt;Alerts and Errors&gt;&gt;</entry>
 <entry key="DESCRIPTION_SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT">If the value is not set, windows is not closed. </entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_CASE_TEXT_CONTENT">Content is not required. The current processed string is used.</entry>
 <entry key="DESCRIPTION_TSKTYPE_CHANGE_ENCODING_TEXT_CONTENT">Content is not required. The current processed string is used.</entry>
+<entry key="DESCRIPTION_TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW">The specified window filter is checked. If the condition fails, the current processed string is cleared</entry>
+<entry key="DESCRIPTION_TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW_CONTENT">Content is not required. Set filter for foreground window</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEARSTRINGFROMMAP_CONTENT">You can specify the map code, it will be cleaned</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEAR_ALERT_ERRORS">Clear 'Alerts and Errors'</entry>
 <entry key="DESCRIPTION_TSKTYPE_CLEAR_ALERT_ERRORS_CONTENT">Content is not required</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO">Go to the subtask with the specified label</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_CONTENT">Label name is entered in the contents</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY">Go to the subtask with the specified label, if current text is empty</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY_CONTENT">Label name is entered in the contents</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_IF_STR_FILL">Go to the subtask with the specified label, if current text is not empty</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_GOTO_IF_STR_FILL_CONTENT">Label name is entered in the contents</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_LABEL">Set label</entry>
+<entry key="DESCRIPTION_TSKTYPE_CONDITION_LABEL_CONTENT">Label name is entered in the contents</entry>
 <entry key="DESCRIPTION_TSKTYPE_COPY">Do not transfer hotkey, the operation tries to copy the value to the clipboard</entry>
 <entry key="DESCRIPTION_TSKTYPE_COPY_CONTENT">Hotkey is entered: {control insert} or {control c}</entry>
 <entry key="DESCRIPTION_TSKTYPE_GETCLIPBOARDCONTENS_CONTENT">You can specify the map code the associated string will be saved from the clipboard. If not specified, the current processed string is used.</entry>
@@ -94,7 +107,7 @@ Command prompt:
 <entry key="DESCRIPTION_TSKTYPE_RELEASEKEYS">Only for keys that are independent of the keyboard layout. Do not use to transfer text</entry>
 <entry key="DESCRIPTION_TSKTYPE_RELEASEKEYS_CONTENT">Sent characters</entry>
 <entry key="DESCRIPTION_TSKTYPE_RUNCODE_GROOVY_CONTENT">Groovy code. You can use the variable 'result', containing the currently processed string. Returns the last value or value in the variable 'result'</entry>
-<entry key="DESCRIPTION_TSKTYPE_RUNTASK_CONTENT">Task code</entry>
+<entry key="DESCRIPTION_TSKTYPE_RUNTASK_CONTENT">Content is not required. You can save the content and task for the future</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVEASCURRENTSTRING_CONTENT">Save string from content as current string</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVE_ALERT_TO_TABLE">Save current text as alert in the 'Alerts and Errors'</entry>
 <entry key="DESCRIPTION_TSKTYPE_SAVE_ALERT_TO_TABLE_CONTENT">Name may be printed in the contents</entry>
@@ -123,6 +136,8 @@ Command prompt:
 <entry key="ERR_EXCLUDE">Exclude</entry>
 <entry key="ERR_FIELD">Field error</entry>
 <entry key="ERR_LONG">Too long</entry>
+<entry key="ERR_NESTED_TASK_LEVEL">Unable to complete nested task, exceeded possible number of levels</entry>
+<entry key="ERR_NESTED_TASK_NOTFOUND">Not found nested task</entry>
 <entry key="ERR_NOTFOUND">Not found</entry>
 <entry key="ERR_NOTSELECTED">Not selected</entry>
 <entry key="ERR_PREDEFINED">Predefined</entry>
@@ -146,7 +161,7 @@ Command prompt:
 <entry key="FORM_GROUPTASK_HEADERNAME">Tasks group name</entry>
 <entry key="FORM_SETTINGS_HEADERNAME">General settings</entry>
 <entry key="FORM_SETTINGS_HEADERVALUE">Value</entry>
-<entry key="FORM_SUBTASK_HEADERNAME">Content</entry>
+<entry key="FORM_SUBTASK_HEADERNAME">Feature</entry>
 <entry key="FORM_SUBTASK_HEADERTYPE">Type</entry>
 <entry key="FORM_TASK_HEADERNAME">Task name</entry>
 <entry key="GROUPTASK_MESS_DUPLICATENAME">tasks group name must be unique</entry>
@@ -169,6 +184,7 @@ Command prompt:
 <entry key="PARAM_MAIN_OPEN_WINDOW">Current parameters for open main window</entry>
 <entry key="SETTINGS">Settings</entry>
 <entry key="SETTINGS_CLP">Clipboard settings</entry>
+<entry key="SETTINGS_CLP_COMPOSE_SIZETEXTELEM">Maximum text size for paste with Compose key</entry>
 <entry key="SETTINGS_CLP_RECCOUNT">Number of items</entry>
 <entry key="SETTINGS_CLP_RECONPAGE">Number of items on page</entry>
 <entry key="SETTINGS_CLP_REMOVEDUPLICATES">Remove duplicates items</entry>
@@ -184,6 +200,7 @@ Command prompt:
 <entry key="SETTINGS_SYS_SHOW_NOTIFICATION_TASKERROR">Show notification after task with error </entry>
 <entry key="SETTINGS_SYS_SHOW_TRAY">Show in system tray</entry>
 <entry key="SETTINGS_SYS_SOCKETPORT">Socket port</entry>
+<entry key="SETTINGS_SYS_TASK_MAX_LEVEL">Max level for nested tasks</entry>
 <entry key="SETTINGS_SYS_TIMEOUT_NOTIFICATION_DEFAULT">Default timeout for notification (sec) </entry>
 <entry key="SOURCECLP_CLIPBOARD">Source: CLIPBOARD</entry>
 <entry key="SOURCECLP_CURRENT">Source: current</entry>
@@ -192,6 +209,7 @@ Command prompt:
 <entry key="TASKS">Tasks</entry>
 <entry key="TASKSGROUPS">Tasks groups</entry>
 <entry key="TASK_MESS_DUPLICATENAME">tasks name must be unique</entry>
+<entry key="TASK_MESS_EMPTY">&lt;&lt;Empty&gt;&gt;</entry>
 <entry key="TASK_PREDEFINED_CHANGE_CASE_TEXT">Change the case of the selected text</entry>
 <entry key="TASK_PREDEFINED_CHANGE_ENCODING_TEXT">Change the encoding of the selected text</entry>
 <entry key="TASK_PREDEFINED_CLIPS">Clips list</entry>
@@ -199,9 +217,14 @@ Command prompt:
 <entry key="TSKTYPE_CHANGESTATEWND_CLIPLIST">Show/hide clips</entry>
 <entry key="TSKTYPE_CHANGE_CASE_TEXT">Change the case of the current text</entry>
 <entry key="TSKTYPE_CHANGE_ENCODING_TEXT">Change the encoding of the current text</entry>
+<entry key="TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW">Check the current window and the specified filter</entry>
 <entry key="TSKTYPE_CLEARSTRINGFROMMAP">Delete string from map</entry>
 <entry key="TSKTYPE_CLEAR_ALERT_ERRORS">Clear 'Alerts and Errors'</entry>
 <entry key="TSKTYPE_CLOSEWND_CLIPLIST">Hide clips</entry>
+<entry key="TSKTYPE_CONDITION_GOTO">Go to label</entry>
+<entry key="TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY">Go to label, if current text is empty</entry>
+<entry key="TSKTYPE_CONDITION_GOTO_IF_STR_FILL">Go to label, if current text is not empty</entry>
+<entry key="TSKTYPE_CONDITION_LABEL">Set label</entry>
 <entry key="TSKTYPE_COPY">Copy selected text into clipboard</entry>
 <entry key="TSKTYPE_GETCLIPBOARDCONTENS">Get string from clipboard and put in map</entry>
 <entry key="TSKTYPE_GETCURRENTSTRINGFROMMAP">Get current string from map</entry>
@@ -211,7 +234,7 @@ Command prompt:
 <entry key="TSKTYPE_READ_FROM_CLIPS">Read string from clips</entry>
 <entry key="TSKTYPE_RELEASEKEYS">Send releasing the symbol - simulating keyboard input</entry>
 <entry key="TSKTYPE_RUNCODE_GROOVY">Run Groovy code</entry>
-<entry key="TSKTYPE_RUNTASK">Run task</entry>
+<entry key="TSKTYPE_RUNTASK">Run nested task</entry>
 <entry key="TSKTYPE_SAVEASCURRENTSTRING">Save string from content as current string</entry>
 <entry key="TSKTYPE_SAVE_ALERT_TO_TABLE">Save current text as alert in the 'Alerts and Errors'</entry>
 <entry key="TSKTYPE_SAVE_ERROR_TO_TABLE">Save current text as error in the 'Alerts and Errors'</entry>

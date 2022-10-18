@@ -13,6 +13,8 @@ import java.awt.event.WindowEvent;
 import java.util.EnumMap;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +25,8 @@ import kao.db.cmd.*;
 import kao.db.fld.DBRecordTasksGroup;
 import kao.db.fld.DataFieldNames;
 import kao.db.fld.DataFieldProp;
+import kao.el.ElementsForListing;
+import kao.el.IElement;
 import kao.prop.ResKA;
 import kao.prop.Utils;
 import kao.res.IResErrors;
@@ -60,8 +64,10 @@ public class WndTasksGroupElement extends JDialog
 		setIconImage(Dlg.getIconImage());
 		setModal(true);
 
+		JPanel p00 = new JPanel(new GridLayout(1, 2));
+		
 		JPanel p0 = new JPanel();
-		p0.setLayout(new GridLayout(0, 1));
+		p0.setLayout(new BoxLayout(p0, BoxLayout.Y_AXIS));
 
 		DataFieldProp data;
 		FieldDataWithType field;
@@ -116,7 +122,18 @@ public class WndTasksGroupElement extends JDialog
 			p0.add(cmd);
 		}
 
-		add(p0);
+		p00.add(p0);
+		
+		ElementsForListing<IElement> elementstsk = (ElementsForListing<IElement>) el.getArrayValue(DataFieldNames.DATAFIELD_TASKS_IN_GROUP);
+		PanelTasksAttached pAtt = new PanelTasksAttached(elementstsk, actParent);
+		pAtt.setBorder(BorderFactory.createTitledBorder(ResKA.getResourceBundleValue(DataFieldNames.DATAFIELD_TASKS_IN_GROUP.name())));
+
+		if(el.getIdInt()!=ConDataTask.GROUPTASK__ALL__) // если это не группа "Все записи"
+		{
+			p00.add(pAtt);
+		}
+		
+		add(p00);
 
 		class DBCommandSaveTasksGroup extends DBCommandSave
 		{
@@ -134,6 +151,8 @@ public class WndTasksGroupElement extends JDialog
 //				if (el.getPredefined() == 0)
 //				{
 					el.updateFromFields(fieldsDataWithType);
+					el.setValue(DataFieldNames.DATAFIELD_TASKS_IN_GROUP, pAtt.getElements());
+					
 					IResErrors r = check();
 					if (!r.isSuccess()) return r;
 					//System.out.println("DBCommandSaveTasksGroup execute ");

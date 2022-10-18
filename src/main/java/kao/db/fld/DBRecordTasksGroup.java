@@ -23,7 +23,9 @@ public class DBRecordTasksGroup extends DBRecord implements IHotkey
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_POSITION, MetaTypes.INTEGER, "position")); 
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_NAME, MetaTypes.STRING, "name",source));
 		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_DESCRIPTION, MetaTypes.STRING, "description",source));
-		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_HOTKEY, MetaTypes.HOTKEY, "hotkey")); 
+		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_HOTKEY, MetaTypes.HOTKEY, "hotkey"));
+		getFields().add(new DataFieldProp(DataFieldNames.DATAFIELD_TASKS_IN_GROUP, MetaTypes.ARRAY, "")); 
+		
 	}
 	
 	@Override

@@ -24,7 +24,7 @@ public class FieldPath extends FieldKA
 		jF = new JTextField(val,50);
 		add(jF);
 		
-		JButton jB = new JButton("\u2026");
+		JButton jB = new ButtonSelect();
 		jB.addActionListener(e -> { 
 			JFileChooser fileChooser = new JFileChooser((String) getCurrValue());
       fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

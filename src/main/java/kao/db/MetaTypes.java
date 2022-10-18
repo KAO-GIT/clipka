@@ -44,6 +44,15 @@ public enum MetaTypes
 			return MetaTypes.DBTypes.INTEGER;
 		}
 	},
+
+	TASKTYPE
+	{
+		@Override
+		public DBTypes getDBType()
+		{
+			return MetaTypes.DBTypes.INTEGER;
+		}
+	},
 	
 	STRING(), 
 	MEMO(), 

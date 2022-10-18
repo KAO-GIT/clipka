@@ -3,12 +3,19 @@
  */
 package kao.tsk;
 
+import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import kao.db.ConData;
 import kao.db.fld.DBRecordSubTask;
 import kao.db.fld.DBRecordTask;
 import kao.db.fld.DataFieldNames;
 import kao.el.ElementsForListing;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
+import kao.res.ResNames;
 import kao.tsk.act.TskAction;
 
 /**
@@ -17,33 +24,61 @@ import kao.tsk.act.TskAction;
  * @author kao
  *
  */
-public class TskRegular implements Tsk,IClipboardBlock,INeedCloseSpecialWindows
+public class TskRegular implements Tsk, TskOwner, IClipboardBlock, INeedCloseSpecialWindows
 {
-//	private static final Logger LOGGER = LoggerFactory.getLogger(TskRegular.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TskRegular.class);
 
-	private ElementsForListing<DBRecordSubTask> subtasks;
+	private String savedLabel = ""; // запомненная метка
+
+	final private int level; // уровень задачи, вызываемой из другой задачи
+	final private ArrayList<TskAction> actions; // список действий 
+
+	public TskRegular(DBRecordTask cp, int level)
+	{
+		this.level = level;
+		Object obj = cp.getValue(DataFieldNames.DATAFIELD_SUBTASKS);
+		ElementsForListing<DBRecordSubTask> subtasks = (ElementsForListing<DBRecordSubTask>) ElementsForListing.castCollection(obj,
+				DBRecordSubTask.class);
+		actions = new ArrayList<TskAction>(subtasks.size());
+		for (DBRecordSubTask subtask : subtasks)
+		{
+			TskAction a = TskAction.getAction(subtask);
+			if (a != null)
+			{
+				a.setOwner(new java.lang.ref.WeakReference<TskOwner>(this));
+			}
+			actions.add(a);
+		}
+
+	}
 
 	public TskRegular(DBRecordTask cp)
 	{
-		Object obj = cp.getValue(DataFieldNames.DATAFIELD_SUBTASKS);
-		subtasks = (ElementsForListing<DBRecordSubTask>) ElementsForListing.castCollection(obj, DBRecordSubTask.class);
+		this(cp, 0);
 	}
 
 	@Override
 	public IResErrors runTsk() throws Exception
 	{
+		LOGGER.debug("begin, level {}", getLevel());
 		IResErrors ret = ResErrors.NOERRORS;
-		for (DBRecordSubTask subtask : subtasks)
+		if (getLevel() > ConData.getIntProp(ResNames.SETTINGS_SYS_TASK_MAX_LEVEL))
 		{
-			TskAction a = TskAction.getAction(subtask);
+			return ResErrors.ERR_NESTED_TASK_LEVEL;
+		}
+		for (TskAction a : actions)
+		{
 			if (a == null)
 			{
 				ret = ResErrors.ERR_SUBTASK_EXECUTE;
 				break;
 			}
-//			LOGGER.info("begin {}",dbRecordSubTask.getValue(DataFieldNames.DATAFIELD_SUBTASKTYPE));
-			ret = a.runAction(); 
-//			LOGGER.info("end {}",ret);
+			if (!getSavedLabel().isBlank())
+			{
+				if (!getSavedLabel().equalsIgnoreCase(a.getLabel())) continue;
+			}
+			ret = a.runAction();
+			LOGGER.debug("end {}", ret);
 			if (!ret.isSuccess()) break;
 		}
 		return ret;
@@ -52,45 +87,60 @@ public class TskRegular implements Tsk,IClipboardBlock,INeedCloseSpecialWindows
 	@Override
 	public boolean workWithClipboard()
 	{
-		boolean ret = false; 
-		for (DBRecordSubTask subtask : subtasks)
+		boolean ret = false;
+		for (TskAction a : actions)
 		{
-			TskAction a = TskAction.getAction(subtask);
 			if (a != null)
 			{
-				if(a instanceof IClipboardBlock) 
-				{	
-					if( ((IClipboardBlock)a).workWithClipboard() ) {
-						ret = true;  
-						break; 
+				if (a instanceof IClipboardBlock)
+				{
+					if (((IClipboardBlock) a).workWithClipboard())
+					{
+						ret = true;
+						break;
 					}
 				}
 			}
-			
+
 		}
-		return ret; 
+		return ret;
 	}
 
 	@Override
 	public boolean needCloseAllSpecialWindows()
 	{
-		boolean ret = false; 
-		for (DBRecordSubTask subtask : subtasks)
+		boolean ret = false;
+		for (TskAction a : actions)
 		{
-			TskAction a = TskAction.getAction(subtask);
 			if (a != null)
 			{
-				if(a instanceof INeedCloseSpecialWindows) 
-				{	
-					if( ((INeedCloseSpecialWindows)a).needCloseAllSpecialWindows() ) {
-						ret = true;  
-						break; 
+				if (a instanceof INeedCloseSpecialWindows)
+				{
+					if (((INeedCloseSpecialWindows) a).needCloseAllSpecialWindows())
+					{
+						ret = true;
+						break;
 					}
 				}
 			}
-			
+
 		}
-		return ret; 
+		return ret;
+	}
+
+	public int getLevel()
+	{
+		return level;
+	}
+
+	public String getSavedLabel()
+	{
+		return savedLabel;
+	}
+
+	public void setSavedLabel(String savedLabel)
+	{
+		this.savedLabel = savedLabel;
 	}
 
 }

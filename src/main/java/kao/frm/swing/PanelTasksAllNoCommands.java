@@ -26,7 +26,7 @@ public abstract class PanelTasksAllNoCommands extends PanelKA implements ActionL
 	//protected JTable table;
 	protected PanelTableNoCommands<IElement> panelTable;
 	
-	private final ElementForChoice defGroup; // группа по умолчанию
+	private final ElementForChoice defGroup; // значение по умолчанию
 
 	public PanelTasksAllNoCommands()
 	{
@@ -238,7 +238,7 @@ public abstract class PanelTasksAllNoCommands extends PanelKA implements ActionL
 		;
 	}
 
-	private void fireTableDataChanged()
+	protected void fireTableDataChanged()
 	{
 		((AbstractTableModel) getTable().getModel()).fireTableDataChanged();
 	}

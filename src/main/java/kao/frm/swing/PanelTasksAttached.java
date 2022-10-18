@@ -12,24 +12,24 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.*;
+import java.util.Collections;
 
 //import java.lang.ref.WeakReference;
 
 import java.util.List;
 
-public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
+public class PanelTasksAttached extends PanelTableNoCommands<IElement>
 {
-	private static final long serialVersionUID = -6745465804325794436L;
+	private static final long serialVersionUID = -6745465715325794436L;
 
 	private CurrentCommands cc;
 
-	public PanelTasksGroupsAttached(ElementsForListing<IElement> elements, ActionListener act)
+	public PanelTasksAttached(ElementsForListing<IElement> elements, ActionListener act)
 	{
 		super(elements, act);
 
-		setPreferredSize(new Dimension(400, 200));
+		//setPreferredSize(new java.awt.Dimension(400, 200));
 		
 		addCommands();
 
@@ -52,6 +52,17 @@ public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
 		//			return id;
 		//		}
 
+		private int getSelectedRow()
+		{
+			int row = getTable().getSelectedRow();
+			return row;
+		}
+
+		private void clearSelectionInterval(int row)
+		{
+			getTable().getSelectionModel().setSelectionInterval(row, row);
+		}
+		
 		private IElement getCurrentElement()
 		{
 			int row = getTable().getSelectedRow();
@@ -73,7 +84,7 @@ public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
 				switch (db.getCommandName())
 				{
 				case DBCOMMAND_ATTACH:
-					WndsVarios.getWndTasksGroupChioce(SwingUtilities.getWindowAncestor(PanelTasksGroupsAttached.this), e ->
+					WndsVarios.getWndTasksChioce(SwingUtilities.getWindowAncestor(PanelTasksAttached.this), e ->
 					{
 						if (getElements().contains(e.getSource())) return ResErrors.ERR_ALREADYFOUND;
 						return ResErrors.NOERRORS;
@@ -82,7 +93,6 @@ public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
 						getElements().add( (IElement) e.getSource() );
 						fireTableDataChanged();
 					}).setVisible(true);
-					;
 					break;
 				case DBCOMMAND_DELETE:
 					IElement el = getCurrentElement();
@@ -91,6 +101,30 @@ public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
 					getElements().remove(el);
 					fireTableDataChanged();
 					return ResErrors.NOERRORS;
+				case DBCOMMAND_UP:
+				{
+					int row = getSelectedRow();
+					if (row > 0)
+					{
+						Collections.swap(getElements(), row, row - 1);
+						fireTableDataChanged();
+						clearSelectionInterval(--row);
+					}
+					;
+					break;
+				}
+				case DBCOMMAND_DOWN:
+				{
+					int row = getSelectedRow();
+					if ((1 + row) < getElements().size())
+					{
+						Collections.swap(getElements(), row, row + 1);
+						fireTableDataChanged();
+						clearSelectionInterval(++row);
+					}
+					;
+					break;
+				}
 				default:
 					break;
 				}
@@ -143,9 +177,7 @@ public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
 					r = check();
 					if (!r.isSuccess()) return r;
 
-					int result = JOptionPane.showConfirmDialog(SwingUtilities.getWindowAncestor(PanelTasksGroupsAttached.this),
-							ResKA.getResourceBundleValue(ResNames.ALL_MESS_SURE), //Вы уверены?
-							"Clipka", JOptionPane.OK_CANCEL_OPTION);
+					int result = Dlg.showConfirmDialogSure(PanelTasksAttached.this);  
 					if (result != JOptionPane.OK_OPTION)
 					{
 						return ResErrors.NOERRORS;
@@ -154,6 +186,34 @@ public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
 					r = executeSel(this);
 					if (!r.isSuccess()) return r;
 					//PanelTasksGroupsAttached.this.actionPerformed(new ActionEvent(this, 0, "UPDATE"));
+					return r;
+				}
+			}, new DBCommandUp()
+			{
+
+				@Override
+				public IResErrors execute()
+				{
+					IResErrors r;
+					r = check();
+					if (!r.isSuccess()) return r;
+
+					//int row = getSelectedRow();
+					r = executeSel(this);
+					return r;
+				}
+			}, new DBCommandDown()
+			{
+
+				@Override
+				public IResErrors execute()
+				{
+					IResErrors r;
+					r = check();
+					if (!r.isSuccess()) return r;
+
+					//int row = getSelectedRow();
+					r = executeSel(this);
 					return r;
 				}
 			});
@@ -180,7 +240,7 @@ public class PanelTasksGroupsAttached extends PanelTableNoCommands<IElement>
 		switch (column)
 		{
 		case 0:
-			return ResKA.getResourceBundleValue(ResNames.FORM_GROUPTASK_HEADERNAME);
+			return ResKA.getResourceBundleValue(ResNames.FORM_TASK_HEADERNAME);
 		}
 		return null;
 	}
