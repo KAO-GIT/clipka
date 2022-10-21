@@ -6,7 +6,6 @@ import kao.db.fld.DBRecordTask;
 import kao.db.fld.DataFieldNames;
 import kao.el.ElementForChoice;
 
-import kao.kb.KeyUtil;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
 import kao.tsk.Tsks;
@@ -79,14 +78,17 @@ public class PanelTasksList extends PanelTasksNoCommands
 						return ResErrors.ERR_DISABLED;
 					}
 					
-					if(el.get().getHotkey().isBlank())
-					{
-						Tsks.prepareAndRunTask(el.get(), SwingUtilities.getWindowAncestor(PanelTasksList.this));
-					} else
-					{
-						KeyUtil.sendKeys(el.get().getHotkey());
-						Thread.sleep(50);
-					}
+					Tsks.startTaskFromWindow(el.get(), SwingUtilities.getWindowAncestor(PanelTasksList.this));					
+//					Tsks.closeSpecialWindows(el.get(), SwingUtilities.getWindowAncestor(PanelTasksList.this));
+//					if(el.get().getHotkey().isBlank())
+//					{
+//						Tsks.prepareAndRunTask(el.get());
+//					} else
+//					{
+//						KeyUtil.sendKeys(el.get().getHotkey());
+//						java.util.concurrent.locks.LockSupport.parkNanos(java.util.concurrent.TimeUnit.MILLISECONDS.toNanos(100)); 
+//						//Thread.sleep(50);
+//					}
 					return ResErrors.NOERRORS;
 				case DBCOMMAND_COPY:
 					el = ConDataTask.Tasks.copyFrom(id);

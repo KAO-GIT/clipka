@@ -21,6 +21,11 @@ public interface TskAction
 		return true;
 	}
 
+	public default String getContent()
+	{
+		return "";
+	}
+	
 	public default String getLabel()
 	{
 		return "";

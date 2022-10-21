@@ -5,10 +5,10 @@ import kao.res.IResErrors;
 import kao.res.ResErrors;
 import kao.tsk.Tsks;
 
-public class TskActionCondGotoEmpty extends TskActionAbstract
+public class TskActionCondDisabled extends TskActionAbstract
 {
 
-	public TskActionCondGotoEmpty(IRecord source)
+	public TskActionCondDisabled(IRecord source)
 	{
 		super(source);
 	}
@@ -16,7 +16,7 @@ public class TskActionCondGotoEmpty extends TskActionAbstract
 	@Override
 	public IResErrors runAction() throws Exception
 	{
-		if(Tsks.getRep().isBlank())
+		if(!Tsks.getRep().isBlank())
 		{	
 			// во время выполнения устанавливаем метку
 			getOwner().get().setSavedLabel(getContent());

@@ -6,7 +6,6 @@ import kao.fw.FilterWindows;
 import kao.fw.IFilterWindow;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
-import kao.tsk.Tsks;
 
 public class TskActionCheckFilterForegroundWindow extends TskActionAbstract implements IFilterWindow
 {
@@ -21,10 +20,10 @@ public class TskActionCheckFilterForegroundWindow extends TskActionAbstract impl
 	{
 		if(checkFilterWindow())
 		{
-			Tsks.putRep("TRUE");
+			getOwner().get().setState(true);
 		} else 
 		{
-			Tsks.putRep("");
+			getOwner().get().setState(false);
 		}
 		return ResErrors.NOERRORS; 
 	}

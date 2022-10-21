@@ -14,7 +14,6 @@ import java.sql.Statement;
 
 import java.util.EnumMap;
 import java.util.Optional;
-
 import java.sql.PreparedStatement;
 
 public class ConData implements AutoCloseable
@@ -27,14 +26,34 @@ public class ConData implements AutoCloseable
 
 	public String getDataFolder()
 	{
-		return dataFolder;
+		
+		String rp = ""; 
+		if(dataFolder!=null)
+		{
+			File f =new File(dataFolder);  
+			if( f.exists() && f.isDirectory() ) {
+				rp = dataFolder; 
+			}
+		}
+		if(rp.isEmpty())
+		{
+			rp = getDefaultPath()+"/dat";
+			setDataFolder(rp); 
+			System.out.println("dataFolder = " + rp);
+		}
+		
+		return rp;		
 	}
-
 
 	public void setDataFolder(String dataFolder)
 	{
 		this.dataFolder = dataFolder;
 	}
+
+//	public void setDefaultDataFolder()
+//	{
+//		this.dataFolder = dataFolder;
+//	}
 	
 	private Connection connection;
 	
@@ -60,23 +79,9 @@ public class ConData implements AutoCloseable
 		if(connection!=null) return; 
 		try
 		{
-			// create a database connection
-			String rp = ""; 
-			if(dataFolder!=null)
-			{
-				File f =new File(dataFolder);  
-				if( f.exists() && f.isDirectory() ) {
-					rp = dataFolder; 
-				}
-			}
-			if(rp.isEmpty())
-			{
-				rp = getDefaultPath()+"/dat";
-				setDataFolder(rp); 
-			}
-			
-			System.out.println("dataFolder = " + rp);
 					
+			// create a database connection
+			String rp = getDataFolder(); 
 			connection = DriverManager.getConnection("jdbc:sqlite:" + rp + "/sett.db");
 			connection.setAutoCommit(true);
 
@@ -99,7 +104,7 @@ public class ConData implements AutoCloseable
 			myfile = new java.io.File(ConData.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 			java.io.File dir = myfile.getParentFile(); // strip off .jar file
 			dir = dir.getParentFile();  // еще на уровень веерх
-			System.out.println("ConData.getDefaultPath() "+dir); 
+			//System.out.println("ConData.getDefaultPath() "+dir); 
 			return dir.getPath(); 
 		} catch (URISyntaxException e1)
 		{
@@ -165,6 +170,44 @@ public class ConData implements AutoCloseable
 		if(hashValues.containsKey(name)) return (int) (Integer) hashValues.get(name);
 		return getIntProp(name.name());
 	}
+
+//	public static void initializeMainProperties()
+//	{
+//		int port ; 
+//		String sport = null;
+//		String filename = ConData.INSTANCE.getDataFolder()+"/main.properties"; 
+//		File configFile = new File(filename);
+//		try (InputStream input = new FileInputStream(configFile))
+//		{
+//			Properties prop = new Properties();
+//			prop.load(input);
+//			sport = prop.getProperty("port");
+//		} catch (FileNotFoundException e)
+//		{
+//			//e.printStackTrace();
+//		} catch (IOException e)
+//		{
+//			//e.printStackTrace();
+//		}
+//		
+//		if(sport == null)
+//		{
+//			port = ConData.PORT; 
+//		}
+		
+
+//		File configFile = file('src/main/resources/version.properties');
+//		Properties prop = new Properties();
+//		prop.setProperty("version", vers);
+//		try (OutputStream output = new FileOutputStream(configFile))
+//		{
+//		 prop.store(output, null);
+//		}
+//		catch (IOException io)
+//		{
+//		}
+
+//	}
 
 	public static void initializeTables()
 	{

@@ -315,6 +315,17 @@ public enum TskActionNames
 			return  TskActionCheckFilterForegroundWindow.class;
 		}
 	},
+	
+	@AnnotationDefValue("Verify that the length of the current processed string is greater than the specified length")
+	@AnnotationDefValueRu("Проверить, что длина текущей обрабатываемой строки больше указанной")
+	TSKTYPE_CHECK_LEN(302){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionCheckLen.class;
+		}
+	},
+	
 
 	@AnnotationDefValue("Set label")
 	@AnnotationDefValueRu("Установить метку")
@@ -336,23 +347,23 @@ public enum TskActionNames
 		}
 	},
 
-	@AnnotationDefValue("Go to label, if current text is empty")
-	@AnnotationDefValueRu("Перейти к метке, если текущая обрабатываемая строка не заполнена")
-	TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY(503){
+	@AnnotationDefValue("Go to label, if checked state is True")
+	@AnnotationDefValueRu("Перейти к метке, если проверяемое состояние задачи имеет значение Истина")
+	TSKTYPE_CONDITION_GOTO_IF_STATE_ENABLED(503){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
-			return  TskActionCondGotoEmpty.class;
+			return  TskActionCondGotoEnabled.class;
 		}
 	},
 	
-	@AnnotationDefValue("Go to label, if current text is not empty")
-	@AnnotationDefValueRu("Перейти к метке, если текущая обрабатываемая строка заполнена")
-	TSKTYPE_CONDITION_GOTO_IF_STR_FILL(504){
+	@AnnotationDefValue("Go to label, if checked state is False")
+	@AnnotationDefValueRu("Перейти к метке, если проверяемое состояние задачи имеет значение Ложь")
+	TSKTYPE_CONDITION_GOTO_IF_STATE_DISABLED(504){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
-			return  TskActionCondGotoFill.class;
+			return  TskActionCondDisabled.class;
 		}
 	},
 	
@@ -410,11 +421,19 @@ public enum TskActionNames
 		@AnnotationDefValue("Send keys using a special key Compose (for Windows - Alt)")
 		@AnnotationDefValueRu("Отсылает коды клавиш с помощью специально настроеной клавиши Compose (для системы Windows - Alt). Может являться аналогом вставки из буфера обмена  ")
 		TSKTYPE_SENDKEYS_COMPOSE,
+
+		@AnnotationDefValue("You can use the result, result1... result9 variables. The current processed string is entered in the result variable. After returning to the current processed string, the last value or value in the result variable is written. The remaining variables can be obtained from the store by codes 1... 9.")
+		@AnnotationDefValueRu("Можно использовать переменные result, result1...result9. В переменную result заносится текущая обрабатываемая строка. После возврата в текущую обрабатываемую строку записывается последнее значение или значение, находящееся в переменной result. Остальные переменные можно получить из хранилища по кодам 1...9.")
+		TSKTYPE_RUNCODE_GROOVY,
 		
-		@AnnotationDefValue("The specified window filter is checked. If the condition fails, the current processed string is cleared")
-		@AnnotationDefValueRu("По указанному фильтру окна выполняется проверка. Если условие не проходит - текущая обрабатываемая строка очищается")
+		@AnnotationDefValue("The specified window filter is checked. The checked state of the task is set depending on this condition")
+		@AnnotationDefValueRu("По указанному фильтру окна выполняется проверка. Проверяемое состояние задачи устанавливается в зависимости от выполнения условия")
 		TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW,
 
+		@AnnotationDefValue("If the length of the current processed string is greater than the value in contents, the state is True")
+		@AnnotationDefValueRu("Если длина текущей обрабатываемой строки больше указанной в содержании, проверяемое состояние задачи устанавливается Истина ")
+		TSKTYPE_CHECK_LEN,
+		
 		@AnnotationDefValue("Set label")
 		@AnnotationDefValueRu("Устанавливает метку")
 		TSKTYPE_CONDITION_LABEL,
@@ -423,13 +442,13 @@ public enum TskActionNames
 		@AnnotationDefValueRu("Переходит к подзадаче с указанной меткой")
 		TSKTYPE_CONDITION_GOTO,
 
-		@AnnotationDefValue("Go to the subtask with the specified label, if current text is empty")
-		@AnnotationDefValueRu("Переходит к подзадаче с указанной меткой, если текущая обрабатываемая строка не заполнена")
-		TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY,
+		@AnnotationDefValue("Go to the subtask with the specified label, if checked state is True ")
+		@AnnotationDefValueRu("Переходит к подзадаче с указанной меткой, если проверяемое состояние задачи имеет значение Истина")
+		TSKTYPE_CONDITION_GOTO_IF_STATE_ENABLED,
 		
-		@AnnotationDefValue("Go to the subtask with the specified label, if current text is not empty")
-		@AnnotationDefValueRu("Переходит к подзадаче с указанной меткой, если текущая обрабатываемая строка заполнена")
-		TSKTYPE_CONDITION_GOTO_IF_STR_FILL,
+		@AnnotationDefValue("Go to the subtask with the specified label, if checked state is False")
+		@AnnotationDefValueRu("Переходит к подзадаче с указанной меткой, если проверяемое состояние задачи имеет значение Ложь")
+		TSKTYPE_CONDITION_GOTO_IF_STATE_DISABLED,
 		
 	}
 
@@ -539,6 +558,10 @@ public enum TskActionNames
 		@AnnotationDefValueRu("Содержание не требуется. Нужно указать фильтр окна, по которому будет выполнятся проверка")
 		TSKTYPE_CHECK_FILTER_FOREGROUND_WINDOW,
 
+		@AnnotationDefValue("Length is entered into the contents")
+		@AnnotationDefValueRu("В содержание заносится проверяемая длина строки ")
+		TSKTYPE_CHECK_LEN,
+		
 		@AnnotationDefValue("Label name is entered in the contents")
 		@AnnotationDefValueRu("В содержание заносится имя метки")
 		TSKTYPE_CONDITION_LABEL,
@@ -549,11 +572,11 @@ public enum TskActionNames
 
 		@AnnotationDefValue("Label name is entered in the contents")
 		@AnnotationDefValueRu("В содержание заносится имя метки")
-		TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY,
+		TSKTYPE_CONDITION_GOTO_IF_STATE_ENABLED,
 
 		@AnnotationDefValue("Label name is entered in the contents")
 		@AnnotationDefValueRu("В содержание заносится имя метки")
-		TSKTYPE_CONDITION_GOTO_IF_STR_FILL,
+		TSKTYPE_CONDITION_GOTO_IF_STATE_DISABLED,
 
 		;
 	}

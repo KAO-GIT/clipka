@@ -10,6 +10,7 @@ import kao.db.ConDataTask;
 import kao.db.fld.DBRecordTask;
 import kao.db.fld.DBRecordTasksGroup;
 import kao.db.fld.DataFieldNames;
+import kao.db.fld.IHotkey;
 import kao.db.fld.IRecord;
 import kao.el.ElementForChoice;
 import kao.el.ElementSettHotKey;
@@ -19,6 +20,7 @@ import kao.frm.WndsVarios;
 import kao.frm.swing.Dlg;
 import kao.frm.swing.WndMain;
 import kao.kb.KeyStruct;
+import kao.kb.KeyUtil;
 import kao.prop.ResKA;
 import kao.prop.Utils;
 
@@ -122,31 +124,54 @@ public class Tsks
 			}
 			if (r != null)
 			{
-				prepareAndRunTask(r, owner);
+//				closeSpecialWindows(r, owner); 
+//				prepareAndRunTask(r);
+				Tsks.startTaskFromWindow(r, owner);
 			}
-		} catch (SQLException e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
 
-	public static void prepareAndRunTask(final IRecord source, final java.awt.Window owner)
+	public static void closeSpecialWindows(final IRecord source, final java.awt.Window owner)
 	{
-		if (owner != null)
+		Tsk tsk = Tsks.getTsk(source);
+		if (tsk instanceof INeedCloseSpecialWindows)
 		{
-			Tsk tsk = Tsks.getTsk(source);
-			if (tsk instanceof INeedCloseSpecialWindows)
+			boolean needCloseAllSpecialWindows = ((INeedCloseSpecialWindows) tsk).needCloseAllSpecialWindows();
+			System.out.println("Tsks.prepareAndRunTask needCloseAllSpecialWindows "+needCloseAllSpecialWindows);
+			if (needCloseAllSpecialWindows)
 			{
-				boolean needCloseAllSpecialWindows = ((INeedCloseSpecialWindows) tsk).needCloseAllSpecialWindows();
-				if (needCloseAllSpecialWindows)
+				WndMain.closeMainWindow();
+				if (owner != null)
 				{
-					WndMain.closeMainWindow();
 					Dlg.closeWindow(owner);
-					java.util.concurrent.locks.LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(500));
-				}
+				}	
+				java.util.concurrent.locks.LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(500));
 			}
 		}
-		prepareAndRunTask(source);
+	}
+	
+	public static void startTaskFromWindow(final IRecord source, final java.awt.Window owner) throws Exception
+	{
+		
+		closeSpecialWindows(source, owner);
+		if(source instanceof IHotkey) 
+		{	
+			if(((IHotkey)source).getHotkey().isBlank())
+			{
+				Tsks.prepareAndRunTask(source);
+			} else
+			{
+				KeyUtil.sendKeys(((IHotkey)source).getHotkey());
+				java.util.concurrent.locks.LockSupport.parkNanos(java.util.concurrent.TimeUnit.MILLISECONDS.toNanos(50)); 
+				//Thread.sleep(50);
+			}
+		} else 
+		{
+			Tsks.prepareAndRunTask(source);
+		}
 	}
 
 	public static void prepareAndRunTask(final IRecord source)

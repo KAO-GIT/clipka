@@ -29,6 +29,7 @@ public class TskRegular implements Tsk, TskOwner, IClipboardBlock, INeedCloseSpe
 	private static final Logger LOGGER = LoggerFactory.getLogger(TskRegular.class);
 
 	private String savedLabel = ""; // запомненная метка
+	private Boolean state = null;   // проверяемое состояние 
 
 	final private int level; // уровень задачи, вызываемой из другой задачи
 	final private ArrayList<TskAction> actions; // список действий 
@@ -77,10 +78,11 @@ public class TskRegular implements Tsk, TskOwner, IClipboardBlock, INeedCloseSpe
 			{
 				if (!getSavedLabel().equalsIgnoreCase(a.getLabel())) continue;
 			}
+			LOGGER.debug("action: {}, content: {}", a.getClass(),a.getContent());
 			ret = a.runAction();
-			LOGGER.debug("end {}", ret);
 			if (!ret.isSuccess()) break;
 		}
+		LOGGER.debug("end {}", ret);
 		return ret;
 	}
 
@@ -128,19 +130,34 @@ public class TskRegular implements Tsk, TskOwner, IClipboardBlock, INeedCloseSpe
 		return ret;
 	}
 
+	@Override
 	public int getLevel()
 	{
 		return level;
 	}
 
+	@Override
 	public String getSavedLabel()
 	{
 		return savedLabel;
 	}
 
+	@Override
 	public void setSavedLabel(String savedLabel)
 	{
 		this.savedLabel = savedLabel;
+	}
+
+	@Override
+	public Boolean getState()
+	{
+		return state;
+	}
+
+	@Override
+	public void setState(Boolean state)
+	{
+		this.state = state;
 	}
 
 }

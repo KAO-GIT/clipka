@@ -614,4 +614,19 @@ public class Utils
 		}
 		return true;
 	}
+	
+	public static int parseInt(String source, int defaultValue)
+	{
+		int newValue = defaultValue;
+		if (isInteger(source))
+		{
+			try
+			{
+				newValue = Integer.parseInt(source);
+			} catch (NumberFormatException e)
+			{
+			}
+		}
+		return newValue; 
+	}
 }

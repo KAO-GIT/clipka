@@ -5,7 +5,7 @@ import kao.res.IResErrors;
 import kao.res.ResErrors;
 import kao.tsk.Tsks;
 
-public class TskActionCheckLen extends TskActionAbstract 
+public class TskActionCheckLen extends TskActionAbstract
 {
 
 	public TskActionCheckLen(IRecord source)
@@ -16,17 +16,19 @@ public class TskActionCheckLen extends TskActionAbstract
 	@Override
 	public IResErrors runAction() throws Exception
 	{
-		if(getContent().isBlank()) 
+		int val = kao.prop.Utils.parseInt(getContent(), -1);
+		if (val >= 0)
 		{
-			Tsks.putRep(""); 
+			// длина текущей обрабатываемой строки больше указанной
+			if (Tsks.getRep().length() > val)
+			{
+				getOwner().get().setState(true);
+			} else
+			{
+				getOwner().get().setState(false);
+			}
 		}
-		else 
-		{
-			Tsks.removeRep(getContent());
-		}	
-		
-		Tsks.putRep("TRUE");
-		return ResErrors.NOERRORS; 
+		return ResErrors.NOERRORS;
 	}
 
 }
