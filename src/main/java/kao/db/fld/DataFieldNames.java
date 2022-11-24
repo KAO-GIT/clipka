@@ -50,6 +50,10 @@ public enum DataFieldNames
 	@AnnotationDefValueRu("Приоритет")
 	DATAFIELD_POSITION, 
 
+	@AnnotationDefValue("Value")
+	@AnnotationDefValueRu("Значение")
+	DATAFIELD_VALUE, 
+	
 	@AnnotationDefValue("Group")
 	@AnnotationDefValueRu("Группа")
 	DATAFIELD_GROUP, 

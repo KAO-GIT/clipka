@@ -325,11 +325,31 @@ public enum TskActionNames
 			return  TskActionCheckLen.class;
 		}
 	},
+
+	@AnnotationDefValue("Verify that the current processed string may print as 'compose codes'")
+	@AnnotationDefValueRu("Проверить, что текущая обрабатываемая строка может быть вставлена через коды Compose ")
+	TSKTYPE_CHECK_PRINT_AS_COMPOSE(303){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionCheckPrintAsCompose.class;
+		}
+	},
 	
 
+	@AnnotationDefValue("End task")
+	@AnnotationDefValueRu("Завершить задачу")
+	TSKTYPE_END_TASK(501){
+		@Override
+		public  Class<? extends TskAction>  getClassTskAction()
+		{
+			return  TskActionEndTask.class;
+		}
+	},
+	
 	@AnnotationDefValue("Set label")
-	@AnnotationDefValueRu("Установить метку")
-	TSKTYPE_CONDITION_LABEL(501){
+	@AnnotationDefValueRu("Это метка")
+	TSKTYPE_CONDITION_LABEL(505){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
@@ -339,7 +359,7 @@ public enum TskActionNames
 
 	@AnnotationDefValue("Go to label")
 	@AnnotationDefValueRu("Перейти к метке безусловно")
-	TSKTYPE_CONDITION_GOTO(502){
+	TSKTYPE_CONDITION_GOTO(511){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
@@ -349,7 +369,7 @@ public enum TskActionNames
 
 	@AnnotationDefValue("Go to label, if checked state is True")
 	@AnnotationDefValueRu("Перейти к метке, если проверяемое состояние задачи имеет значение Истина")
-	TSKTYPE_CONDITION_GOTO_IF_STATE_ENABLED(503){
+	TSKTYPE_CONDITION_GOTO_IF_STATE_ENABLED(512){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
@@ -359,7 +379,7 @@ public enum TskActionNames
 	
 	@AnnotationDefValue("Go to label, if checked state is False")
 	@AnnotationDefValueRu("Перейти к метке, если проверяемое состояние задачи имеет значение Ложь")
-	TSKTYPE_CONDITION_GOTO_IF_STATE_DISABLED(504){
+	TSKTYPE_CONDITION_GOTO_IF_STATE_DISABLED(513){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
@@ -433,6 +453,14 @@ public enum TskActionNames
 		@AnnotationDefValue("If the length of the current processed string is greater than the value in contents, the state is True")
 		@AnnotationDefValueRu("Если длина текущей обрабатываемой строки больше указанной в содержании, проверяемое состояние задачи устанавливается Истина ")
 		TSKTYPE_CHECK_LEN,
+
+		@AnnotationDefValue("If the current processed string may print as 'compose codes' the state is True")
+		@AnnotationDefValueRu("Если текущая обрабатываемая строка может быть вставлена через коды Compose, проверяемое состояние задачи устанавливается Истина ")
+		TSKTYPE_CHECK_PRINT_AS_COMPOSE,
+
+		@AnnotationDefValue("Terminates the task")
+		@AnnotationDefValueRu("Завершает задачу, остальные подзадачи не выполняются")
+		TSKTYPE_END_TASK,
 		
 		@AnnotationDefValue("Set label")
 		@AnnotationDefValueRu("Устанавливает метку")
@@ -561,6 +589,10 @@ public enum TskActionNames
 		@AnnotationDefValue("Length is entered into the contents")
 		@AnnotationDefValueRu("В содержание заносится проверяемая длина строки ")
 		TSKTYPE_CHECK_LEN,
+
+		@AnnotationDefValue("Content is not required")
+		@AnnotationDefValueRu("Содержание не требуется")
+		TSKTYPE_CHECK_PRINT_AS_COMPOSE,
 		
 		@AnnotationDefValue("Label name is entered in the contents")
 		@AnnotationDefValueRu("В содержание заносится имя метки")

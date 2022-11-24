@@ -72,6 +72,9 @@ public enum DBCommandNames
 	@AnnotationDefValueRu("Помощь")
 	DBCOMMAND_HELP(), 
 	
+	@AnnotationDefValue("Fill current table")
+	@AnnotationDefValueRu("Заполнить таблицу")
+	DBCOMMAND_FILL(), 
 	
 	;
 	

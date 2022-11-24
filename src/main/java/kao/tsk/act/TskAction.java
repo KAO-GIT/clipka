@@ -31,6 +31,11 @@ public interface TskAction
 		return "";
 	}
 	
+	public default int getNestedTask()
+	{
+		return 0;
+	}
+	
 	public static TskAction getAction(IRecord source)
 	{
 		TskAction ret = null;

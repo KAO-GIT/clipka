@@ -9,6 +9,7 @@ import kao.db.cmd.ICheck;
 import kao.el.ElementForChoice;
 
 import kao.frm.swing.PanelAlertWindowList;
+import kao.frm.swing.PanelComposeList;
 import kao.frm.swing.PanelFilterForegroundWindowList;
 
 /**
@@ -119,6 +120,21 @@ public class WndsVarios
 	synchronized public static void showWndAlertList()
 	{
 		getWndAlertList().setVisible(true); 
+	}
+
+	synchronized private static kao.frm.swing.Wnd getWndComposeList() 
+	{
+		kao.frm.swing.Wnd wnd = new kao.frm.swing.Wnd(null,false,false);
+		
+		PanelComposeList f = new PanelComposeList();
+		wnd.setP(f);
+		kao.frm.swing.Dlg.setDefaultCommand(f, DBCommandNames.DBCOMMAND_CLOSE);
+		return wnd;
+	}
+	
+	synchronized public static void showWndComposeList()
+	{
+		getWndComposeList().setVisible(true); 
 	}
 	
 }

@@ -54,7 +54,7 @@ public class ConDataClp
 		// if (dataPath == null || dataPath.isBlank())
 
 		// Определяем путь 
-		String dataPath = ConData.INSTANCE.getDataFolder() + "/data.db";
+		String dataPath = ConData.getDataFolder() + "/data.db";
 
 		statement.execute("ATTACH DATABASE '" + dataPath + "' AS data");
 

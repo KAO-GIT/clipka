@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import kao.db.ConData;
+import kao.db.ConDataMisc;
+
 //import kao.kb.KeyStructs;
 //import kao.kb.KeyUtil;
 
@@ -119,5 +122,13 @@ class UtilsTest
 //	{
 //		IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
 //	}
-	
+
+	@Test
+	void testMayPressWithComposeKeys() throws Exception
+	{
+		ConData.initializeTables();
+		ConDataMisc.Compose.fillComposeValues();
+		assertTrue(Utils.mayPressWithComposeKeys("s")); 
+//		assertFalse(Utils.mayPressWithComposeKeys("✓")); // может быть добавлено значение  
+	}
 }

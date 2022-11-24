@@ -1,5 +1,7 @@
 package kao.db;
 
+import kao.prop.Utils;
+
 //import kao.el.*;
 //import kao.prop.*;
 
@@ -14,17 +16,33 @@ import java.sql.Statement;
 
 import java.util.EnumMap;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.PreparedStatement;
 
 public class ConData implements AutoCloseable
 {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConData.class);
+	
 	public static final ConData INSTANCE = new ConData();
 	
 	public static final int PORT = 6776; 
 
-	private String dataFolder;
+	private static String dataFolder;
+	
+	private Connection connection;
+	
+	//Кэшированные значения - только те, которые описаны в функции	
+	private volatile static EnumMap<kao.res.ResNames,Object> hashValues = new EnumMap<ResNames, Object>(kao.res.ResNames.class); 
 
-	public String getDataFolder()
+	private ConData()
+	{
+	}
+
+	public static String getDataFolder()
 	{
 		
 		String rp = ""; 
@@ -37,17 +55,17 @@ public class ConData implements AutoCloseable
 		}
 		if(rp.isEmpty())
 		{
-			rp = getDefaultPath()+"/dat";
+			rp = ConData.getDefaultPath()+"/dat";
 			setDataFolder(rp); 
-			System.out.println("dataFolder = " + rp);
+			LOGGER.info("dataFolder: {}",rp); 
+			//System.out.println("dataFolder = " + rp);
 		}
-		
 		return rp;		
 	}
 
-	public void setDataFolder(String dataFolder)
+	public static void setDataFolder(String dataFolder)
 	{
-		this.dataFolder = dataFolder;
+		ConData.dataFolder = dataFolder;
 	}
 
 //	public void setDefaultDataFolder()
@@ -55,19 +73,12 @@ public class ConData implements AutoCloseable
 //		this.dataFolder = dataFolder;
 //	}
 	
-	private Connection connection;
 	
 	synchronized public static int getSizeTextElem()
 	{
 		return getIntProp(ResNames.SETTINGS_CLP_SIZETEXTELEM);
 	}
 
-	//Кэшированные значения - только те, которые описаны в функции	
-	private volatile static EnumMap<kao.res.ResNames,Object> hashValues = new EnumMap<ResNames, Object>(kao.res.ResNames.class); 
-
-	private ConData()
-	{
-	}
 
 	public static void initialize()
 	{
@@ -81,7 +92,7 @@ public class ConData implements AutoCloseable
 		{
 					
 			// create a database connection
-			String rp = getDataFolder(); 
+			String rp = ConData.getDataFolder(); 
 			connection = DriverManager.getConnection("jdbc:sqlite:" + rp + "/sett.db");
 			connection.setAutoCommit(true);
 
@@ -173,40 +184,46 @@ public class ConData implements AutoCloseable
 
 //	public static void initializeMainProperties()
 //	{
-//		int port ; 
+//		int port = 0 ; 
 //		String sport = null;
-//		String filename = ConData.INSTANCE.getDataFolder()+"/main.properties"; 
+//		String filename = ConData.getDataFolder()+"/main.properties"; 
 //		File configFile = new File(filename);
 //		try (InputStream input = new FileInputStream(configFile))
 //		{
 //			Properties prop = new Properties();
 //			prop.load(input);
 //			sport = prop.getProperty("port");
+//			port = Integer.parseInt(sport); 
+//			initializePortHashValues(port); 
 //		} catch (FileNotFoundException e)
 //		{
 //			//e.printStackTrace();
 //		} catch (IOException e)
 //		{
 //			//e.printStackTrace();
+//		} catch (NumberFormatException e)
+//		{
+//			//e.printStackTrace();
 //		}
 //		
-//		if(sport == null)
+//		if(port == 0)
 //		{
-//			port = ConData.PORT; 
+//			port = ConData.PORT;
+//			
 //		}
-		
-
-//		File configFile = file('src/main/resources/version.properties');
-//		Properties prop = new Properties();
-//		prop.setProperty("version", vers);
-//		try (OutputStream output = new FileOutputStream(configFile))
-//		{
-//		 prop.store(output, null);
-//		}
-//		catch (IOException io)
-//		{
-//		}
-
+//		
+//
+////		File configFile = file("src/main/resources/version.properties");
+////		Properties prop = new Properties();
+////		prop.setProperty("version", vers);
+////		try (OutputStream output = new FileOutputStream(configFile))
+////		{
+////		 prop.store(output, null);
+////		}
+////		catch (IOException io)
+////		{
+////		}
+//
 //	}
 
 	public static void initializeTables()
@@ -224,6 +241,8 @@ public class ConData implements AutoCloseable
 			new ConDataClp().initializeTablesData(statement);
 			
 			new ConDataTask().initializeTablesTask(statement);
+
+			new ConDataMisc().initializeTablesMisc(statement);
 			
 			initializeHashValues(); 
 		} catch (SQLException e)
@@ -238,6 +257,12 @@ public class ConData implements AutoCloseable
 		if(hashValues.containsKey(name)) hashValues.put(name, value);
 	}
 
+//	synchronized private static void initializePortHashValues(int port)
+//	{
+//		// что не войти в рекурсию - здесь нужно получать по имени getIntProp(String)
+//		hashValues.put(ResNames.SETTINGS_SYS_SOCKETPORT, port); 
+//	}
+	
 	synchronized private static void initializeHashValues()
 	{
 		// что не войти в рекурсию - здесь нужно получать по имени getIntProp(String)
@@ -271,7 +296,9 @@ public class ConData implements AutoCloseable
 		hashValues.put(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS, com.sun.jna.Platform.isWindows()?1:0);
 
 		hashValues.put(ResNames.SETTINGS_SYS_TASK_MAX_LEVEL, 10); // пока запишем безусловно
+		
 		hashValues.put(ResNames.SETTINGS_CLP_COMPOSE_SIZETEXTELEM, 50); // пока запишем безусловно
+		hashValues.put(ResNames.SETTINGS_CLP_OEM_CHARSET, String.format("%d",Utils.getOEMCodePage())); // пока запишем безусловно
 		
 	}
 

@@ -45,7 +45,7 @@ public class ConDataTask
 	{
 
 		// Определяем путь 
-		String path = ConData.INSTANCE.getDataFolder() + "/tasks.db";
+		String path = ConData.getDataFolder() + "/tasks.db";
 
 		//@formatter:off 
 		
@@ -760,7 +760,7 @@ public class ConDataTask
 				// получим подзадачи, привязанные к задачам
 				//@formatter:off 
 				statement3 = connection.prepareStatement(
-						  "SELECT S.position,1+S.position id,S.description,S.content,S.type,IFNULL(S.cmdtsk,0) cmdtsk, T.predefined FROM tsk.tsts1 S INNER JOIN tsk.tsh1 T ON S.owner=T.id WHERE S.owner=? "
+						  "SELECT S.position,1+S.position id,S.description,S.content,S.type,IFNULL(S.cmdtsk,0) cmdtsk,IFNULL(S.cmdflt,0) cmdflt, T.predefined FROM tsk.tsts1 S INNER JOIN tsk.tsh1 T ON S.owner=T.id WHERE S.owner=? "
 						+ "ORDER BY S.position "
 					);
 				//@formatter:on
@@ -776,7 +776,7 @@ public class ConDataTask
 
 					DBRecordSubTask st = new DBRecordSubTask(0, r); // всегда можем редактировать
 					st.setValue("id", resultSet3).setValue("content", resultSet3).setValue("type", resultSet3).setValue("description", resultSet3)
-							.setValue("cmdtsk", resultSet3);
+							.setValue("cmdtsk", resultSet3).setValue("cmdflt", resultSet3);
 
 					subtasks.add(st);
 				}
@@ -1001,10 +1001,12 @@ public class ConDataTask
 						{
 							Integer nt = el.getIntNestedTask(); 
 							if(nt==0) nt=null;
+							Integer nf = el.getIntFilterWindow(); 
+							if(nf==0) nf=null;
 							
 							int type = el.getIntValue(DataFieldNames.DATAFIELD_SUBTASKTYPE);
 							
-							statement = connection.prepareStatement("INSERT INTO tsk.tsts1 (owner,position,description,type,content,cmdtsk) VALUES (?,?,?,?,?,?)");
+							statement = connection.prepareStatement("INSERT INTO tsk.tsts1 (owner,position,description,type,content,cmdtsk,cmdflt) VALUES (?,?,?,?,?,?,?)");
 							statement.setInt(1, id);
 							statement.setInt(2, ++i);
 							statement.setString(3, el.getStringValue(DataFieldNames.DATAFIELD_DESCRIPTION));
@@ -1012,6 +1014,8 @@ public class ConDataTask
 							statement.setString(5, el.getStringValue(DataFieldNames.DATAFIELD_CONTENT));
 							if(nt==null) statement.setNull(6, java.sql.Types.INTEGER);
 							else statement.setInt(6, nt);
+							if(nf==null) statement.setNull(7, java.sql.Types.INTEGER);
+							else statement.setInt(7, nf);
 
 							statement.executeUpdate();
 						}

@@ -8,6 +8,10 @@ public enum ResErrors implements IResErrors
 	@AnnotationDefValueRu("Успешно")
 	NOERRORS, 
 
+	@AnnotationDefValue("End task")
+	@AnnotationDefValueRu("Завершение задачи")
+	ENDTASK, 
+	
 	@AnnotationDefValue("Not supported")
 	@AnnotationDefValueRu("Не поддерживается")
 	NOTSUPPORTED, 
@@ -95,6 +99,6 @@ public enum ResErrors implements IResErrors
 	@Override
 	public boolean isSuccess()
 	{
-		return this == NOERRORS ; 
+		return this == NOERRORS || this==ENDTASK; 
 	}
 }

@@ -1,6 +1,7 @@
 package kao.prop;
 
 import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -9,6 +10,8 @@ import java.net.URISyntaxException;
 import java.nio.charset.CharacterCodingException;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,9 +20,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kao.db.ConData;
+import kao.db.ConDataMisc;
 import kao.db.fld.DBRecordTask;
 import kao.db.fld.DataFieldNames;
 import kao.db.fld.IRecord;
+import kao.kb.KeyUtil;
 import kao.res.ResNames;
 
 public class Utils
@@ -143,11 +148,111 @@ public class Utils
 		IntStream.iterate(keys.length - 1, i -> i >= 0, i -> i = i - 1).forEachOrdered(i -> robot.keyRelease(keys[i]));
 	}
 
+	
+	/**
+	 * Проверяет, может ли переданная строка выводиться с помощью compose
+	 * 
+	 * @param s - проверяемая строка
+	 * @return
+	 */
+	public static boolean mayPressWithComposeKeys(String s)
+	{
+		return s.chars().mapToObj(i -> String.valueOf((char) i)).anyMatch(t -> ConDataMisc.Compose.getComposeValues().containsKey(t)); 
+	}
+
 	/**
 	 * @param s
 	 * @param otherParam - нужен только для Linux, если в приходящей строке есть символ W - передает Alt, если нет символа W или есть любой	 другой символ - передает Compose  
 	 */
 	public static void pressWithComposeKeys(String s, String otherParam)
+	{
+		boolean isOnNM = false;
+		boolean getStateNM = false;
+
+		try
+		{
+			Toolkit toolkit = Toolkit.getDefaultToolkit();
+			isOnNM = toolkit.getLockingKeyState(KeyEvent.VK_NUM_LOCK); // Get the locking state of the Num Lock button.
+			getStateNM = true;
+		} catch (UnsupportedOperationException e1)
+		{
+		}
+		
+		try
+		{
+			Thread.sleep(1);
+			
+			Robot robot = KeyUtil.getRobot(); 
+			
+			if (!isOnNM && getStateNM)
+			{
+				pressReleaseKeys(new int[]
+				{ KeyEvent.VK_NUM_LOCK }, 0, false, robot);
+			}
+
+//			String key = s.chars().mapToObj(i -> String.valueOf((char) i)).map(t -> ConDataMisc.Compose.getComposeValues().get(t)).findAny().get(); 
+//			String[] keys = {key}; // s.chars().mapToObj(i -> String.valueOf((char) i)).map(t -> ConDataMisc.Compose.getComposeValues().get(t)).toArray(); 
+			
+			List<String> keys2 = s.chars().mapToObj(i -> String.valueOf((char) i)).map(t -> ConDataMisc.Compose.getComposeValues().get(t)).filter(t -> t!=null).collect(Collectors.toList()); 
+			for (int j = 0; j < keys2.size(); j++)
+			{
+				String key2 = keys2.get(j); 
+				if (ConData.getIntProp(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS) == 1)
+				{
+					Utils.pressKeys(new int[]{ KeyEvent.VK_ALT },robot);				
+					KeyUtil.sendKeys(key2);
+					Utils.releaseKeys(new int[]{ KeyEvent.VK_ALT },robot);				
+					
+				} else
+				{
+					if (otherParam.contains("W"))
+					{
+						LOGGER.info("pressWithComposeKeys alt");
+						Utils.pressKeys(new int[]{ KeyEvent.VK_ALT },robot);				
+						KeyUtil.sendKeys(key2);
+						Utils.releaseKeys(new int[]{ KeyEvent.VK_ALT },robot);				
+					}
+					if (!otherParam.equals("W"))
+					{
+						LOGGER.info("pressWithComposeKeys compose");
+						Utils.pressKeys(new int[]{ KeyEvent.VK_COMPOSE },robot);				
+						KeyUtil.sendKeys(key2);
+						Utils.releaseKeys(new int[]{ KeyEvent.VK_COMPOSE },robot);				
+					}
+				}
+				
+				Thread.sleep(1);
+			}
+
+			if (!isOnNM && getStateNM)
+			{
+				pressReleaseKeys(new int[]
+				{ KeyEvent.VK_NUM_LOCK }, 0, false, robot);
+			}
+
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+		}
+	}
+	
+	/**
+	 * Вариант функции, сам разбирает строку с учетом кодовой страницы, не учитывается хешированная таблица 
+	 * На текущий момент не используется, но пока не удален 
+	 * 
+	 * @param s
+	 * @param otherParam - нужен только для Linux, если в приходящей строке есть символ W - передает Alt, если нет символа W или есть любой	 другой символ - передает Compose
+	 * @param codepage - кодовая страница  
+	 */
+	public static void pressWithComposeKeys(String s, String otherParam, String codepage)
 	{
 		//waitEmptyModifiers(); - сейчас задачи знают, нужно ли ждать
 
@@ -173,25 +278,27 @@ public class Utils
 				{ KeyEvent.VK_NUM_LOCK }, 0, false);
 			}
 
-			bytes = s.getBytes("CP866");
+			bytes = s.getBytes(codepage);
 			for (byte b : bytes)
 			{
-				if(ConData.getIntProp(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS)==1)
+				if (ConData.getIntProp(ResNames.PARAM_CURRENT_SYSTEM_WINDOWS) == 1)
 				{
-					pressWithComposeKeys(new int[]{KeyEvent.VK_ALT}, b);
-				}
-				else 
+					pressWithComposeKeys(new int[]
+					{ KeyEvent.VK_ALT }, b);
+				} else
 				{
-					if(otherParam.contains("W")) 
+					if (otherParam.contains("W"))
 					{
 						LOGGER.info("pressWithComposeKeys alt");
-						pressWithComposeKeys(new int[]{KeyEvent.VK_ALT}, b);
+						pressWithComposeKeys(new int[]
+						{ KeyEvent.VK_ALT }, b);
 					}
-					if(!otherParam.equals("W"))
-					{	
+					if (!otherParam.equals("W"))
+					{
 						LOGGER.info("pressWithComposeKeys compose");
-						pressWithComposeKeys(new int[]{KeyEvent.VK_COMPOSE}, b);
-					}	
+						pressWithComposeKeys(new int[]
+						{ KeyEvent.VK_COMPOSE }, b);
+					}
 				}
 				Thread.sleep(1);
 			}
@@ -219,7 +326,14 @@ public class Utils
 		}
 	}
 
-	public static void pressWithComposeKeys(int[] keys, byte symbol)
+	/**
+	 * Вариант функции, который безусловно работает в Windows, не учитывается хешированная таблица 
+	 * На текущий момент не используется, но пока не удален 
+	 * 
+	 * @param keys
+	 * @param symbol
+	 */
+	private static void pressWithComposeKeys(int[] keys, byte symbol)
 	{
 		String ascii = String.format("%03d", (int) symbol & 0xff); // byte -> int 
 		Integer[] codes = ascii.chars().mapToObj(i ->
@@ -252,7 +366,7 @@ public class Utils
 		}).toArray(Integer[]::new);
 
 		//System.out.println("pressWithComposeKeys: "+Arrays.toString(codes));
-		
+
 		java.awt.Robot robot;
 		try
 		{
@@ -274,7 +388,6 @@ public class Utils
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -287,8 +400,8 @@ public class Utils
 	 */
 	public static char decodeByte(int b, String charsetName) throws CharacterCodingException
 	{
-		return java.nio.charset.Charset.forName(charsetName).newDecoder().decode(
-				java.nio.ByteBuffer.wrap(new byte[]{(byte) b })).charAt(0);
+		return java.nio.charset.Charset.forName(charsetName).newDecoder().decode(java.nio.ByteBuffer.wrap(new byte[]
+		{ (byte) b })).charAt(0);
 	}
 
 	/**
@@ -614,7 +727,7 @@ public class Utils
 		}
 		return true;
 	}
-	
+
 	public static int parseInt(String source, int defaultValue)
 	{
 		int newValue = defaultValue;
@@ -627,6 +740,24 @@ public class Utils
 			{
 			}
 		}
-		return newValue; 
+		return newValue;
 	}
+
+	public static int getOEMCodePage()
+	{
+		if (com.sun.jna.Platform.isWindows())
+		{
+			int cp = com.sun.jna.platform.win32.Kernel32.INSTANCE.GetConsoleCP();
+			if (cp == 0)
+			{
+				if (Locale.getDefault().getLanguage().equals("ru")) cp = 866;
+				else cp = 437;
+			}
+			return cp;
+		} else
+		{
+			return 0;
+		}
+	}
+
 }

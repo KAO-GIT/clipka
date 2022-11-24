@@ -129,7 +129,7 @@ public abstract class PanelTableNoCommands<T extends IElement> extends JPanel
 		switch (column)
 		{
 		case 0:
-			return el.get().getTitle();
+			return el.get().getColumn1();
 		case 1:
 			return el.get().getColumn2();
 		}

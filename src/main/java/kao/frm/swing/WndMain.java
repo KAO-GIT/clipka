@@ -133,6 +133,13 @@ public class WndMain extends JFrame
 		});
 		p.add(mfw);
 		
+		AbstractButton mfc = new JButton(b.getString(ResNames.FORM_COMPOSE_LIST.name()));
+		mfc.addActionListener(e ->
+		{
+			WndsVarios.showWndComposeList();
+		});
+		p.add(mfc);
+		
 		AbstractButton mfa = new JButton(b.getString(ResNames.FORM_ALERTS_LIST.name()));
 		mfa.addActionListener(e ->
 		{
@@ -273,6 +280,14 @@ public class WndMain extends JFrame
 				WndsVarios.showWndFilterForegroundWindow();
 			});
 			popup.add(mfw);
+			
+			MenuItem mfc = new MenuItem(b.getString(ResNames.FORM_COMPOSE_LIST.name()));
+			mfc.addActionListener(e ->
+			{
+				WndsVarios.showWndComposeList();
+			});
+			popup.add(mfc);
+			
 			
 			MenuItem mfa = new MenuItem(b.getString(ResNames.FORM_ALERTS_LIST.name()));
 			mfa.addActionListener(e ->

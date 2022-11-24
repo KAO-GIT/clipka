@@ -30,6 +30,11 @@ public interface IElement
 		return String.format("%s (%s)",getTitle(), getId()).trim();
 	}
 
+	public default String getColumn1()
+	{
+		return getTitle();
+	}
+	
 	// если в списке отображается 2-й столбец 
 	public default String getColumn2()
 	{

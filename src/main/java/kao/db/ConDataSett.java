@@ -248,5 +248,12 @@ public class ConDataSett
 	{
 		return MetaTypes.valueOf(typ.toUpperCase()).getDBType() == MetaTypes.DBTypes.INTEGER;
 	}
+	
+	
+//	// наиболее важные свойства, которые хранятся в текстовом файле, чтобы не обращаться к базе данных 
+//	public static class MainProperties
+//	{
+//		
+//	}
 
 }

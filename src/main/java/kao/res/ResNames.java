@@ -166,6 +166,11 @@ public enum ResNames
 	@AnnotationDefValueRu("Строка для конвертирования ошибочно набранного регистра букв ")
 	SETTINGS_CLP_STRING_REG(),
 	
+	@AnnotationDefValue("Default OEM charset")
+	@AnnotationDefValueRu("Кодировка OEM по умолчанию")
+	SETTINGS_CLP_OEM_CHARSET(),
+	
+	
 	@AnnotationDefValue("Socket port")
 	@AnnotationDefValueRu("Socket port")
 	SETTINGS_SYS_SOCKETPORT(),
@@ -214,6 +219,7 @@ public enum ResNames
 	@AnnotationDefValueRu("Уровень вложенных задач ограничен максимальным значением")
 	DESCRIPTION_SETTINGS_SYS_TASK_MAX_LEVEL(),
 
+	
 //	@AnnotationDefValue("Timeout for notification of alerts (sec) ")
 //	@AnnotationDefValueRu("Время в секундах для всплывающего окна с оповещением ")
 //	SETTINGS_SYS_TIMEOUT_ALERTS(),
@@ -261,6 +267,10 @@ public enum ResNames
 	@AnnotationDefValue("Alerts and Errors")
 	@AnnotationDefValueRu("Оповещения и ошибки")
 	FORM_ALERTS_LIST,
+
+	@AnnotationDefValue("Keys combinations for <<compose key>>")
+	@AnnotationDefValueRu("Комбинации клавиш для <<compose key>>")
+	FORM_COMPOSE_LIST,
 	
 	@AnnotationDefValue("Include/exclude windows")
 	@AnnotationDefValueRu("Разрешенные и запрещенные окна")
@@ -278,9 +288,17 @@ public enum ResNames
 	@AnnotationDefValueRu("Имя")
 	FORM_ALL_HEADER_NAME(),
 
+	@AnnotationDefValue("Id")
+	@AnnotationDefValueRu("Ключ")
+	FORM_ALL_HEADER_ID(),
+	
 	@AnnotationDefValue("Title")
 	@AnnotationDefValueRu("Заголовок")
 	FORM_ALL_HEADER_TITLE(),
+	
+	@AnnotationDefValue("name must be unique")
+	@AnnotationDefValueRu("имя объекта должно быть уникальным")
+	FORM_ALL_DUPLICATENAME(),
 	
 	@AnnotationDefValue("General")
 	@AnnotationDefValueRu("Общие настройки")
@@ -297,6 +315,10 @@ public enum ResNames
 	@AnnotationDefValue("Alerts and errors")
 	@AnnotationDefValueRu("Оповещения и ошибки")
 	FORM_BORDER_ALERT_WINDOW,
+	
+	@AnnotationDefValue("Keys combinations for <<compose key>>")
+	@AnnotationDefValueRu("Комбинации клавиш для <<compose key>>")
+	FORM_BORDER_COMPOSE,
 	
 	@AnnotationDefValue("Default filter (any windows)")
 	@AnnotationDefValueRu("Фильтр по умолчанию (все окна)")
@@ -408,7 +430,7 @@ public enum ResNames
 	
 	@AnnotationDefValue("Are you sure?")
 	@AnnotationDefValueRu("Вы уверены?")
-	ALL_MESS_SURE(),    
+	ALL_MESS_SURE(),     
 	
 //	@AnnotationDefValue("")
 //	@AnnotationDefValueRu("")

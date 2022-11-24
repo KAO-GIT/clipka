@@ -1,15 +1,11 @@
 package kao.tsk.act;
 
-import java.util.Optional;
+//import java.util.Optional;
+//import kao.db.ConDataTask;
 
-import kao.db.ConDataTask;
-
-import kao.db.fld.DBRecordTask;
 import kao.db.fld.IRecord;
 
-import kao.res.IResErrors;
-import kao.res.ResErrors;
-
+import kao.res.*;
 import kao.tsk.*;
 
 public class TskActionRunTask extends TskActionAbstract
@@ -23,13 +19,19 @@ public class TskActionRunTask extends TskActionAbstract
 	@Override
 	public IResErrors runAction() throws Exception
 	{
-		Optional<DBRecordTask> o = ConDataTask.Tasks.load(getNestedTask());
-		if(o.isEmpty()) return ResErrors.ERR_NESTED_TASK_NOTFOUND;
-
-		int level = getOwner().get().getLevel(); 
+		Tsk n = getOwner().get().getHashTsk().get(getNestedTask()); 
 		
-		DBRecordTask t = o.get();
-		return (new TskRegular(t, level+1)).runTsk();
+//		DBRecordTask t =Tsks.getHashTsk().get(getNestedTask()); 
+//		if(t==null) return ResErrors.ERR_NESTED_TASK_NOTFOUND;
+		
+//		Optional<DBRecordTask> o = ConDataTask.Tasks.load(getNestedTask());
+//		if(o.isEmpty()) return ResErrors.ERR_NESTED_TASK_NOTFOUND;
+//		DBRecordTask t = o.get();
+
+//		int level = getOwner().get().getLevel(); 
+//		TskRegular n = new TskRegular(t, level+1);  
+		
+		return n.runTsk();
 		
 	}
 }

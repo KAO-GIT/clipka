@@ -305,6 +305,16 @@ public class Main
 
 		LOGGER.info("Start programm in {}, port {}", System.getProperty("user.dir"), port);
 		
+		new Thread(() ->
+		{
+//			String profName ="fillComposeValues";  
+//			ProfKA.init(profName); 
+			ConDataMisc.Compose.fillComposeValues();
+//			ProfKA.print(profName);
+			//System.out.println("ComposeValues="+ConDataMisc.Compose.getComposeValues().size()); 
+		}, "fill compose values thread").start();
+		
+		
 		//		ProfKA.print(profName);
 
 		//  ProfKA.start(profName,"Start program");
