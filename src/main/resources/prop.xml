@@ -263,7 +263,7 @@ Command prompt:
 <entry key="TSKTYPE_SAVE_ERROR_TO_TABLE">Save current text as error in the 'Alerts and Errors'</entry>
 <entry key="TSKTYPE_SENDKEYS">Send pressing and releasing keys - simulating keyboard input</entry>
 <entry key="TSKTYPE_SENDKEYS_COMPOSE">Send keys using a special key Compose (for Windows - Alt)</entry>
-<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Set current string into clipboard</entry>
+<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Set string into clipboard</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Set current string into map</entry>
 <entry key="TSKTYPE_SET_IN_CLIPS">Set in clips</entry>
 <entry key="TSKTYPE_SHOW_NOTIFICATION_ALERT">Show window with notification</entry>

@@ -246,7 +246,7 @@
 <entry key="TSKTYPE_CONDITION_GOTO_IF_STATE_ENABLED">Перейти к метке, если проверяемое состояние задачи имеет значение Истина</entry>
 <entry key="TSKTYPE_CONDITION_GOTO_IF_STR_EMPTY">Перейти к метке, если текущая обрабатываемая строка не заполнена</entry>
 <entry key="TSKTYPE_CONDITION_GOTO_IF_STR_FILL">Перейти к метке, если текущая обрабатываемая строка заполнена</entry>
-<entry key="TSKTYPE_CONDITION_LABEL">Установить метку</entry>
+<entry key="TSKTYPE_CONDITION_LABEL">Это метка</entry>
 <entry key="TSKTYPE_COPY">Попытаться скопировать выделенный текст в буфер обмена</entry>
 <entry key="TSKTYPE_END_TASK">Завершить задачу</entry>
 <entry key="TSKTYPE_GETCLIPBOARDCONTENS">Получить строку из буфера обмена и поместить в словарь</entry>
@@ -263,7 +263,7 @@
 <entry key="TSKTYPE_SAVE_ERROR_TO_TABLE">Записать ошибку в таблицу 'Оповещения и ошибки'</entry>
 <entry key="TSKTYPE_SENDKEYS">Посылать нажатие и отпускание символов, имитируя ввод на клавиатуре</entry>
 <entry key="TSKTYPE_SENDKEYS_COMPOSE">Посылать символ(ы), используя специальную клавишу Compose (для системы Windows - Alt)</entry>
-<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Сохранить текущую обрабатываемую строку в буфер обмена</entry>
+<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Сохранить указанную строку в буфер обмена</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Сохранить текущую обрабатываемую строку в словарь</entry>
 <entry key="TSKTYPE_SET_IN_CLIPS">Поместить в список клипов</entry>
 <entry key="TSKTYPE_SHOW_NOTIFICATION_ALERT">Показать окно оповещения</entry>
