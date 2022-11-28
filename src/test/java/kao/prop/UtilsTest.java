@@ -6,12 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 //import java.util.stream.IntStream;
 
 //import javax.swing.JOptionPane;
-//import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import kao.db.ConData;
-import kao.db.ConDataMisc;
+//import kao.db.ConData;
+//import kao.db.ConDataMisc;
 
 //import kao.kb.KeyStructs;
 //import kao.kb.KeyUtil;
