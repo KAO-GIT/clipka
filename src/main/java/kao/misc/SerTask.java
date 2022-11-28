@@ -18,7 +18,7 @@ public class SerTask
 
 	public static void main(String[] args) throws SQLException, ParserConfigurationException, SAXException, IOException
 	{
-		int id = 120; 
+		int id = 102; 
 		
 		ConData.initialize();
 		ConData.initializeTables();
