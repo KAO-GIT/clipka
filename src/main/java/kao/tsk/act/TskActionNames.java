@@ -104,8 +104,8 @@ public enum TskActionNames
 		}
 	},
 	
-	@AnnotationDefValue("Set current string into clipboard")
-	@AnnotationDefValueRu("Сохранить текущую обрабатываемую строку в буфер обмена")
+	@AnnotationDefValue("Set string into clipboard")
+	@AnnotationDefValueRu("Сохранить указанную строку в буфер обмена")
 	TSKTYPE_SETCLIPBOARDCONTENS(15){
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()

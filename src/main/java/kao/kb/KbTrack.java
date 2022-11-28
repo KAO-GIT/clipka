@@ -3,11 +3,16 @@ package kao.kb;
 import java.io.Closeable;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import kao.db.fld.IRecord;
 
 public abstract class KbTrack implements Closeable
 {
-
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(KbTrack.class);
+	
 	private volatile boolean workPaused = false;
 
 	private volatile KbRingBuffer ringBuffer;
@@ -45,7 +50,9 @@ public abstract class KbTrack implements Closeable
 
 	public synchronized void setWorkPaused(boolean workPaused)
 	{
-		System.out.println("KbTrack Work KbPaused: " + workPaused);
+		
+		LOGGER.debug("paused: {}",workPaused);
+		//System.out.println("KbTrack Work KbPaused: " + workPaused);
 		this.workPaused = workPaused;
 	}
 
