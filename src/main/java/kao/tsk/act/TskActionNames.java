@@ -383,7 +383,7 @@ public enum TskActionNames
 		@Override
 		public  Class<? extends TskAction>  getClassTskAction()
 		{
-			return  TskActionCondDisabled.class;
+			return  TskActionCondGotoDisabled.class;
 		}
 	},
 	

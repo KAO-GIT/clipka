@@ -1,6 +1,6 @@
 package kao.prop;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 //import java.awt.event.KeyEvent;
 //import java.util.stream.IntStream;
@@ -128,7 +128,7 @@ class UtilsTest
 	{
 		ConData.initializeTables();
 		ConDataMisc.Compose.fillComposeValues();
-		assertTrue(Utils.mayPressWithComposeKeys("s")); 
-//		assertFalse(Utils.mayPressWithComposeKeys("✓")); // может быть добавлено значение  
+		assertTrue(Utils.mayPressWithComposeKeys("s *")); 
+		//assertFalse(Utils.mayPressWithComposeKeys("* ✓")); // может быть добавлено значение  
 	}
 }

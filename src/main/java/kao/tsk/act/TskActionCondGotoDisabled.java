@@ -4,11 +4,10 @@ import kao.db.fld.IRecord;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
 
-
-public class TskActionCondDisabled extends TskActionAbstract
+public class TskActionCondGotoDisabled extends TskActionAbstract
 {
 
-	public TskActionCondDisabled(IRecord source)
+	public TskActionCondGotoDisabled(IRecord source)
 	{
 		super(source);
 	}

@@ -157,7 +157,7 @@ public class Utils
 	 */
 	public static boolean mayPressWithComposeKeys(String s)
 	{
-		return s.chars().mapToObj(i -> String.valueOf((char) i)).anyMatch(t -> ConDataMisc.Compose.getComposeValues().containsKey(t)); 
+		return s.chars().mapToObj(i -> String.valueOf((char) i)).allMatch(t -> ConDataMisc.Compose.getComposeValues().containsKey(t)); 
 	}
 
 	/**

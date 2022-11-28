@@ -28,7 +28,6 @@ public class Tsks
 {
 	private final static RepKA repository;
 
-	private final static java.util.Map<Integer,DBRecordTask> hashTsk = new java.util.HashMap<Integer, DBRecordTask>();
 	
 	static
 	{
@@ -61,10 +60,11 @@ public class Tsks
 		return repository.remove(key);
 	}
 
-	public static java.util.Map<Integer,DBRecordTask> getHashTsk()
-	{
-		return hashTsk;
-	}
+//	private final static java.util.Map<Integer,DBRecordTask> hashTsk = new java.util.HashMap<Integer, DBRecordTask>();
+//	public static java.util.Map<Integer,DBRecordTask> getHashTsk()
+//	{
+//		return hashTsk;
+//	}
 	
 	/**
 	 * Обновляет все горячие клавиши из базы данных

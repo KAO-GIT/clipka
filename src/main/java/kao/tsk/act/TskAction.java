@@ -16,6 +16,11 @@ public interface TskAction
 	{
 	}
 	
+	public default java.lang.ref.WeakReference<TskOwner> getOwner()
+	{
+		return null;
+	}
+	
 	public default boolean mayHaveContent()
 	{
 		return true;

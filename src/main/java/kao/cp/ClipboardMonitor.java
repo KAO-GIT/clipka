@@ -607,7 +607,8 @@ public final class ClipboardMonitor implements Closeable, ClipboardOwner, Flavor
 	public boolean paste(int[] keys) throws Exception
 	{
 
-		System.out.println("ClipboardMonitor.Paste: "+kao.cp.ClipboardMonitor.getInstance().getContents()+" : "+Arrays.toString(keys));
+		LOGGER.debug("{} : {}",kao.cp.ClipboardMonitor.getInstance().getContents(),Arrays.toString(keys));
+//		System.out.println("ClipboardMonitor.Paste: "+kao.cp.ClipboardMonitor.getInstance().getContents()+" : "+Arrays.toString(keys));
 
 //		getQueue().execute(() ->
 //		{

@@ -14,6 +14,6 @@ public interface TskOwner
 	public void setSavedLabel(String savedLabel);
 	public Boolean getState(); // возвращает проверяемое состояние 
 	public void setState(Boolean state); // возвращает проверяемое состояние 
-	public java.util.Map<Integer,Tsk> getHashTsk(); // вложенные задачи 
+	//public java.util.Map<Integer,Tsk> getHashTsk(); // вложенные задачи // пока не хешируем 
 
 }
