@@ -30,7 +30,8 @@ public class TskActionRunTask extends TskActionAbstract
 
 		int level = getOwner().get().getLevel(); 
 		TskRegular n = new TskRegular(t, level+1);
-		IResErrors res = n.runTsk(); 
+		IResErrors res = n.runTsk();
+		getOwner().get().setState(n.getState()); // установим состояние из вложенной задачи
 		if(!res.isSuccess()) return res; 
 		else return ResErrors.NOERRORS; 
 	}
