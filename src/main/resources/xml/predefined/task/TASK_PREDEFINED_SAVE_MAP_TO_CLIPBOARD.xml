@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><task>
+    <fields>
+        <description/>
+        <hotkey/>
+        <disabled>0</disabled>
+        <content/>
+        <groups>
+            <group>100</group>
+            <group>80</group>
+        </groups>
+        <subtasks>
+            <subtask>
+                <fields>
+                    <id>2</id>
+                    <description/>
+                    <content>CLP</content>
+                    <subtasktype>15</subtasktype>
+                    <nested_task>0</nested_task>
+                    <filter_foreground_window>0</filter_foreground_window>
+                </fields>
+            </subtask>
+            <subtask>
+                <fields>
+                    <id>3</id>
+                    <description/>
+                    <content>CLP</content>
+                    <subtasktype>19</subtasktype>
+                    <nested_task>0</nested_task>
+                    <filter_foreground_window>0</filter_foreground_window>
+                </fields>
+            </subtask>
+        </subtasks>
+        <filter_foreground_window>1</filter_foreground_window>
+    </fields>
+</task>
+

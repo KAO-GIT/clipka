@@ -232,6 +232,9 @@ Command prompt:
 <entry key="TASK_PREDEFINED_CHANGE_ENCODING_TEXT">Change the encoding of the selected text</entry>
 <entry key="TASK_PREDEFINED_CLIPS">Clips list</entry>
 <entry key="TASK_PREDEFINED_CURRENT_DATE">Current date</entry>
+<entry key="TASK_PREDEFINED_SAVE_CLIPBOARD_TO_MAP">Get string from clipboard and put in map</entry>
+<entry key="TASK_PREDEFINED_SAVE_MAP_TO_CLIPBOARD">Set string from map into clipboard</entry>
+<entry key="TASK_PREDEFINED_SEND_COMPOSE_OR_PASTE">Print string as &lt;&lt;compose keys&gt;&gt; or from clipboard</entry>
 <entry key="TSKTYPE_CHANGESTATEWND_CLIPLIST">Show/hide clips</entry>
 <entry key="TSKTYPE_CHANGE_CASE_TEXT">Change the case of the current text</entry>
 <entry key="TSKTYPE_CHANGE_ENCODING_TEXT">Change the encoding of the current text</entry>
@@ -263,7 +266,7 @@ Command prompt:
 <entry key="TSKTYPE_SAVE_ERROR_TO_TABLE">Save current text as error in the 'Alerts and Errors'</entry>
 <entry key="TSKTYPE_SENDKEYS">Send pressing and releasing keys - simulating keyboard input</entry>
 <entry key="TSKTYPE_SENDKEYS_COMPOSE">Send keys using a special key Compose (for Windows - Alt)</entry>
-<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Set string into clipboard</entry>
+<entry key="TSKTYPE_SETCLIPBOARDCONTENS">Set string from map into clipboard</entry>
 <entry key="TSKTYPE_SETCURRENTSTRINGTOMAP">Set current string into map</entry>
 <entry key="TSKTYPE_SET_IN_CLIPS">Set in clips</entry>
 <entry key="TSKTYPE_SHOW_NOTIFICATION_ALERT">Show window with notification</entry>
