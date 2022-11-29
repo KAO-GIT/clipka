@@ -33,7 +33,8 @@ public class FillKeyboardTasks
 		String p = "../../other/xml/some/"; 
 		//String[] n = {"tasks_keys_compose","tasks_phrases"}; 
 		//String[] n = {"tasks_keys","tasks_phrases"};
-		String[] n = {"tasks_keys_paste_or_compose"};
+		String[] n = {"tasks_phrases"};
+		//String[] n = {"tasks_keys_paste_or_compose"};
 		
 		for (int i = 0; i < n.length; i++)
 		{
