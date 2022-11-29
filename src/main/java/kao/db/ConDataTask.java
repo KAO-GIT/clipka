@@ -558,6 +558,9 @@ public class ConDataTask
 			setDefTasks(1, ResNames.TASK_PREDEFINED_CLIPS);
 			setDefTasks(2, ResNames.TASK_PREDEFINED_CHANGE_ENCODING_TEXT);
 			setDefTasks(3, ResNames.TASK_PREDEFINED_CHANGE_CASE_TEXT);
+			setDefTasks(81, ResNames.TASK_PREDEFINED_SAVE_CLIPBOARD_TO_MAP);
+			setDefTasks(83, ResNames.TASK_PREDEFINED_SAVE_MAP_TO_CLIPBOARD);
+			setDefTasks(85, ResNames.TASK_PREDEFINED_SEND_COMPOSE_OR_PASTE);
 			setDefTasks(100, ResNames.TASK_PREDEFINED_CURRENT_DATE);
 
 			//			{

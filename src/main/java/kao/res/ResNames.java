@@ -348,6 +348,18 @@ public enum ResNames
 	@AnnotationDefValueRu("Изменить регистр выделенного текста")
 	TASK_PREDEFINED_CHANGE_CASE_TEXT(),
 
+	@AnnotationDefValue("Get string from clipboard and put in map")
+	@AnnotationDefValueRu("Записать текущий  буфер обмена в словарь")
+	TASK_PREDEFINED_SAVE_CLIPBOARD_TO_MAP(),
+
+	@AnnotationDefValue("Set string from map into clipboard")
+	@AnnotationDefValueRu("Записать строку из словаря в буфер обмена")
+	TASK_PREDEFINED_SAVE_MAP_TO_CLIPBOARD(),
+
+	@AnnotationDefValue("Print string as <<compose keys>> or from clipboard")
+	@AnnotationDefValueRu("Вывести строку через коды compose или из буфера обмена")
+	TASK_PREDEFINED_SEND_COMPOSE_OR_PASTE(),
+	
 	@AnnotationDefValue("Current date")
 	@AnnotationDefValueRu("Вставить текущую дату")
 	TASK_PREDEFINED_CURRENT_DATE(),

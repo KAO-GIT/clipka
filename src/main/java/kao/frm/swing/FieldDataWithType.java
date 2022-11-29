@@ -50,7 +50,7 @@ public class FieldDataWithType extends FieldKA
 		String  sv="";
 		if(data.getType().getDBType()==DBTypes.INTEGER)
 		{
-			iv = data.getValue()==null?Integer.valueOf(0):(Integer)data.getValue(); 
+			iv = data.getValue()==null || data.getValue().toString().equals("") ?Integer.valueOf(0):(Integer)data.getValue(); 
 		}
 		else
 		{
