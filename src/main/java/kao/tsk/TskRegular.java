@@ -17,7 +17,8 @@ import kao.prop.Utils;
 import kao.res.IResErrors;
 import kao.res.ResErrors;
 import kao.res.ResNames;
-import kao.tsk.act.TskAction;
+
+import kao.tsk.act.*;
 
 /**
  * Основная задача, обрабатывает DBRecordTask 
@@ -212,6 +213,9 @@ public class TskRegular implements Tsk, TskOwner, IClipboardBlock, INeedCloseSpe
 		{
 			return ResErrors.ERR_NESTED_TASK_LEVEL;
 		}
+		
+		Thread.sleep(100); //!!! Без ожидания не работает
+		
 		for (TskAction a : actions)
 		{
 			if (a == null)
@@ -228,7 +232,17 @@ public class TskRegular implements Tsk, TskOwner, IClipboardBlock, INeedCloseSpe
 				if (!getSavedLabel().equalsIgnoreCase(a.getLabel())) continue;
 			}
 
-			Thread.sleep(100); //!!! Без ожидания не работает
+//			if (a instanceof IClipboardBlock)
+//			{
+//				if (((IClipboardBlock) a).workWithClipboard())
+//				{
+//					System.out.println("runTsk sleep");
+//						Thread.sleep(50);
+//				}
+//			}
+
+			//Thread.sleep(50); //!!! Без ожидания не работает
+			
 			ret = a.runAction();
 			if (!ret.isSuccess()) break;
 			if (ret == ResErrors.ENDTASK) break;
