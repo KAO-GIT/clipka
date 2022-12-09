@@ -314,6 +314,12 @@ public enum TskActionNames
 		{
 			return  TskActionCheckFilterForegroundWindow.class;
 		}
+
+		@Override
+		public boolean isFilterWindow()
+		{
+			return true;
+		}
 	},
 	
 	@AnnotationDefValue("Verify that the length of the current processed string is greater than the specified length")
