@@ -224,7 +224,7 @@ public class TskRegular implements Tsk, TskOwner, IClipboardBlock, INeedCloseSpe
 				break;
 			}
 
-			LOGGER.info("action: {}, level: {}, state: {}, SavedLabel: {}, content: {}, rep:{}", a.getClass(), getLevel(), getState(), getSavedLabel(),
+			LOGGER.debug("action: {}, level: {}, state: {}, SavedLabel: {}, content: {}, rep:{}", a.getClass(), getLevel(), getState(), getSavedLabel(),
 					a.getContent(), Utils.left(Tsks.getRep(), 20));
 
 			if (!getSavedLabel().isBlank())
